@@ -1,0 +1,96 @@
+<?php
+
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\pages\HomePage;
+use App\Http\Controllers\pages\Page2;
+use App\Http\Controllers\pages\MiscError;
+use App\Http\Controllers\authentications\LoginBasic;
+use App\Http\Controllers\authentications\RegisterBasic;
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+/* Route::any('/register', function () {
+  return view('auth.register');
+}); */
+// Main Page Route
+
+// pages
+Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
+
+Route::middleware(['auth', 'web'])->group(function () {
+
+  Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home-dashboard');
+
+  Route::resource('items', App\Http\Controllers\ItemsController::class);
+
+  Route::resource('users', App\Http\Controllers\UserController::class);
+  Route::any('/user/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+  Route::any('/user/services/{id}', [App\Http\Controllers\UserController::class, 'services'])->name('user_services');
+  Route::resource('permissions', App\Http\Controllers\PermissionsController::class);
+  Route::resource('roles', App\Http\Controllers\RolesController::class);
+
+
+  Route::prefix('settings')->group(function () {
+
+    Route::any('/company', [HomeController::class, 'settings'])->name('settings');
+    Route::resource('departments', App\Http\Controllers\DepartmentsController::class);
+    Route::resource('banks', App\Http\Controllers\BanksController::class);
+
+  });
+
+  Route::prefix('accounts')->group(function () {
+
+    Route::resource('accounts', App\Http\Controllers\AccountsController::class);
+
+  });
+
+});
+
+
+Route::get('/artisan-cache', function () {
+  Artisan::call('cache:clear');
+  return 'cache cleared';
+});
+Route::get('/artisan-route', function () {
+  Artisan::call('route:clear');
+  return 'ruote cleared';
+});
+
+Route::get('/artisan-optimize', function () {
+  Artisan::call('optimize');
+  return 'optimized';
+});
+Route::get('/artisan-storage-link', function () {
+  Artisan::call('storage:link');
+  return 'storage link';
+});
+
+Route::get('/artisan-storage-unlink', function () {
+  Artisan::call('storage:unlink');
+  return 'storage unlink';
+});
+
+/* Route::resource('calculations', App\Http\Controllers\CalculationsController::class)
+    ->names([
+        'index' => 'calculations.index',
+        'store' => 'calculations.store',
+        'show' => 'calculations.show',
+        'update' => 'calculations.update',
+        'destroy' => 'calculations.destroy',
+        'create' => 'calculations.create',
+        'edit' => 'calculations.edit'
+    ]); */
+
+
+

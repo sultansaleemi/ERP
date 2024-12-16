@@ -1,0 +1,47 @@
+.action-btn {
+  float: right;
+  margin-top: 10px;
+
+}
+label {
+  padding: 5px 0px 5px 0px;
+}
+/* .select2-container--open {
+  z-index: 9999999 !important;
+} */
+/* input {
+  padding: 5px !important;
+}
+select {
+  padding: 5px !important;
+}
+ */
+
+ .required:after {
+  content:" *";
+  color: red;
+}
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top:20px;
+  font-weight: 600;
+  color: black;
+  padding: 15px;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}

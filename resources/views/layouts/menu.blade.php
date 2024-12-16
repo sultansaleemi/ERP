@@ -1,0 +1,103 @@
+<!-- need to remove -->
+<li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+    <a href="{{ route('home') }}" class="menu-link ">
+      <i class="menu-icon tf-icons ti ti-layout-dashboard"></i>
+      <div>Dashboard</div>
+     {{--  <div class="badge bg-white text-dark rounded-pill ms-auto">2</div>  --}}
+    </a>
+  </li>
+
+  <li class="menu-item {{ Request::is('items*') ? 'active' : '' }}">
+    <a href="{{ route('items.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons ti ti-notes"></i>
+        <div>Items</div>
+    </a>
+</li>
+
+
+ <li class="menu-item {{ Request::is('accounts*') ? 'open' : '' }} {">
+  <a href="javascript:void(0);" class="menu-link menu-toggle ">
+    <i class="menu-icon tf-icons ti ti-graph"></i>
+    <div data-i18n="Front Pages">Accounts</div>
+  </a>
+  <ul class="menu-sub">
+
+      <li class="menu-item {{ Request::is('accounts/accounts') ? 'active' : '' }}">
+        <a href="{{ route('accounts.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Chart Of Accounts</div>
+        </a>
+      </li>
+
+
+  </ul>
+</li>
+
+
+  @can('user_view')
+  <li class="menu-item {{ Request::is('users*') ? 'open' : '' }} {{ Request::is('roles*') ? 'open' : '' }}">
+    <a href="javascript:void(0);" class="menu-link menu-toggle ">
+      <i class="menu-icon tf-icons ti ti-users-group"></i>
+      <div data-i18n="Front Pages">User Management</div>
+    </a>
+    <ul class="menu-sub">
+
+  <li class="menu-item {{ Request::is('users*') ? 'active' : '' }}">
+    <a href="{{ route('users.index') }}" class="menu-link ">
+        <i class="menu-icon tf-icons ti ti-users-group"></i>
+        Users
+    </a>
+    </li>
+
+
+    @can('role_view')
+    <li class="menu-item {{ Request::is('roles*') ? 'active' : '' }}">
+    <a href="{{ route('roles.index') }}" class="menu-link ">
+        <i class="menu-icon tf-icons ti ti-user-check"></i>
+        Roles
+    </a>
+    </li>
+
+
+    <li class="menu-item {{ Request::is('permissions*') ? 'active' : '' }}">
+      <a href="{{ route('permissions.index') }}" class="menu-link ">
+          <i class="menu-icon tf-icons ti ti-user-check"></i>
+          Permissions
+      </a>
+      </li>
+      @endcan
+  </ul>
+</li>
+@endcan
+
+
+<li class="menu-item {{ Request::is('settings*') ? 'open' : '' }} {">
+  <a href="javascript:void(0);" class="menu-link menu-toggle ">
+    <i class="menu-icon tf-icons ti ti-settings"></i>
+    <div data-i18n="Front Pages">Company Settings</div>
+  </a>
+  <ul class="menu-sub">
+
+      <li class="menu-item {{ Request::is('settings/company') ? 'active' : '' }}">
+        <a href="{{ route('settings') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Settings</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Request::is('settings/departments') ? 'active' : '' }}">
+        <a href="{{ route('departments.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Departments</div>
+        </a>
+      </li>
+      <li class="menu-item {{ Request::is('settings/banks') ? 'active' : '' }}">
+        <a href="{{ route('banks.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Banks</div>
+        </a>
+      </li>
+
+  </ul>
+</li>
+

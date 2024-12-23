@@ -18,7 +18,15 @@ class AccountsDataTable extends DataTable
   {
     $dataTable = new EloquentDataTable($query);
 
-    return $dataTable->addColumn('action', 'accounts.datatables_actions');
+    $dataTable->addColumn('action', 'accounts.datatables_actions');
+    $dataTable
+      ->addColumn('parent_id', function (Accounts $accounts) {
+        return $accounts->parent->name ?? ' - ';
+      })
+      ->toJson();
+
+
+    return $dataTable;
   }
 
   /**
@@ -67,9 +75,9 @@ class AccountsDataTable extends DataTable
   {
     return [
       'account_code' => ['title' => 'Code'],
-      'account_name' => ['title' => 'Name'],
+      'name' => ['title' => 'Name'],
       'account_type' => ['title' => 'Type'],
-      'parent_account_id' => ['title' => 'Parent'],
+      'parent_id' => ['title' => 'Parent'],
       'opening_balance' => ['title' => 'Balance']
     ];
   }

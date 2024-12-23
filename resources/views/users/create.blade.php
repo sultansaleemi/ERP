@@ -11,10 +11,9 @@
                 </div>
 
                 <br>
-
+                <button type="button" class="btn btn-default"  data-bs-dismiss="modal">Cancel</button>
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
 
         </div>
-    

@@ -6,8 +6,8 @@
 
 <!-- Account Name Field -->
 <div class="col-sm-12">
-    {!! Form::label('account_name', 'Account Name:') !!}
-    <p>{{ $accounts->account_name }}</p>
+    {!! Form::label('name', 'Account Name:') !!}
+    <p>{{ $accounts->name }}</p>
 </div>
 
 <!-- Account Type Field -->
@@ -18,8 +18,8 @@
 
 <!-- Parent Account Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('parent_account_id', 'Parent Account Id:') !!}
-    <p>{{ $accounts->parent_account_id }}</p>
+    {!! Form::label('parent_id', 'Parent Account Id:') !!}
+    <p>{{ $accounts->parent_id }}</p>
 </div>
 
 <!-- Opening Balance Field -->

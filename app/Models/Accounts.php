@@ -10,24 +10,25 @@ class Accounts extends Model
 
   public $fillable = [
     'account_code',
-    'account_name',
+    'name',
     'account_type',
-    'parent_account_id',
+    'parent_id',
     'opening_balance'
   ];
 
   protected $casts = [
     'account_code' => 'string',
-    'account_name' => 'string',
+    'name' => 'string',
     'account_type' => 'string',
     'opening_balance' => 'decimal:2'
   ];
 
   public static array $rules = [
 
-    'account_name' => 'required|string|max:100',
+    'account_code' => 'required|string|max:100',
+    'name' => 'required|string|max:100',
     'account_type' => 'required|string|max:50',
-    'parent_account_id' => 'nullable',
+    'parent_id' => 'nullable',
     'opening_balance' => 'nullable|numeric'
 
   ];
@@ -41,6 +42,16 @@ class Accounts extends Model
   {
     return $this->hasMany(Transactions::class);
   }
+
+  public function parent()
+  {
+    return $this->belongsTo(self::class, 'parent_id');
+  }
+  public function children()
+  {
+    return $this->hasMany(self::class, 'parent_id')->with('children'); // Recursive relationship
+  }
+
 
 
 }

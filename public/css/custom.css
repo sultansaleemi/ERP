@@ -4,7 +4,8 @@
 
 }
 label {
-  padding: 5px 0px 5px 0px;
+  padding: 8px 0px 5px 0px;
+  font-weight: 500;
 }
 /* .select2-container--open {
   z-index: 9999999 !important;

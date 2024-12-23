@@ -35,7 +35,9 @@ class AccountsController extends AppBaseController
    */
   public function create()
   {
-    $parents = Accounts::whereNull('parent_account_id')->pluck('account_name', 'id')->prepend('Select', null);
+    //$parents = Accounts::whereNull('parent_account_id')->pluck('account_name', 'id')->prepend('Select', null);
+    //$parents = Accounts::with('children')->whereNull('parent_account_id')->get();
+    $parents = Accounts::all(['id', 'name', 'parent_id'])->groupBy('parent_id');
 
     return view('accounts.create', compact('parents'));
   }
@@ -82,8 +84,8 @@ class AccountsController extends AppBaseController
 
       return redirect(route('accounts.index'));
     }
-    $parents = Accounts::whereNot('id', $id)->whereNull('parent_account_id')->pluck('account_name', 'id')->prepend('Select', null);
-
+    //$parents = Accounts::whereNot('id', $id)->whereNull('parent_account_id')->pluck('account_name', 'id')->prepend('Select', null);
+    $parents = Accounts::all(['id', 'name', 'parent_id'])->groupBy('parent_id');
     return view('accounts.edit', compact('accounts', 'parents'));
   }
 

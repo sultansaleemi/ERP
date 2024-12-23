@@ -94,3 +94,7 @@ Route::get('/artisan-storage-unlink', function () {
 
 
 
+
+Route::resource('bikes', App\Http\Controllers\BikesController::class);
+Route::resource('customers', App\Http\Controllers\CustomersController::class);
+Route::resource('sims', App\Http\Controllers\SimsController::class);

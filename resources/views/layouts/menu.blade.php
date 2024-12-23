@@ -14,6 +14,29 @@
     </a>
 </li>
 
+<li class="menu-item {{ Request::is('customers*') ? 'active' : '' }}">
+  <a href="{{ route('customers.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-user-star"></i>
+      <div>Customers</div>
+  </a>
+</li>
+
+<li class="menu-item {{ Request::is('bikes*') ? 'active' : '' }}">
+  <a href="{{ route('bikes.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-motorbike"></i>
+      <div>Bikes</div>
+  </a>
+</li>
+
+<li class="menu-item {{ Request::is('sims*') ? 'active' : '' }}">
+  <a href="{{ route('sims.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-device-sim"></i>
+      <div>Sims</div>
+  </a>
+</li>
+
+
+
 
  <li class="menu-item {{ Request::is('accounts*') ? 'open' : '' }} {">
   <a href="javascript:void(0);" class="menu-link menu-toggle ">
@@ -100,4 +123,3 @@
 
   </ul>
 </li>
-

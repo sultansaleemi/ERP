@@ -39,7 +39,10 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::any('/user/services/{id}', [App\Http\Controllers\UserController::class, 'services'])->name('user_services');
   Route::resource('permissions', App\Http\Controllers\PermissionsController::class);
   Route::resource('roles', App\Http\Controllers\RolesController::class);
-
+  Route::resource('bikes', App\Http\Controllers\BikesController::class);
+  Route::resource('customers', App\Http\Controllers\CustomersController::class);
+  Route::resource('sims', App\Http\Controllers\SimsController::class);
+  Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
 
   Route::prefix('settings')->group(function () {
 
@@ -95,6 +98,5 @@ Route::get('/artisan-storage-unlink', function () {
 
 
 
-Route::resource('bikes', App\Http\Controllers\BikesController::class);
-Route::resource('customers', App\Http\Controllers\CustomersController::class);
-Route::resource('sims', App\Http\Controllers\SimsController::class);
+
+Route::resource('garages', App\Http\Controllers\GaragesController::class);

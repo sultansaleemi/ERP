@@ -1,10 +1,10 @@
 
 
-            {!! Form::model($items, ['route' => ['items.update', $items->id], 'method' => 'patch','id'=>'formajax']) !!}
+            {!! Form::model($leasingCompanies, ['route' => ['leasingCompanies.update', $leasingCompanies->id], 'method' => 'patch','id'=>'formajax']) !!}
 
             <div class="card-body">
                 <div class="row">
-                    @include('items.fields')
+                    @include('leasing_companies.fields')
                 </div>
             </div>
 
@@ -14,4 +14,3 @@
             </div>
 
             {!! Form::close() !!}
-

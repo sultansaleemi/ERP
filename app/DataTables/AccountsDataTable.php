@@ -4,7 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Accounts;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class AccountsDataTable extends DataTable
 {
@@ -16,15 +16,12 @@ class AccountsDataTable extends DataTable
    */
   public function dataTable($query)
   {
-    $dataTable = new EloquentDataTable($query);
+    $tree = $this->getAccountTree(); // Fetch hierarchical data
+    $flattenedData = $this->flattenAccountTree($tree);
 
-    $dataTable->addColumn('action', 'accounts.datatables_actions');
-    $dataTable
-      ->addColumn('parent_id', function (Accounts $accounts) {
-        return $accounts->parent->name ?? ' - ';
-      })
-      ->toJson();
-
+    // Use DataTables::of() for handling collections
+    $dataTable = DataTables::of($flattenedData)
+      ->addColumn('action', 'accounts.datatables_actions');
 
     return $dataTable;
   }
@@ -37,7 +34,7 @@ class AccountsDataTable extends DataTable
    */
   public function query(Accounts $model)
   {
-    return $model->newQuery();
+    return $model->newQuery()->with('parent')->orderBy('parent_id')->orderBy('id');
   }
 
   /**
@@ -56,12 +53,11 @@ class AccountsDataTable extends DataTable
         'stateSave' => true,
         'order' => [[0, 'desc']],
         'buttons' => [
-          // Enable Buttons as per your need
-//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+          /* ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner'],
+          ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
+          ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
+          ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+          ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner'], */
         ],
       ]);
   }
@@ -74,10 +70,11 @@ class AccountsDataTable extends DataTable
   protected function getColumns()
   {
     return [
-      'account_code' => ['title' => 'Code'],
+
       'name' => ['title' => 'Name'],
+      'account_code' => ['title' => 'Code'],
+      /* 'parent_id' => ['title' => 'Parent'], */
       'account_type' => ['title' => 'Type'],
-      'parent_id' => ['title' => 'Parent'],
       'opening_balance' => ['title' => 'Balance']
     ];
   }
@@ -91,4 +88,35 @@ class AccountsDataTable extends DataTable
   {
     return 'accounts_datatable_' . time();
   }
+
+  private function getAccountTree($parentId = null)
+  {
+    return Accounts::where('parent_id', $parentId)
+      ->with([
+        'children' => function ($query) {
+          $query->with('children'); // Recursive loading
+        }
+      ])
+      ->get();
+  }
+  private function flattenAccountTree($accounts, $level = 0)
+  {
+    $result = [];
+    foreach ($accounts as $account) {
+      $result[] = [
+        'id' => $account->id,
+        'account_code' => $account->account_code,
+        'account_type' => $account->account_type,
+        'opening_balance' => $account->opening_balance,
+        'name' => str_repeat('-', $level) . ' ' . $account->name,
+        /*  'parent_id' => @$account->parent->name ?? '-', */
+
+      ];
+      if ($account->children->isNotEmpty()) {
+        $result = array_merge($result, $this->flattenAccountTree($account->children, $level + 1));
+      }
+    }
+    return $result;
+  }
+
 }

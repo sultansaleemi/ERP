@@ -35,6 +35,19 @@
   </a>
 </li>
 
+<li class="menu-item {{ Request::is('leasingCompanies*') ? 'active' : '' }}">
+  <a href="{{ route('leasingCompanies.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-building"></i>
+      <div>Leasing Companies</div>
+  </a>
+</li>
+<li class="menu-item {{ Request::is('garages*') ? 'active' : '' }}">
+  <a href="{{ route('garages.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-building"></i>
+      <div>Garages</div>
+  </a>
+</li>
+
 
 
 
@@ -123,3 +136,6 @@
 
   </ul>
 </li>
+
+
+

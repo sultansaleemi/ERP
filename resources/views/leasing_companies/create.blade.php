@@ -1,11 +1,13 @@
 
 
-            {!! Form::model($items, ['route' => ['items.update', $items->id], 'method' => 'patch','id'=>'formajax']) !!}
+            {!! Form::open(['route' => 'leasingCompanies.store','id'=>'formajax']) !!}
 
             <div class="card-body">
+
                 <div class="row">
-                    @include('items.fields')
+                    @include('leasing_companies.fields')
                 </div>
+
             </div>
 
             <div class="action-btn">
@@ -14,4 +16,3 @@
             </div>
 
             {!! Form::close() !!}
-

@@ -58,7 +58,11 @@ $(document).on('submit', '#formajax', function (e) {
     },
     success: function (data) {
       unblock();
-      toastr.success('Action performed successfully.');
+      if (data.message) {
+        toastr.success(data.message);
+      } else {
+        toastr.success('Action performed successfully.');
+      }
       if ($('#reload_page').val() == 1) {
         location.reload();
       }
@@ -78,22 +82,13 @@ $(document).on('submit', '#formajax', function (e) {
         .remove();
 
       $.each(vali, function (index, value) {
-        if (index == 'oldLead-or-oldTicket') {
-          $('.modal-dialog').addClass('modal-xl');
-          $('#modalTopTitle').text('Duplicated');
-          $('#modalTopbody').load(value, function () {
-            $('select[name="activity_type"]').prop('disabled', true);
-            unblock();
-          });
-        } else {
-          $('#' + formID + " input[name~='" + index + "']").css('border', '1px solid red');
-          //$('#' + formID + " input[name~='" + index + "']").after('<span style="color:red;">' + value + '</span>');
-          $('#' + formID + " select[name~='" + index + "']")
-            .parent()
-            .find('.select2-container--default .select2-selection--single')
-            .css('border', '1px solid red');
-          toastr.error(value);
-        }
+        $('#' + formID + " input[name~='" + index + "']").css('border', '1px solid red');
+        //$('#' + formID + " input[name~='" + index + "']").after('<span style="color:red;">' + value + '</span>');
+        $('#' + formID + " select[name~='" + index + "']")
+          .parent()
+          .find('.select2-container--default .select2-selection--single')
+          .css('border', '1px solid red');
+        toastr.error(value);
       });
 
       $('#dataTableBuilder').DataTable().ajax.reload(null, false);
@@ -136,7 +131,11 @@ $(document).on('submit', '#formajax2', function (e) {
       }
 
       unblock();
-      toastr.success('Action Performed Successfully');
+      if (data.message) {
+        toastr.success(data.message);
+      } else {
+        toastr.success('Action performed successfully.');
+      }
     },
     error: function (ajaxcontent) {
       unblock();

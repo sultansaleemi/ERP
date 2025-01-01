@@ -12,116 +12,112 @@ use Flash;
 
 class BikesController extends AppBaseController
 {
-    /** @var BikesRepository $bikesRepository*/
-    private $bikesRepository;
+  /** @var BikesRepository $bikesRepository*/
+  private $bikesRepository;
 
-    public function __construct(BikesRepository $bikesRepo)
-    {
-        $this->bikesRepository = $bikesRepo;
-    }
+  public function __construct(BikesRepository $bikesRepo)
+  {
+    $this->bikesRepository = $bikesRepo;
+  }
 
-    /**
-     * Display a listing of the Bikes.
-     */
-    public function index(BikesDataTable $bikesDataTable)
-    {
+  /**
+   * Display a listing of the Bikes.
+   */
+  public function index(BikesDataTable $bikesDataTable)
+  {
     return $bikesDataTable->render('bikes.index');
+  }
+
+
+  /**
+   * Show the form for creating a new Bikes.
+   */
+  public function create()
+  {
+    return view('bikes.create');
+  }
+
+  /**
+   * Store a newly created Bikes in storage.
+   */
+  public function store(CreateBikesRequest $request)
+  {
+    $input = $request->all();
+
+    $bikes = $this->bikesRepository->create($input);
+
+    return response()->json(['message' => 'Bike added successfully.']);
+
+  }
+
+  /**
+   * Display the specified Bikes.
+   */
+  public function show($id)
+  {
+    $bikes = $this->bikesRepository->find($id);
+
+    if (empty($bikes)) {
+      Flash::error('Bikes not found');
+
+      return redirect(route('bikes.index'));
     }
 
+    return view('bikes.show')->with('bikes', $bikes);
+  }
 
-    /**
-     * Show the form for creating a new Bikes.
-     */
-    public function create()
-    {
-        return view('bikes.create');
+  /**
+   * Show the form for editing the specified Bikes.
+   */
+  public function edit($id)
+  {
+    $bikes = $this->bikesRepository->find($id);
+
+    if (empty($bikes)) {
+      Flash::error('Bikes not found');
+
+      return redirect(route('bikes.index'));
     }
 
-    /**
-     * Store a newly created Bikes in storage.
-     */
-    public function store(CreateBikesRequest $request)
-    {
-        $input = $request->all();
+    return view('bikes.edit')->with('bikes', $bikes);
+  }
 
-        $bikes = $this->bikesRepository->create($input);
+  /**
+   * Update the specified Bikes in storage.
+   */
+  public function update($id, UpdateBikesRequest $request)
+  {
+    $bikes = $this->bikesRepository->find($id);
 
-        Flash::success('Bikes saved successfully.');
+    if (empty($bikes)) {
+      return response()->json(['errors' => ['error' => 'Bike not found!']], 422);
 
-        return redirect(route('bikes.index'));
     }
 
-    /**
-     * Display the specified Bikes.
-     */
-    public function show($id)
-    {
-        $bikes = $this->bikesRepository->find($id);
+    $bikes = $this->bikesRepository->update($request->all(), $id);
 
-        if (empty($bikes)) {
-            Flash::error('Bikes not found');
+    return response()->json(['message' => 'Bike updated successfully.']);
 
-            return redirect(route('bikes.index'));
-        }
 
-        return view('bikes.show')->with('bikes', $bikes);
+  }
+
+  /**
+   * Remove the specified Bikes from storage.
+   *
+   * @throws \Exception
+   */
+  public function destroy($id)
+  {
+    $bikes = $this->bikesRepository->find($id);
+
+    if (empty($bikes)) {
+      return response()->json(['errors' => ['error' => 'Bike not found!']], 422);
+
     }
 
-    /**
-     * Show the form for editing the specified Bikes.
-     */
-    public function edit($id)
-    {
-        $bikes = $this->bikesRepository->find($id);
+    $this->bikesRepository->delete($id);
 
-        if (empty($bikes)) {
-            Flash::error('Bikes not found');
+    return response()->json(['message' => 'Bike deleted successfully.']);
 
-            return redirect(route('bikes.index'));
-        }
-
-        return view('bikes.edit')->with('bikes', $bikes);
-    }
-
-    /**
-     * Update the specified Bikes in storage.
-     */
-    public function update($id, UpdateBikesRequest $request)
-    {
-        $bikes = $this->bikesRepository->find($id);
-
-        if (empty($bikes)) {
-            Flash::error('Bikes not found');
-
-            return redirect(route('bikes.index'));
-        }
-
-        $bikes = $this->bikesRepository->update($request->all(), $id);
-
-        Flash::success('Bikes updated successfully.');
-
-        return redirect(route('bikes.index'));
-    }
-
-    /**
-     * Remove the specified Bikes from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $bikes = $this->bikesRepository->find($id);
-
-        if (empty($bikes)) {
-            Flash::error('Bikes not found');
-
-            return redirect(route('bikes.index'));
-        }
-
-        $this->bikesRepository->delete($id);
-
-        Flash::success('Bikes deleted successfully.');
-
-        return redirect(route('bikes.index'));
-    }
+  }
 }

@@ -12,116 +12,111 @@ use Flash;
 
 class SimsController extends AppBaseController
 {
-    /** @var SimsRepository $simsRepository*/
-    private $simsRepository;
+  /** @var SimsRepository $simsRepository*/
+  private $simsRepository;
 
-    public function __construct(SimsRepository $simsRepo)
-    {
-        $this->simsRepository = $simsRepo;
-    }
+  public function __construct(SimsRepository $simsRepo)
+  {
+    $this->simsRepository = $simsRepo;
+  }
 
-    /**
-     * Display a listing of the Sims.
-     */
-    public function index(SimsDataTable $simsDataTable)
-    {
+  /**
+   * Display a listing of the Sims.
+   */
+  public function index(SimsDataTable $simsDataTable)
+  {
     return $simsDataTable->render('sims.index');
+  }
+
+
+  /**
+   * Show the form for creating a new Sims.
+   */
+  public function create()
+  {
+    return view('sims.create');
+  }
+
+  /**
+   * Store a newly created Sims in storage.
+   */
+  public function store(CreateSimsRequest $request)
+  {
+    $input = $request->all();
+
+    $sims = $this->simsRepository->create($input);
+
+    return response()->json(['message' => 'Sim added successfully.']);
+
+  }
+
+  /**
+   * Display the specified Sims.
+   */
+  public function show($id)
+  {
+    $sims = $this->simsRepository->find($id);
+
+    if (empty($sims)) {
+      Flash::error('Sims not found');
+
+      return redirect(route('sims.index'));
     }
 
+    return view('sims.show')->with('sims', $sims);
+  }
 
-    /**
-     * Show the form for creating a new Sims.
-     */
-    public function create()
-    {
-        return view('sims.create');
+  /**
+   * Show the form for editing the specified Sims.
+   */
+  public function edit($id)
+  {
+    $sims = $this->simsRepository->find($id);
+
+    if (empty($sims)) {
+      Flash::error('Sims not found');
+
+      return redirect(route('sims.index'));
     }
 
-    /**
-     * Store a newly created Sims in storage.
-     */
-    public function store(CreateSimsRequest $request)
-    {
-        $input = $request->all();
+    return view('sims.edit')->with('sims', $sims);
+  }
 
-        $sims = $this->simsRepository->create($input);
+  /**
+   * Update the specified Sims in storage.
+   */
+  public function update($id, UpdateSimsRequest $request)
+  {
+    $sims = $this->simsRepository->find($id);
 
-        Flash::success('Sims saved successfully.');
+    if (empty($sims)) {
+      return response()->json(['errors' => ['error' => 'Sim not found!']], 422);
 
-        return redirect(route('sims.index'));
     }
 
-    /**
-     * Display the specified Sims.
-     */
-    public function show($id)
-    {
-        $sims = $this->simsRepository->find($id);
+    $sims = $this->simsRepository->update($request->all(), $id);
 
-        if (empty($sims)) {
-            Flash::error('Sims not found');
+    return response()->json(['message' => 'Sim updated successfully.']);
 
-            return redirect(route('sims.index'));
-        }
+  }
 
-        return view('sims.show')->with('sims', $sims);
+  /**
+   * Remove the specified Sims from storage.
+   *
+   * @throws \Exception
+   */
+  public function destroy($id)
+  {
+    $sims = $this->simsRepository->find($id);
+
+    if (empty($sims)) {
+      return response()->json(['errors' => ['error' => 'Sim not found!']], 422);
+
     }
 
-    /**
-     * Show the form for editing the specified Sims.
-     */
-    public function edit($id)
-    {
-        $sims = $this->simsRepository->find($id);
+    $this->simsRepository->delete($id);
 
-        if (empty($sims)) {
-            Flash::error('Sims not found');
+    return response()->json(['message' => 'Sim deleted successfully.']);
 
-            return redirect(route('sims.index'));
-        }
-
-        return view('sims.edit')->with('sims', $sims);
-    }
-
-    /**
-     * Update the specified Sims in storage.
-     */
-    public function update($id, UpdateSimsRequest $request)
-    {
-        $sims = $this->simsRepository->find($id);
-
-        if (empty($sims)) {
-            Flash::error('Sims not found');
-
-            return redirect(route('sims.index'));
-        }
-
-        $sims = $this->simsRepository->update($request->all(), $id);
-
-        Flash::success('Sims updated successfully.');
-
-        return redirect(route('sims.index'));
-    }
-
-    /**
-     * Remove the specified Sims from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $sims = $this->simsRepository->find($id);
-
-        if (empty($sims)) {
-            Flash::error('Sims not found');
-
-            return redirect(route('sims.index'));
-        }
-
-        $this->simsRepository->delete($id);
-
-        Flash::success('Sims deleted successfully.');
-
-        return redirect(route('sims.index'));
-    }
+  }
 }

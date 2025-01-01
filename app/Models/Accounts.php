@@ -13,6 +13,9 @@ class Accounts extends Model
     'name',
     'account_type',
     'parent_id',
+    'ref_name',
+    'ref_id',
+    'status',
     'opening_balance'
   ];
 

@@ -51,9 +51,8 @@ class AccountsController extends AppBaseController
 
     $accounts = $this->accountsRepository->create($input);
 
-    Flash::success('Accounts saved successfully.');
+    return response()->json(['message' => 'Account added successfully.']);
 
-    return redirect(route('accounts.index'));
   }
 
   /**
@@ -104,9 +103,8 @@ class AccountsController extends AppBaseController
 
     $accounts = $this->accountsRepository->update($request->all(), $id);
 
-    Flash::success('Accounts updated successfully.');
+    return response()->json(['message' => 'Account updated successfully.']);
 
-    return redirect(route('accounts.index'));
   }
 
   /**
@@ -126,8 +124,7 @@ class AccountsController extends AppBaseController
 
     $this->accountsRepository->delete($id);
 
-    Flash::success('Accounts deleted successfully.');
+    return response()->json(['message' => 'Account deleted successfully.']);
 
-    return redirect(route('accounts.index'));
   }
 }

@@ -40,3 +40,14 @@
     {!! Form::label('tax_percentage', 'Tax Percentage:',['class'=>'required']) !!}
     {!! Form::number('tax_percentage', null, ['class' => 'form-control','step'=>'any', 'required']) !!}
 </div>
+
+<!-- Status Field -->
+<div class="form-group col-sm-6 mt-3">
+  <label>Status</label>
+  <div class="form-check">
+    <input type="hidden" name="status" value="2"/>
+     <input type="checkbox" name="status" id="status" class="form-check-input" value="1" @isset($customers) @if($customers->status == 1) checked @endif @else checked  @endisset/>
+     <label for="status" class="pt-0">Is Active</label>
+
+  </div>
+</div>

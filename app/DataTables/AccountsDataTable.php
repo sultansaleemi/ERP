@@ -22,6 +22,7 @@ class AccountsDataTable extends DataTable
     // Use DataTables::of() for handling collections
     $dataTable = DataTables::of($flattenedData)
       ->addColumn('action', 'accounts.datatables_actions');
+    $dataTable = $dataTable->rawColumns(['action', 'name']);
 
     return $dataTable;
   }
@@ -34,7 +35,7 @@ class AccountsDataTable extends DataTable
    */
   public function query(Accounts $model)
   {
-    return $model->newQuery()->with('parent')->orderBy('parent_id')->orderBy('id');
+    return $model->newQuery()->with('parent')->orderBy('parent_id');
   }
 
   /**
@@ -51,7 +52,7 @@ class AccountsDataTable extends DataTable
       ->parameters([
         'dom' => 'Bfrtip',
         'stateSave' => true,
-        'order' => [[0, 'desc']],
+        /* 'order' => [[0, 'desc']], */
         'buttons' => [
           /* ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner'],
           ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
@@ -71,6 +72,7 @@ class AccountsDataTable extends DataTable
   {
     return [
 
+      'id' => ['title' => 'ID'],
       'name' => ['title' => 'Name'],
       'account_code' => ['title' => 'Code'],
       /* 'parent_id' => ['title' => 'Parent'], */

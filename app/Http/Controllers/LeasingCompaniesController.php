@@ -12,116 +12,111 @@ use Flash;
 
 class LeasingCompaniesController extends AppBaseController
 {
-    /** @var LeasingCompaniesRepository $leasingCompaniesRepository*/
-    private $leasingCompaniesRepository;
+  /** @var LeasingCompaniesRepository $leasingCompaniesRepository*/
+  private $leasingCompaniesRepository;
 
-    public function __construct(LeasingCompaniesRepository $leasingCompaniesRepo)
-    {
-        $this->leasingCompaniesRepository = $leasingCompaniesRepo;
-    }
+  public function __construct(LeasingCompaniesRepository $leasingCompaniesRepo)
+  {
+    $this->leasingCompaniesRepository = $leasingCompaniesRepo;
+  }
 
-    /**
-     * Display a listing of the LeasingCompanies.
-     */
-    public function index(LeasingCompaniesDataTable $leasingCompaniesDataTable)
-    {
+  /**
+   * Display a listing of the LeasingCompanies.
+   */
+  public function index(LeasingCompaniesDataTable $leasingCompaniesDataTable)
+  {
     return $leasingCompaniesDataTable->render('leasing_companies.index');
+  }
+
+
+  /**
+   * Show the form for creating a new LeasingCompanies.
+   */
+  public function create()
+  {
+    return view('leasing_companies.create');
+  }
+
+  /**
+   * Store a newly created LeasingCompanies in storage.
+   */
+  public function store(CreateLeasingCompaniesRequest $request)
+  {
+    $input = $request->all();
+
+    $leasingCompanies = $this->leasingCompaniesRepository->create($input);
+
+    return response()->json(['message' => 'Company added successfully.']);
+
+  }
+
+  /**
+   * Display the specified LeasingCompanies.
+   */
+  public function show($id)
+  {
+    $leasingCompanies = $this->leasingCompaniesRepository->find($id);
+
+    if (empty($leasingCompanies)) {
+      Flash::error('Leasing Companies not found');
+
+      return redirect(route('leasingCompanies.index'));
     }
 
+    return view('leasing_companies.show')->with('leasingCompanies', $leasingCompanies);
+  }
 
-    /**
-     * Show the form for creating a new LeasingCompanies.
-     */
-    public function create()
-    {
-        return view('leasing_companies.create');
+  /**
+   * Show the form for editing the specified LeasingCompanies.
+   */
+  public function edit($id)
+  {
+    $leasingCompanies = $this->leasingCompaniesRepository->find($id);
+
+    if (empty($leasingCompanies)) {
+      Flash::error('Leasing Companies not found');
+
+      return redirect(route('leasingCompanies.index'));
     }
 
-    /**
-     * Store a newly created LeasingCompanies in storage.
-     */
-    public function store(CreateLeasingCompaniesRequest $request)
-    {
-        $input = $request->all();
+    return view('leasing_companies.edit')->with('leasingCompanies', $leasingCompanies);
+  }
 
-        $leasingCompanies = $this->leasingCompaniesRepository->create($input);
+  /**
+   * Update the specified LeasingCompanies in storage.
+   */
+  public function update($id, UpdateLeasingCompaniesRequest $request)
+  {
+    $leasingCompanies = $this->leasingCompaniesRepository->find($id);
 
-        Flash::success('Leasing Companies saved successfully.');
+    if (empty($leasingCompanies)) {
+      return response()->json(['errors' => ['error' => 'Company not found!']], 422);
 
-        return redirect(route('leasingCompanies.index'));
     }
 
-    /**
-     * Display the specified LeasingCompanies.
-     */
-    public function show($id)
-    {
-        $leasingCompanies = $this->leasingCompaniesRepository->find($id);
+    $leasingCompanies = $this->leasingCompaniesRepository->update($request->all(), $id);
 
-        if (empty($leasingCompanies)) {
-            Flash::error('Leasing Companies not found');
+    return response()->json(['message' => 'Company updated successfully.']);
 
-            return redirect(route('leasingCompanies.index'));
-        }
+  }
 
-        return view('leasing_companies.show')->with('leasingCompanies', $leasingCompanies);
+  /**
+   * Remove the specified LeasingCompanies from storage.
+   *
+   * @throws \Exception
+   */
+  public function destroy($id)
+  {
+    $leasingCompanies = $this->leasingCompaniesRepository->find($id);
+
+    if (empty($leasingCompanies)) {
+      return response()->json(['errors' => ['error' => 'Company not found!']], 422);
+
     }
 
-    /**
-     * Show the form for editing the specified LeasingCompanies.
-     */
-    public function edit($id)
-    {
-        $leasingCompanies = $this->leasingCompaniesRepository->find($id);
+    $this->leasingCompaniesRepository->delete($id);
 
-        if (empty($leasingCompanies)) {
-            Flash::error('Leasing Companies not found');
+    return response()->json(['message' => 'Company deleted successfully.']);
 
-            return redirect(route('leasingCompanies.index'));
-        }
-
-        return view('leasing_companies.edit')->with('leasingCompanies', $leasingCompanies);
-    }
-
-    /**
-     * Update the specified LeasingCompanies in storage.
-     */
-    public function update($id, UpdateLeasingCompaniesRequest $request)
-    {
-        $leasingCompanies = $this->leasingCompaniesRepository->find($id);
-
-        if (empty($leasingCompanies)) {
-            Flash::error('Leasing Companies not found');
-
-            return redirect(route('leasingCompanies.index'));
-        }
-
-        $leasingCompanies = $this->leasingCompaniesRepository->update($request->all(), $id);
-
-        Flash::success('Leasing Companies updated successfully.');
-
-        return redirect(route('leasingCompanies.index'));
-    }
-
-    /**
-     * Remove the specified LeasingCompanies from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $leasingCompanies = $this->leasingCompaniesRepository->find($id);
-
-        if (empty($leasingCompanies)) {
-            Flash::error('Leasing Companies not found');
-
-            return redirect(route('leasingCompanies.index'));
-        }
-
-        $this->leasingCompaniesRepository->delete($id);
-
-        Flash::success('Leasing Companies deleted successfully.');
-
-        return redirect(route('leasingCompanies.index'));
-    }
+  }
 }

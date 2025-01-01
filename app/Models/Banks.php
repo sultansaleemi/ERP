@@ -18,6 +18,7 @@ class Banks extends Model
     'account_type',
     'balance',
     'status',
+    'account_id',
     'notes'
   ];
 
@@ -49,5 +50,13 @@ class Banks extends Model
     'updated_at' => 'nullable'
   ];
 
+  function account()
+  {
+    return $this->hasOne(Accounts::class, 'id', 'account_id');
+  }
 
+  function transactions()
+  {
+    return $this->hasMany(Transactions::class, 'account_id', 'account_id');
+  }
 }

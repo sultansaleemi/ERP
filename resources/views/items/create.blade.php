@@ -1,6 +1,6 @@
 
 
-            {!! Form::open(['route' => 'items.store','id'=>'ajaxform']) !!}
+            {!! Form::open(['route' => 'items.store','id'=>'formajax']) !!}
 
             <div class="card-body">
 

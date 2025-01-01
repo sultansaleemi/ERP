@@ -50,7 +50,7 @@
   <label>Status</label>
   <div class="form-check">
     <input type="hidden" name="status" value="2"/>
-     <input type="checkbox" name="status" id="status" class="form-check-input" value="1" @isset($banks) @if($banks->status == 1) checked @endif  @endisset/>
+     <input type="checkbox" name="status" id="status" class="form-check-input" value="1" @isset($banks) @if($banks->status == 1) checked @endif @else checked  @endisset/>
      <label for="status" class="pt-0">Is Active</label>
 
   </div>

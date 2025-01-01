@@ -3,7 +3,7 @@
 <!-- Account Type Field -->
 <div class="form-group col-sm-6">
   {!! Form::label('account_type', 'Account Type:') !!}
-  {!! Form::select('account_type', Common::AccountTypes(),null, ['class' => 'form-control form-select select2']) !!}
+  {!! Form::select('account_type', App\Helpers\Accounts::AccountTypes(),null, ['class' => 'form-control form-select select2']) !!}
 </div>
 <div class="form-group col-sm-6"></div>
 <!-- Account Name Field -->
@@ -33,3 +33,17 @@
     {!! Form::number('opening_balance', null, ['class' => 'form-control','step'=>'any']) !!}
 </div>
 <div class="form-group col-sm-6"></div>
+<!-- Status Field -->
+<div class="form-group col-sm-6">
+  <label>Status</label>
+  <div class="form-check">
+    <input type="hidden" name="status" value="2"/>
+     <input type="checkbox" name="status" id="status" class="form-check-input" value="1" @isset($accounts) @if($accounts->status == 1) checked @endif @else checked  @endisset/>
+     <label for="status" class="pt-0">Is Active</label>
+
+  </div>
+</div>
+{{-- <div class="form-check form-switch mb-2">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+</div> --}}

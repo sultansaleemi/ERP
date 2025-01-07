@@ -44,6 +44,10 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::resource('sims', App\Http\Controllers\SimsController::class);
   Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
 
+  Route::resource('garages', App\Http\Controllers\GaragesController::class);
+  Route::resource('riders', App\Http\Controllers\RidersController::class);
+
+
   Route::prefix('settings')->group(function () {
 
     Route::any('/company', [HomeController::class, 'settings'])->name('settings');
@@ -99,4 +103,3 @@ Route::get('/artisan-storage-unlink', function () {
 
 
 
-Route::resource('garages', App\Http\Controllers\GaragesController::class);

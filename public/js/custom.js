@@ -186,7 +186,7 @@ function unblock() {
   dropdownParent: $('#modalTop')
 }); */
 $('.select2').select2({
-  dropdownParent: $('.card ')
+  /* dropdownParent: $('.card ') */
 });
 
 $("select[name='country']").on('change', function () {

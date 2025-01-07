@@ -20,7 +20,12 @@
       <div>Customers</div>
   </a>
 </li>
-
+<li class="menu-item {{ Request::is('riders*') ? 'active' : '' }}">
+  <a href="{{ route('riders.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-user-pin"></i>
+      <div>Riders</div>
+  </a>
+</li>
 <li class="menu-item {{ Request::is('bikes*') ? 'active' : '' }}">
   <a href="{{ route('bikes.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-motorbike"></i>
@@ -136,6 +141,4 @@
 
   </ul>
 </li>
-
-
 

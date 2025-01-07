@@ -32,6 +32,8 @@ MODIFY COLUMN `status`  tinyint(2) NULL DEFAULT 1 AFTER `detail`;
 ALTER TABLE `garages`
 MODIFY COLUMN `status`  tinyint(2) NULL DEFAULT 1 AFTER `detail`;
 
+--------------------
+
 
 
 

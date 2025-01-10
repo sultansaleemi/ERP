@@ -6,7 +6,7 @@
     </a>
     @endcan --}}
    {{--  @can('department_edit') --}}
-    <a href="javascript:void(0);" data-title="Edit" data-size="sm" data-action="{{ route('departments.edit', $id) }}" class='btn btn-default btn-sm show-modal'>
+    <a href="javascript:void(0);" data-title="Edit" data-size="sm" data-action="{{ route('departments.edit', $id) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>
     {{-- @endcan

@@ -2,12 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Helpers\General;
-use App\Models\Riders;
+use App\Models\Dropdowns;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class RidersDataTable extends DataTable
+class DropdownsDataTable extends DataTable
 {
   /**
    * Build DataTable class.
@@ -19,29 +18,16 @@ class RidersDataTable extends DataTable
   {
     $dataTable = new EloquentDataTable($query);
 
-    $dataTable = $dataTable->addColumn('action', 'riders.datatables_actions');
-
-    $dataTable
-      ->addColumn('status', function (Riders $rider) {
-        return '<span class="badge  bg-label-success">' . General::RiderStatus($rider->status) . '</span>';
-      })
-      ->toJson();
-    $dataTable
-      ->addColumn('name', function (Riders $rider) {
-        return '<a href="' . route('riders.show', $rider->id) . '">' . $rider->name . '</a>';
-      })
-      ->toJson();
-    $dataTable->rawColumns(['name', 'status', 'action']);
-    return $dataTable;
+    return $dataTable->addColumn('action', 'dropdowns.datatables_actions');
   }
 
   /**
    * Get query source of dataTable.
    *
-   * @param \App\Models\Riders $model
+   * @param \App\Models\Dropdowns $model
    * @return \Illuminate\Database\Eloquent\Builder
    */
-  public function query(Riders $model)
+  public function query(Dropdowns $model)
   {
     return $model->newQuery();
   }
@@ -81,12 +67,10 @@ class RidersDataTable extends DataTable
   {
     return [
       'name',
-      'rider_id',
-      'company_contact',
-      'fleet_supervisor',
-      'emirate_hub',
-      'status'
-
+      'label',
+      /*'key',
+        'values',
+        'status' */
     ];
   }
 
@@ -97,6 +81,6 @@ class RidersDataTable extends DataTable
    */
   protected function filename(): string
   {
-    return 'riders_datatable_' . time();
+    return 'dropdowns_datatable_' . time();
   }
 }

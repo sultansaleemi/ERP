@@ -138,7 +138,14 @@
             <div>Banks</div>
         </a>
       </li>
+      <li class="menu-item {{ Request::is('settings/dropdowns') ? 'active' : '' }}">
+        <a href="{{ route('dropdowns.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-list"></i>
+            <div>Dropdowns</div>
+        </a>
+      </li>
 
   </ul>
 </li>
+
 

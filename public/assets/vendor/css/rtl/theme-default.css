@@ -809,7 +809,7 @@ a {
   color: var(--bs-theme);
 }
 a:hover {
-  color: #c1a361;
+  color:  var(--bs-theme-light);
 }
 
 .fill-primary {
@@ -820,7 +820,7 @@ a:hover {
   background: var(--bs-theme) !important;
 }
 .noUi-primary .noUi-base .noUi-origin .noUi-handle {
-  background: #957a3f !important;
+  background: var(--bs-theme-light) !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection, .select2-container--default.select2-container--open .select2-selection {

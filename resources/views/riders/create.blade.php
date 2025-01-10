@@ -2,7 +2,7 @@
 
 @section('page_content')
 
-            {!! Form::open(['route' => 'riders.store']) !!}
+            {!! Form::open(['route' => 'riders.store','id'=>'formajax']) !!}
 
             <div class="card-body">
 
@@ -13,7 +13,7 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                <button type="submit" class="btn  btn-primary">Save Information</button>
                 <a href="{{ route('riders.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 

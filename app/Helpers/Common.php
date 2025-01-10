@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+use App\Models\Dropdowns;
 use App\Models\Services;
 use App\Models\Settings;
 
@@ -28,26 +29,7 @@ class Common
     return $key ? ($settings[$key] ?? $default) : $settings;
   }
 
-  public static function Status($id = null)
-  {
-    $steps = [
-      1 => 'Call',
-      2 => 'Meeting',
-      3 => 'Message',
-      4 => 'Email',
-      5 => 'Close',
-      6 => 'Transfer',
-      7 => 'Re Marketing',
-      8 => 'Re Qualify',
-      9 => 'Duplicate',
-      10 => 'Generate Sale',
-    ];
-    if ($id) {
-      return $steps[$id];
-    } else {
-      return $steps;
-    }
-  }
+
 
   public static function AccountTypes($id = null)
   {
@@ -101,5 +83,11 @@ class Common
   {
     return date('d M Y h:i A', strtotime($date));
 
+  }
+  public static function Dropdowns($key)
+  {
+    $dropdown = Dropdowns::where('key', $key)->first();
+    $values = json_decode($dropdown->values);
+    return array_combine($values, $values);
   }
 }

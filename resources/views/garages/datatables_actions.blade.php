@@ -3,7 +3,7 @@
    {{--  <a  href="javascript:void(0);" data-size="md" data-title="View" data-action="{{ route('garages.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>
     </a> --}}
-    <a  href="javascript:void(0);" data-size="md" data-title="Edit" data-action="{{ route('garages.edit', $id) }}" class='btn btn-default btn-sm show-modal'>
+    <a  href="javascript:void(0);" data-size="md" data-title="Edit" data-action="{{ route('garages.edit', $id) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>
     {!! Form::button('<i class="fa fa-trash"></i>', [

@@ -3,7 +3,7 @@
 @section('page_content')
 
 
-            {!! Form::model($riders, ['route' => ['riders.update', $riders->id], 'method' => 'patch']) !!}
+            {!! Form::model($riders, ['route' => ['riders.update', $riders->id], 'method' => 'patch','id'=>'formajax']) !!}
 
             <div class="card-body">
                 <div class="row">

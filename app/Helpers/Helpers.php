@@ -2,11 +2,22 @@
 
 namespace App\Helpers;
 
+use App\Models\Dropdowns;
 use Config;
 use Illuminate\Support\Str;
 
 class Helpers
 {
+
+  public static function Dropdown($key)
+  {
+    $dropdown = Dropdowns::where('key', $key)->first();
+    return json_decode($dropdown->values);
+  }
+
+
+
+
   public static function appClasses()
   {
 

@@ -53,7 +53,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::any('/company', [HomeController::class, 'settings'])->name('settings');
     Route::resource('departments', App\Http\Controllers\DepartmentsController::class);
     Route::resource('banks', App\Http\Controllers\BanksController::class);
-
+    Route::resource('dropdowns', App\Http\Controllers\DropdownsController::class);
   });
 
   Route::prefix('accounts')->group(function () {
@@ -98,6 +98,7 @@ Route::get('/artisan-storage-unlink', function () {
         'create' => 'calculations.create',
         'edit' => 'calculations.edit'
     ]); */
+
 
 
 

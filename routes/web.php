@@ -45,8 +45,13 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
 
   Route::resource('garages', App\Http\Controllers\GaragesController::class);
-  Route::resource('riders', App\Http\Controllers\RidersController::class);
 
+  Route::resource('riders', App\Http\Controllers\RidersController::class);
+  Route::any('riders/job_status/{id?}', [\App\Http\Controllers\RidersController::class, 'job_status'])->name('rider.job_status');
+  Route::get('riders/timeline/{id?}', [\App\Http\Controllers\RidersController::class, 'timeline'])->name('rider.timeline');
+  Route::get('riders/contract/{id?}', [\App\Http\Controllers\RidersController::class, 'contract'])->name('rider.contract');
+  Route::any('riders/contract_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'contract_upload'])->name('rider_contract_upload');
+  Route::any('riders/picture_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'picture_upload'])->name('rider_picture_upload');
 
   Route::prefix('settings')->group(function () {
 

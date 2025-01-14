@@ -1,12 +1,12 @@
 
-                <form action="{{url('riders/job_status',@$rider->id)}}" method="post" enctype="multipart/form-data" id="formajax2">
+                <form action="{{url('riders/job_status',@$rider->id)}}" method="post" enctype="multipart/form-data" id="formajax">
 @csrf
 <input type="hidden" id="reload_page" value="1" />
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Job Status <span style="color:red;">*</span></label>
-                                        <select class="form-control form-control-sm select2" name="job_status">
+                                        <select class="form-select" name="job_status">
                                             <option value="">Select</option>
                                             @foreach(App\Helpers\General::JobStatus() as $key=>$value)
                                             <option value="{{$key}}"@if(@$result['status']==$key)selected @endif>{{$value}}</option>

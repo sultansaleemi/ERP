@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\JobStatus;
 use App\Models\Riders;
+use App\Models\Files;
 use App\Repositories\RidersRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -124,4 +125,136 @@ class RidersController extends AppBaseController
 
     return redirect(route('riders.index'));
   }
+
+  public function getItems(Request $request)
+  {
+    /* $random = rand(0,999);
+    $row = '<td>';
+    $row .= '<select name="items['.$random.'][item_id]" class="form-control form-control-sm""><option value="0">Select Item</option>';
+        $items = Item::all();
+        foreach($items as $item){
+            $row .='<option value="'.$item->id.'">'.$item->item_name.' - '.$item->pirce.'</option>';
+        }
+    $row .='</select></td>';
+    $row .='<td><label>Price: &nbsp;</label>';
+    $row .='<input type="number" step="any" name="items['.$random.'][price]" /></td>';
+
+    $row .='<td><input type="button" class="ibtnDel btn btn-md btn-xs btn-danger "  value="Delete"></td>'; */
+
+    $item = Item::find($request->item_id);
+    $row = '<td width="250"><label>' . $item->item_name . '(Price: ' . $item->pirce . ')</label></td>
+      <td width="130"><input type="number" name="items[' . $item->id . ']" id="item-' . $item->id . '" value="' . $request->item_price . '" step="any" class="form-control form-control-sm" /></td>';
+
+    $row .= '<td width="300"><input type="button" class="ibtnDel btn btn-md btn-xs btn-danger "  value="Delete"></td>';
+    return $row;
+  }
+  /*
+   *
+   */
+
+  public function document($rider_id)
+  {
+    if (request()->post()) {
+
+      foreach (request('documents') as $document) {
+
+        if ($document['expiry_date']) {
+          $data = [];
+          if (isset($document['file_name'])) {
+
+            $extension = $document['file_name']->extension();
+            $name = $document['type'] . '-' . $rider_id . '-' . time() . '.' . $extension;
+            $document['file_name']->storeAs('rider', $name);
+
+            $data['file_name'] = $name;
+            $data['file_type'] = $extension;
+          }
+
+          $data['type_id'] = $rider_id;
+          $data['type'] = $document['type'];
+          $data['expiry_date'] = $document['expiry_date'];
+
+          $condition = [
+            'type' => $document['type'],
+            'type_id' => $rider_id
+          ];
+
+          Files::updateOrCreate($condition, $data);
+        }
+      }
+      return 1;
+    }
+
+    $files = Files::where('type_id', $rider_id)->get();
+    $rider = Riders::find($rider_id);
+
+    return view('riders.document', compact('files', 'rider'));
+  }
+  public function timeline($id)
+  {
+    $riders = Riders::find($id);
+    $job_status = JobStatus::where('RID', $id)->orderByDesc('id')->get();
+    return view('riders.timeline', compact('riders', 'job_status'));
+  }
+
+  public function contract($id)
+  {
+    $rider = Riders::find($id);
+
+    return view('riders.contract', compact('rider'));
+  }
+  public function contract_upload(Request $request, $id)
+  {
+    if (isset($request->contract)) {
+
+      $doc = $request->contract;
+      $extension = $doc->extension();
+      $name = time() . '.' . $extension;
+      $doc->storeAs('contract', $name);
+
+      $rider = Riders::find($request->id);
+      $rider->contract = $name;
+      $rider->save();
+
+      return redirect(url('rider'))->with('success', $rider->name . '( ' . $rider->rider_id . ' ) Contract uploaded.');
+    } else {
+      $rider = Riders::find($id);
+      return view('riders.contract-modal', compact('rider'));
+    }
+  }
+
+  public function picture_upload(Request $request, $id)
+  {
+    if (isset($request->image_name)) {
+
+      $image_name = $request->image_name;
+      $extension = $image_name->extension();
+      $name = time() . '.' . $extension;
+      $image_name->storeAs('profile', $name);
+
+      $rider = Riders::find($request->id);
+      $rider->image_name = $name;
+      $rider->save();
+
+      return response()->json(['message' => 'Profile picture uploaded successfully.']); //redirect(url('rider'))->with('success', $rider->name . '( ' . $rider->rider_id . ' ) Profile Picture uploaded.');
+    }
+  }
+
+  public function job_status($id, Request $request)
+  {
+    $rider = Riders::find($id);
+
+    if ($request->isMethod('post')) {
+      $input = $request->all();
+      $input['RID'] = $id;
+      $input['status_by'] = auth()->user()->id;
+      JobStatus::create($input);
+      $rider = Riders::find($id);
+      $rider->job_status = $input['job_status'];
+      $rider->save();
+      return "Job Status updated successfully";
+    }
+    return view('riders.job_status-modal', compact('rider'));
+  }
+
 }

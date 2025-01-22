@@ -224,3 +224,56 @@
   {!! Form::label('other_details', 'Other Details:') !!}
   {!! Form::textarea('other_details', null, ['class' => 'form-control', 'rows' => 2]) !!}
 </div>
+
+
+{{-- <div class="row pr-5 pl-5" >
+
+  <h3>Assign Price</h3>
+  <table  class="table" style="border-radius:10px;">
+<thead>
+<tr class=" bg-light">
+<td>Select Item</td>
+<td>Enter Price</td>
+<td>Action</td>
+</tr>
+</thead>
+<tbody>
+
+<tr class=" bg-light">
+<td class="col-sm-4">
+
+<select name="item_id" class="form-control form-control-sm select2" id="item_id"><option value="0">Select Item</option>
+  @php
+      $items = \App\Models\Items::all();
+  @endphp
+@foreach($items as $item)
+      <option value="{{$item->id}}">{{$item->item_name.' - '.$item->pirce}}</option>
+ @endforeach
+</select>
+</td>
+<td class="col-sm-4">
+<label>Price: </label>
+  <input type="number" step="any" name="item_price" id="item_price" />
+</td>
+<td >
+<input type="button" class="btn btn-lg btn-dark btn-sm btn-block " style="width: 200px;background:#000;" id="addrow" value="Add Item" />
+</td>
+
+</tr>
+</tbody>
+
+</table>
+<table id="myTable" class="table order-list2">
+@isset($rider_items)
+@foreach($rider_items as $item)
+<tr>
+<td width="250"><label>{{@$item->item->item_name }}(Price: {{@$item->item->pirce}})</label></td>
+<td width="130"><input type="number" name="items[{{@$item->item->id}}]" id="item-{{@$item->tem->id}}" value="{{$item->price}}" step="any" class="form-control form-control-sm" /></td>
+
+<td width="300"><input type="button" class="ibtnDel btn btn-md btn-xs btn-danger "  value="Delete"></td>
+</tr>
+@endforeach
+@endisset
+</table> --}}
+
+

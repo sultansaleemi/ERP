@@ -52,7 +52,7 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::get('riders/contract/{id?}', [\App\Http\Controllers\RidersController::class, 'contract'])->name('rider.contract');
   Route::any('riders/contract_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'contract_upload'])->name('rider_contract_upload');
   Route::any('riders/picture_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'picture_upload'])->name('rider_picture_upload');
-
+  Route::any('riders/rider-document/{id}', [\App\Http\Controllers\RidersController::class, 'document'])->name('rider.document');
   Route::prefix('settings')->group(function () {
 
     Route::any('/company', [HomeController::class, 'settings'])->name('settings');

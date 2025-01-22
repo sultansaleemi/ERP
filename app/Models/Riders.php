@@ -165,5 +165,9 @@ class Riders extends Model
     'policy_no' => 'nullable|string|max:255'
   ];
 
+  public function items()
+  {
+    return $this->hasMany(RiderItemPrice::class, 'RID', 'id');
+  }
 
 }

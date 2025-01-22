@@ -16,10 +16,12 @@
 }
 </style>
 @php
-    if(isset($riders)){
+if(is_numeric(request()->segment(3))){
+  $riders = App\Models\Riders::find(request()->segment(3));
+  }
+  if(isset($riders)){
       $result = $riders->toArray();
     }
-
 @endphp
 <div class="row">
   <div class="col-xl-3 col-md-3 col-lg-5 order-1 order-md-0">
@@ -151,6 +153,7 @@
         <li class="nav-item"><a class="nav-link @if(is_numeric(request()->segment(2)) ||request()->segment(2)=='create' ) active @endif" href="@isset($result['id']){{route('riders.show',$result['id'])}}@else#@endif"><i class="ti ti-user-check ti-sm me-1_5"></i>Account</a></li>
         @isset($result)
         <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='timeline') active @endif" href="{{route('rider.timeline',$result['id'])}}"><i class="ti ti-timeline ti-sm me-1_5"></i>Timeline</a></li>
+        <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='rider-document') active @endif" href="{{route('rider.document',$result['id'])}}"><i class="ti ti-file ti-sm me-1_5"></i>Documents</a></li>
         @endisset
 
       </ul>

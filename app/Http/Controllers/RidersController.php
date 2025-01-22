@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RidersDataTable;
+use App\Helpers\General;
 use App\Http\Requests\CreateRidersRequest;
 use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
@@ -180,6 +181,10 @@ class RidersController extends AppBaseController
           ];
 
           Files::updateOrCreate($condition, $data);
+        } else {
+          if (isset($document['file_name'])) {
+            return response()->json(['errors' => ['error' => General::file_types($document['type']) . ' expiry date must be selected.']], 422);
+          }
         }
       }
       return 1;
@@ -216,7 +221,7 @@ class RidersController extends AppBaseController
       $rider->contract = $name;
       $rider->save();
 
-      return redirect(url('rider'))->with('success', $rider->name . '( ' . $rider->rider_id . ' ) Contract uploaded.');
+      return redirect(route('riders.index'))->with('success', $rider->name . '( ' . $rider->rider_id . ' ) Contract uploaded.');
     } else {
       $rider = Riders::find($id);
       return view('riders.contract-modal', compact('rider'));

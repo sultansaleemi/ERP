@@ -11,6 +11,7 @@ class Riders extends Model
   public $fillable = [
     'name',
     'rider_id',
+    'account_id',
     'personal_contact',
     'company_contact',
     'personal_email',

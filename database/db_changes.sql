@@ -34,6 +34,10 @@ MODIFY COLUMN `status`  tinyint(2) NULL DEFAULT 1 AFTER `detail`;
 
 --------------------
 
+--24-01-2025---
+ALTER TABLE `riders`
+ADD COLUMN `account_id`  int(11) NULL AFTER `rider_id`;
+
 
 
 

@@ -8,6 +8,7 @@ use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\CreateRidersRequest;
 use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Accounts;
 use App\Models\JobStatus;
 use App\Models\Riders;
 use App\Models\Files;
@@ -50,24 +51,17 @@ class RidersController extends AppBaseController
     $input = $request->all();
 
     $riders = $this->ridersRepository->create($input);
+    if ($riders) {
+      $account = new Accounts();
+      $account->account_code = 'RD-' . $riders->id;
+      $account->name = $riders->name;
+      $account->account_type = 'Liability';
+      $account->save();
 
-    $fieldSearchable =  new CreateAccountsRequest([
-      // "_token" => "Hh6MiWv7zH3t8PHiFP5BV5HT7KqpXDQZAhkoaQyP",
-      'account_code' => $request->get('rider_id'),
-      'name' =>  $request->get('name'),
-      'account_type' =>  "Liability",
-      'parent_id' => null,
-      'opening_balance' => 0
-  ]);
-
-  $accountController = app()->make(AccountsController::class, $fieldSearchable->all());
-    // $accountscontroller = new AccountsController($fieldSearchable);
-
-    $accountController->store($fieldSearchable);
-
-    Flash::success('Riders saved successfully.');
-
-    return redirect(route('riders.index'));
+      $riders->account_id = $account->id;
+      $riders->save();
+    }
+    return response()->json(['message' => 'Rider created successfully.']);
   }
 
   /**

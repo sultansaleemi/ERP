@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\RidersDataTable;
 use App\Helpers\General;
+use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\CreateRidersRequest;
 use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
@@ -49,6 +50,20 @@ class RidersController extends AppBaseController
     $input = $request->all();
 
     $riders = $this->ridersRepository->create($input);
+
+    $fieldSearchable =  new CreateAccountsRequest([
+      // "_token" => "Hh6MiWv7zH3t8PHiFP5BV5HT7KqpXDQZAhkoaQyP",
+      'account_code' => $request->get('rider_id'),
+      'name' =>  $request->get('name'),
+      'account_type' =>  "Liability",
+      'parent_id' => null,
+      'opening_balance' => 0
+  ]);
+
+  $accountController = app()->make(AccountsController::class, $fieldSearchable->all());
+    // $accountscontroller = new AccountsController($fieldSearchable);
+
+    $accountController->store($fieldSearchable);
 
     Flash::success('Riders saved successfully.');
 

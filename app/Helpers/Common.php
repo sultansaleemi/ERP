@@ -4,6 +4,7 @@ namespace App\Helpers;
 use App\Models\Dropdowns;
 use App\Models\Services;
 use App\Models\Settings;
+use App\Models\User;
 
 class Common
 {
@@ -75,7 +76,12 @@ class Common
 
   public static function DateFormat($date)
   {
-    return date('d M Y', strtotime($date));
+    return date('d-M-Y', strtotime($date));
+
+  }
+  public static function MonthFormat($date)
+  {
+    return date('M Y', strtotime($date));
 
   }
 
@@ -90,4 +96,15 @@ class Common
     $values = json_decode($dropdown->values);
     return array_combine($values, $values);
   }
+
+  public static function UserName($id)
+  {
+    $user = User::find($id);
+    if ($user) {
+      return $user->name;
+    }
+
+  }
+
+
 }

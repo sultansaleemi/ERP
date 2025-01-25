@@ -266,3 +266,49 @@ $(document).ready(function () {
     }
   });
 });
+
+$(document).ready(function () {
+  // Initialize select2 for the existing select elements
+  $('.select2').select2({
+    dropdownParent: $('#modalTopbody')
+  });
+
+  // Add new row by cloning the first row
+  $('#add-new-row').click(function () {
+    // Clone the first row
+    const newRow = $('#rows-container .row:first').clone();
+
+    // Destroy select2 and clean up in the cloned row
+    if (newRow.find('.select2').data('select2')) {
+      newRow.find('.select2').select2('destroy');
+    }
+    //newRow.find('.select2').select2('destroy').end();
+    newRow
+      .find('select')
+      .removeAttr('data-select2-id')
+      .removeClass('select2-hidden-accessible')
+      .next('.select2')
+      .remove();
+
+    // Clear input, textarea, and select values in the cloned row
+    newRow.find('input, textarea').val(''); // Clear inputs and textareas
+    newRow.find('select').val(null).trigger('change'); // Reset the select value and trigger change
+
+    // Append the new row to the container
+    $('#rows-container').append(newRow);
+
+    // Reinitialize select2 for the newly added select element
+    $('.select2').select2({
+      dropdownParent: $('#modalTopbody')
+    });
+  });
+
+  // Remove a row
+  $(document).on('click', '.btn-remove-row', function () {
+    if ($('#rows-container .row').length > 1) {
+      $(this).closest('.row').remove();
+    } else {
+      alert('At least one row is required.');
+    }
+  });
+});

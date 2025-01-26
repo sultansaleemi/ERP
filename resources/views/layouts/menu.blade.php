@@ -26,6 +26,12 @@
       <div>Riders</div>
   </a>
 </li>
+<li class="menu-item {{ Request::is('vouchers*') ? 'active' : '' }}">
+  <a href="{{ route('vouchers.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-device-sim"></i>
+      <div>Vouchers</div>
+  </a>
+</li>
 <li class="menu-item {{ Request::is('bikes*') ? 'active' : '' }}">
   <a href="{{ route('bikes.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-motorbike"></i>
@@ -40,18 +46,7 @@
   </a>
 </li>
 
-<li class="menu-item {{ Request::is('leasingCompanies*') ? 'active' : '' }}">
-  <a href="{{ route('leasingCompanies.index') }}" class="menu-link">
-      <i class="menu-icon tf-icons ti ti-building"></i>
-      <div>Leasing Companies</div>
-  </a>
-</li>
-<li class="menu-item {{ Request::is('garages*') ? 'active' : '' }}">
-  <a href="{{ route('garages.index') }}" class="menu-link">
-      <i class="menu-icon tf-icons ti ti-building"></i>
-      <div>Garages</div>
-  </a>
-</li>
+
 
 
 
@@ -136,6 +131,18 @@
         <a href="{{ route('banks.index') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
             <div>Banks</div>
+        </a>
+      </li>
+      <li class="menu-item {{ Request::is('settings/leasingCompanies*') ? 'active' : '' }}">
+        <a href="{{ route('leasingCompanies.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-building"></i>
+            <div>Leasing Companies</div>
+        </a>
+      </li>
+      <li class="menu-item {{ Request::is('settings/garages*') ? 'active' : '' }}">
+        <a href="{{ route('garages.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-building"></i>
+            <div>Garages</div>
         </a>
       </li>
       <li class="menu-item {{ Request::is('settings/dropdowns') ? 'active' : '' }}">

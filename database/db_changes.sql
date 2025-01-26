@@ -38,6 +38,8 @@ MODIFY COLUMN `status`  tinyint(2) NULL DEFAULT 1 AFTER `detail`;
 ALTER TABLE `riders`
 ADD COLUMN `account_id`  int(11) NULL AFTER `rider_id`;
 
+ALTER TABLE `transactions`
+CHANGE COLUMN `entry_id` `trans_code`  bigint(20) NOT NULL AFTER `id`;
 
 
 

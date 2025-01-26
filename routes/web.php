@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pages\HomePage;
 use App\Http\Controllers\pages\Page2;
@@ -42,9 +43,7 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::resource('bikes', App\Http\Controllers\BikesController::class);
   Route::resource('customers', App\Http\Controllers\CustomersController::class);
   Route::resource('sims', App\Http\Controllers\SimsController::class);
-  Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
 
-  Route::resource('garages', App\Http\Controllers\GaragesController::class);
 
   Route::resource('riders', App\Http\Controllers\RidersController::class);
   Route::any('riders/job_status/{id?}', [\App\Http\Controllers\RidersController::class, 'job_status'])->name('rider.job_status');
@@ -53,12 +52,24 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::any('riders/contract_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'contract_upload'])->name('rider_contract_upload');
   Route::any('riders/picture_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'picture_upload'])->name('rider_picture_upload');
   Route::any('riders/rider-document/{id}', [\App\Http\Controllers\RidersController::class, 'document'])->name('rider.document');
+
+
+  Route::resource('vouchers', VouchersController::class);
+  Route::post('import_excel', 'VouchersController@import_excel')->name('voucher.import_excel');
+  Route::get('get_invoice_balance', 'VouchersController@GetInvoiceBalance')->name('get_invoice_balance');
+  Route::get('fetch_invoices/{id}/{vt}', 'VouchersController@fetch_invoices');
+  Route::any('attach_file/{id}', 'VouchersController@fileUpload');
+
+
   Route::prefix('settings')->group(function () {
 
     Route::any('/company', [HomeController::class, 'settings'])->name('settings');
     Route::resource('departments', App\Http\Controllers\DepartmentsController::class);
     Route::resource('banks', App\Http\Controllers\BanksController::class);
     Route::resource('dropdowns', App\Http\Controllers\DropdownsController::class);
+    Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
+
+    Route::resource('garages', App\Http\Controllers\GaragesController::class);
   });
 
   Route::get('/itmeslist', function () {

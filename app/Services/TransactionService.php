@@ -17,8 +17,8 @@ class TransactionService
       'account_id' => $data['account_id'],
       'reference_id' => $data['reference_id'],
       'reference_type' => $data['reference_type'],
-      'entry_id' => $data['entry_id'],
-      'description' => $data['description'],
+      'trans_code' => $data['trans_code'],
+      'narration' => $data['narration'],
       'debit' => $data['debit'] ?? 0,
       'credit' => $data['credit'] ?? 0,
       'billing_month' => $data['billing_month'] ?? now(),
@@ -64,6 +64,35 @@ class TransactionService
     $ledger->closing_balance = $ledger->opening_balance + $ledger->debit_balance - $ledger->credit_balance;
 
     $ledger->save();
+  }
+
+  public function deleteTransaction($transactionId)
+  {
+    // Find the transaction by ID
+    $transactions = Transactions::where('trans_code', $transactionId)->get();
+    foreach ($transactions as $transaction) {
+      if ($transaction) {
+        // Get the related ledger entry
+        $ledger = LedgerEntry::where('account_id', $transaction->account_id)
+          ->where('billing_month', $transaction->billing_month)
+          ->first();
+
+        if ($ledger) {
+          // Reverse the effect of the transaction on the ledger
+          $ledger->debit_balance -= $transaction->debit;
+          $ledger->credit_balance -= $transaction->credit;
+          $ledger->closing_balance = $ledger->opening_balance + $ledger->debit_balance - $ledger->credit_balance;
+
+          // Save the updated ledger
+          $ledger->save();
+
+          // Delete the transaction
+          $transaction->delete();
+        }
+      }
+    }
+
+
   }
 }
 

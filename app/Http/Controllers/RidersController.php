@@ -54,10 +54,19 @@ class RidersController extends AppBaseController
 
     $riders = $this->ridersRepository->create($input);
     if ($riders) {
+
+      $parentAccount = Accounts::firstOrCreate(
+        ['name' => 'Riders', 'account_code' => 'Rider', 'account_type' => 'Liability', 'parent_id' => null],
+        ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => 'Rider']
+      );
+
       $account = new Accounts();
-      $account->account_code = 'RD-' . $riders->id;
+      $account->account_code = 'Rider-' . $riders->id;
       $account->name = $riders->name;
       $account->account_type = 'Liability';
+      $account->ref_name = 'Rider';
+      $account->parent_id = $parentAccount->id;
+      $account->ref_id = $riders->id;
       $account->save();
 
       if($items){

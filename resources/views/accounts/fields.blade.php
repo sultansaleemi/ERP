@@ -22,7 +22,7 @@
     {!! Form::label('parent_id', 'Parent Account:') !!}
     <select name="parent_id" class="form-control form-select">
       <option value="">Select</option>
-      {!! Common::dropdown($parents,$accounts->parent_id??null) !!}
+      {!! App\Helpers\Accounts::dropdown($parents,$accounts->parent_id??null) !!}
     </select>
     {{-- {!! Form::select('parent_account_id', $parents,null, ['class' => 'form-control form-select select2']) !!} --}}
 </div>

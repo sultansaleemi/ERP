@@ -530,10 +530,10 @@ class General
       9 => 'Grand Son',
       10 => 'Uncle (Mother side)',
       11 => 'Uncle (Father Side)',
-      11 => 'Son In Law',
-      12 => 'Step Father',
-      13 => 'Father In Law',
-      14 => 'Safe Companion'
+      12 => 'Son In Law',
+      13 => 'Step Father',
+      14 => 'Father In Law',
+      15 => 'Safe Companion'
     ];
     foreach ($array as $key => $val) {
       $list .= '<option value="' . $key . '">' . $val . '</option>';
@@ -758,17 +758,16 @@ class General
   {
     $result = [
       3 => 'Journal Voucher',
-      5 => 'Invoice Voucher',
+      /* 5 => 'Invoice Voucher',
       9 => 'Vendor Voucher',
       10 => 'Bike Rent Voucher',
       11 => 'Fuel Voucher',
       8 => 'RTA Fine Voucher',
       12 => 'Advance/Loan Voucher',
-      /*             13 => 'Advance Repay Voucher',
-       */
+      //13 => 'Advance Repay Voucher',
       14 => 'Expense Voucher',
       15 => 'Maintenance Voucher',
-      16 => 'COD Voucher',
+      16 => 'COD Voucher', */
     ];
 
     if ($type) {

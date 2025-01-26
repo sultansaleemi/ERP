@@ -55,6 +55,12 @@ class Accounts extends Model
     return $this->hasMany(self::class, 'parent_id')->with('children'); // Recursive relationship
   }
 
+  public static function dropdown($parent_id)
+  {
+    return self::select('id', \DB::raw("CONCAT(account_code, '-', name) as full_name"))->where('parent_id', $parent_id)->pluck('full_name', 'id')->prepend('Select', '');
+    //return self::select('id', 'plate')->pluck('plate', 'id')->prepend('Select', '');
 
+
+  }
 
 }

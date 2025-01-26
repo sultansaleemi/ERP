@@ -75,6 +75,9 @@ class Bikes extends Model
     'insurance_co' => 'nullable|string|max:255',
     'policy_no' => 'nullable|string|max:100'
   ];
-
+  public static function dropdown()
+  {
+    return self::select('id', 'plate')->pluck('plate', 'id')->prepend('Select', '');
+  }
 
 }

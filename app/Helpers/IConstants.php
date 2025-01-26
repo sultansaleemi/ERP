@@ -13,6 +13,8 @@ interface IConstants
   const ROLE_SUPER_ADMIN = 'Super Admin';
   const ROLE_ADMIN = 'Administrator';
 
+
+
 }
 
 ?>

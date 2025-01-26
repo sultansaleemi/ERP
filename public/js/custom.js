@@ -267,64 +267,49 @@ $(document).ready(function () {
   });
 });
 
-// Dynamic Items Dropmenu for Riders
-$(document).ready(function(){
-  var counter = 1;
 
-//   function itemAlert(select) {
-//   // $(".itemsDropMenu").find(this).on('change', function() {
-//   // $(".itemsDropMenu").siblings("select").change(function() {
-//     var selectValue = $(select).val();
-//     // var selectValue = $('.selectvalue'+counter+'[name="items[]"]').val();
-//     alert("onchnage = "+selectValue+" = value = "+counter);
-//     if (selectValue != 0) {
-//       $('#notification'+counter).html("");
-//     }
-//   // });
-// }
-  $("#addrowItems").click(function(){
-    // counter = $(this).data("id");
-    var selectValue = $('.selectvalue'+counter+'[name="items[]"]').val();
-    // alert(selectValue);
-    // if (selectValue == 0) {
-    //   $('#notification'+counter).html("Please select an option");
-    //   return false;
-    // }
-    counter++;
-    var row='<tr class="bg-light1" id="'+counter+'">'+
-    '<td class="col-sm-4">'+
-    '<select name="items['+counter+'][id]" class="form-control form-control-sm select2 selectvalue'+counter+'" id="item_id">'+
-      '<option id="op'+counter+'" value="0">Select Item</option>'+
-    '</select>'+
-    '<span id="notification'+counter+'" style="font-size: 13px;color:red">'+
-    '</td>'+
-    '<td>'+
-    '<input type="number" class="form-control form-control-sm" step="any" name="items['+counter+'][price]" id="item_price" />'+
-    '</td>'+
-    '<td>'+
-    '<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">'+
-    '</td>'+
-    '</tr>';
-    $("#tbl tbody").append(row);
-
-    $(document).ready(function () {
-      $.ajax({
-          url: "/itmeslist",
-          datatype: "JSON",
-          type: "Get",
-          success: function (data) {
-              // debugger;
-              // console.log(data);
-              $("#op"+counter).after(data);
-          }
-      });
+$(document).ready(function () {
+  // Initialize select2 for the existing select elements
+  $('.select2').select2({
+    dropdownParent: $('#modalTopbody')
   });
 
+  // Add new row by cloning the first row
+  $('#add-new-row').click(function () {
+    // Clone the first row
+    const newRow = $('#rows-container .row:first').clone();
+
+    // Destroy select2 and clean up in the cloned row
+    if (newRow.find('.select2').data('select2')) {
+      newRow.find('.select2').select2('destroy');
+    }
+    //newRow.find('.select2').select2('destroy').end();
+    newRow
+      .find('select')
+      .removeAttr('data-select2-id')
+      .removeClass('select2-hidden-accessible')
+      .next('.select2')
+      .remove();
+
+    // Clear input, textarea, and select values in the cloned row
+    newRow.find('input, textarea').val(''); // Clear inputs and textareas
+    newRow.find('select').val(null).trigger('change'); // Reset the select value and trigger change
+
+    // Append the new row to the container
+    $('#rows-container').append(newRow);
+
+    // Reinitialize select2 for the newly added select element
+    $('.select2').select2({
+      dropdownParent: $('#modalTopbody')
+    });
   });
 
-  $("body").on("click",".rmv",function(){
-    $(this).closest("tr").remove();
+  // Remove a row
+  $(document).on('click', '.btn-remove-row', function () {
+    if ($('#rows-container .row').length > 1) {
+      $(this).closest('.row').remove();
+    } else {
+      alert('At least one row is required.');
+    }
   });
 });
-
-

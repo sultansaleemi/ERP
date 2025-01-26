@@ -26,168 +26,6 @@ $(document).ready(function () {
   } */
 });
 
-$("select[name='country']").on('change', function () {
-  var country = $(this).val();
-  var base_url = $('#base_url').val();
-
-  if (country) {
-    getCities(country);
-    getParent(country);
-    getServices(country);
-    getProvince(country);
-  }
-});
-
-$("select[id='province']").on('change', function () {
-  var country = $('#country').val();
-  var province = $(this).val();
-  var base_url = $('#base_url').val();
-
-  if (province) {
-    getCities(country, province);
-  }
-});
-
-$("select[name='inquiry_country']").on('change', function () {
-  var country = $(this).val();
-  var base_url = $('#base_url').val();
-
-  if (country) {
-    getServices(country);
-  }
-});
-
-$("select[id='inquiry_country']").on('change', function () {
-  var country = $(this).val();
-  var base_url = $('#base_url').val();
-
-  if (country) {
-    getServices(country);
-  }
-});
-function getCities(country, province = null) {
-  var base_url = $('#base_url').val();
-
-  if ($('select[id="cities"]').length != 0) {
-    block();
-    $.ajax({
-      url: base_url + '/getcity?c=' + country,
-      success: function (data) {
-        $('select[id="cities"]').empty();
-        $.each(data, function (key, value) {
-          $('select[id="cities"]').append('<option value="' + value + '">' + value + '</option>');
-        });
-        unblock();
-      }
-    });
-  } else {
-    $('select[id="cities"]').empty();
-  }
-  if ($('#citycheckbox').length != 0) {
-    block();
-    $.ajax({
-      url: base_url + '/getcityprovince?c=' + country + '&p=' + province,
-      success: function (data) {
-        var selectedCities = [];
-
-        // Iterate through each checked checkbox under #citycheckbox
-        $('#citycheckbox input[type="checkbox"]:checked').each(function () {
-          selectedCities.push($(this).val());
-        });
-
-        $('#citycheckbox').empty();
-        $('#checkall').prop('checked', false);
-
-        var currentProvince = null;
-
-        $.each(data, function (key, value) {
-          var isChecked = selectedCities.includes(key);
-
-          if (currentProvince !== value) {
-            currentProvince = value;
-            $('#citycheckbox').append('<div class="col-12 mt-2"><h5>' + currentProvince + '</h5></div>');
-          }
-          $('#citycheckbox').append(
-            '<div class="col-md-3"><label><input type="checkbox" name="cities[]" value="' +
-              key +
-              '" class="form-check-input" ' +
-              (isChecked ? 'checked' : '') +
-              '> ' +
-              key +
-              '</label></div>'
-          );
-        });
-        unblock();
-      }
-    });
-  } else {
-    $('#citycheckbox').empty();
-  }
-}
-
-function getParent(country) {
-  var base_url = $('#base_url').val();
-
-  if ($('select[id="parent"]').length != 0) {
-    block();
-    $.ajax({
-      url: base_url + '/getparent/' + country,
-      success: function (data) {
-        $('select[id="parent"]').empty();
-        $('select[id="parent"]').append('<option value="0">Select</option>');
-        $.each(data, function (key, value) {
-          $('select[id="parent"]').append('<option value="' + value + '">' + value + '</option>');
-        });
-        unblock();
-      }
-    });
-  } else {
-    $('select[id="parent"]').empty();
-  }
-}
-
-function getProvince(country) {
-  var base_url = $('#base_url').val();
-
-  if ($('select[id="province"]').length != 0) {
-    block();
-    $.ajax({
-      url: base_url + '/getprovince/' + country,
-      success: function (data) {
-        $('select[id="province"]').empty();
-        $('select[id="province"]').append('<option value="0">Select</option>');
-        $.each(data, function (key, value) {
-          $('select[id="province"]').append('<option value="' + value + '">' + value + '</option>');
-        });
-        unblock();
-      }
-    });
-  } else {
-    $('select[id="province"]').empty();
-  }
-}
-
-function getServices(country) {
-  var base_url = $('#base_url').val();
-
-  if ($('select[id="service_id"]').length != 0) {
-    block();
-    $.ajax({
-      url: base_url + '/getservice/' + country,
-      success: function (data) {
-        $('select[id="service_id"]').empty();
-        $('select[id="service_id"]').append(data);
-        /*  $.each(data, function (key, value) {
-          $('select[id="service_id"]').append('<option value="' + value + '">' + value + '</option>');
-        }); */
-        unblock();
-      }
-    });
-  } else {
-    $('select[id="service_id"]').empty();
-  }
-}
-
 function block() {
   $('#modalTopbody').block({
     message:
@@ -236,3 +74,49 @@ function selectCC(pk) {
   var specific_val = $(pk).val();
   $("#mobileCode option[data-countryCode='" + specific_val + "']").prop('selected', true);
 }
+
+$(document).ready(function () {
+  // Initialize select2 for the existing select elements
+  $('.select2').select2({
+    dropdownParent: $('#modalTopbody')
+  });
+
+  // Add new row by cloning the first row
+  $('#add-new-row').click(function () {
+    // Clone the first row
+    const newRow = $('#rows-container .row:first').clone();
+
+    // Destroy select2 and clean up in the cloned row
+    if (newRow.find('.select2').data('select2')) {
+      newRow.find('.select2').select2('destroy');
+    }
+    //newRow.find('.select2').select2('destroy').end();
+    newRow
+      .find('select')
+      .removeAttr('data-select2-id')
+      .removeClass('select2-hidden-accessible')
+      .next('.select2')
+      .remove();
+
+    // Clear input, textarea, and select values in the cloned row
+    newRow.find('input, textarea').val(''); // Clear inputs and textareas
+    newRow.find('select').val(null).trigger('change'); // Reset the select value and trigger change
+
+    // Append the new row to the container
+    $('#rows-container').append(newRow);
+
+    // Reinitialize select2 for the newly added select element
+    $('.select2').select2({
+      dropdownParent: $('#modalTopbody')
+    });
+  });
+
+  // Remove a row
+  $(document).on('click', '.btn-remove-row', function () {
+    if ($('#rows-container .row').length > 1) {
+      $(this).closest('.row').remove();
+    } else {
+      alert('At least one row is required.');
+    }
+  });
+});

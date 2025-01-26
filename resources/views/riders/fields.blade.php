@@ -226,43 +226,67 @@
 </div>
 
 
-{{-- <div class="row pr-5 pl-5" >
-
+  <div class="row pr-5 pl-5" >
   <h3>Assign Price</h3>
-  <table  class="table" style="border-radius:10px;">
+  <table class="table" style="border-radius:10px;" id='tbl'>
 <thead>
-<tr class=" bg-light">
+<tr class=" bg-light1">
 <td>Select Item</td>
 <td>Enter Price</td>
 <td>Action</td>
 </tr>
 </thead>
 <tbody>
+  @php
+  $counter = 1;
+  $sum = 0;
 
-<tr class=" bg-light">
-<td class="col-sm-4">
-
-<select name="item_id" class="form-control form-control-sm select2" id="item_id"><option value="0">Select Item</option>
+//     if(isset($riders)){
+//       $resultItems = $riders['items'];
+//       foreach($resultItems as $rowItem)
+//       $sum = count($riders['items']);
+// }
+      @endphp
+<tr class="bg-light1" id="{{$counter}}">
+<td class="col-sm-4 itemsDropMenu">
+  {{-- select2 --}}
+<select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}}" id="item_id">
+  <option value="0">Select Item</option>
   @php
       $items = \App\Models\Items::all();
   @endphp
 @foreach($items as $item)
-      <option value="{{$item->id}}">{{$item->item_name.' - '.$item->pirce}}</option>
+      <option value="{{$item->id}}"
+         {{-- @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif --}}
+         >{{$item->name.' - '.$item->price}}</option>
  @endforeach
 </select>
+<span id="notification1" style="font-size: 13px;color:red"></span>
 </td>
 <td class="col-sm-4">
-<label>Price: </label>
-  <input type="number" step="any" name="item_price" id="item_price" />
+<!-- <label>Price: </label> -->
+  <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)) $rowItem->price @endif" name="items[{{$counter}}][price]" id="item_price" />
 </td>
-<td >
-<input type="button" class="btn btn-lg btn-dark btn-sm btn-block " style="width: 200px;background:#000;" id="addrow" value="Add Item" />
+<td>
+  @if($counter == 1)
+<input type="button" class="btn btn-lg btn-dark btn-sm btn-block" data-id="{{$sum}}" style="width: 200px;background:#000;" id="addrowItems" value="Add Item" />
+@else
+<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
+@endif
 </td>
-
 </tr>
+{{-- @php
+if(isset($riders)){
+$counter++;
+}
+
+@endphp --}}
 </tbody>
 
 </table>
+<!-- @php
+      $rider_items = \App\Models\RiderItemPrice::all();
+  @endphp
 <table id="myTable" class="table order-list2">
 @isset($rider_items)
 @foreach($rider_items as $item)
@@ -274,6 +298,7 @@
 </tr>
 @endforeach
 @endisset
-</table> --}}
+</table> -->
+</div>
 
 

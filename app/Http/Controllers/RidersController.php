@@ -9,6 +9,7 @@ use App\Http\Requests\CreateRidersRequest;
 use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
+use App\Models\RiderItemPrice;
 use App\Models\JobStatus;
 use App\Models\Riders;
 use App\Models\Files;
@@ -49,6 +50,7 @@ class RidersController extends AppBaseController
   public function store(CreateRidersRequest $request)
   {
     $input = $request->all();
+    $items = $request->get('items');
 
     $riders = $this->ridersRepository->create($input);
     if ($riders) {
@@ -58,8 +60,19 @@ class RidersController extends AppBaseController
       $account->account_type = 'Liability';
       $account->save();
 
+      if($items){
+        foreach($items as $item){
+          $riderItemPrice = new RiderItemPrice();
+          $riderItemPrice->item_id = $item['id'];
+          $riderItemPrice->price = $item['price'];
+          $riderItemPrice->RID = $riders->id;
+          $riderItemPrice->save();
+        }
+      }
+
       $riders->account_id = $account->id;
       $riders->save();
+
     }
     return response()->json(['message' => 'Rider created successfully.']);
   }
@@ -83,7 +96,8 @@ class RidersController extends AppBaseController
    */
   public function edit($id)
   {
-    $riders = $this->ridersRepository->find($id);
+    // $riders = $this->ridersRepository->find($id);
+    $riders = $this->ridersRepository->getRiderWithItemsRelations($id);
 
     if (empty($riders)) {
       Flash::error('Riders not found');

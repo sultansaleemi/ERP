@@ -61,6 +61,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::resource('dropdowns', App\Http\Controllers\DropdownsController::class);
   });
 
+  Route::get('/itmeslist', function () {
+      return App\Helpers\General::dropdownitems();
+  });
+
   Route::prefix('accounts')->group(function () {
 
     Route::resource('accounts', App\Http\Controllers\AccountsController::class);

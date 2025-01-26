@@ -70,4 +70,9 @@ class RidersRepository extends BaseRepository
     {
         return Riders::class;
     }
+
+    public function getRiderWithItemsRelations($id)
+    {
+        return Riders::with('items')->find($id);
+    }
 }

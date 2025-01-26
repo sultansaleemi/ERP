@@ -885,4 +885,24 @@ class General
 
   }
 
+  public static function dropdownitems($itemsId = null, $selected = null, $parentId = null, $prefix = '')
+  {
+    $html = '';
+    $select = '';
+    $items = \App\Models\Items::all();
+    // Get categories grouped by parent_id
+    if (isset($items)) {
+      foreach ($items as $item) {
+        if ($selected) {
+          if ($item->id == $selected) {
+            $select = 'selected';
+          }
+        }
+        $html .= '<option value="' . $item->id . '" ' . $select . '>' . $item->name .' - '. $item->price . '</option>';
+      }
+    }
+
+    return $html;
+  }
+
 }

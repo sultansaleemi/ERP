@@ -71,11 +71,13 @@ class RidersController extends AppBaseController
 
       if($items){
         foreach($items as $item){
+          if($item['id'] != 0){
           $riderItemPrice = new RiderItemPrice();
           $riderItemPrice->item_id = $item['id'];
-          $riderItemPrice->price = $item['price'];
+          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
           $riderItemPrice->RID = $riders->id;
           $riderItemPrice->save();
+          }
         }
       }
 

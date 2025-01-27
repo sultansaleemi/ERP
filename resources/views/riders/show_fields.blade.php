@@ -254,11 +254,13 @@
 
 </table>
 <table id="myTable" class="table order-list2 border">
-@isset($rider_items)
-@foreach($rider_items as $item)
-<tr>
-<td width="250"><label>{{@$item->item->item_name }}(Price: {{@$item->item->pirce}})</label></td>
-<td width="240">{{$item->price}}</td>
+@isset($riders['items'])
+@foreach($riders['items'] as $riderItemId)
+@php
+$item = \App\Models\Items::find($riderItemId->item_id);
+@endphp
+<td width="250"><label>{{$item->name}}</label></td>
+<td width="240">{{$riderItemId->price}}</td>
 </tr>
 @endforeach
 @endisset

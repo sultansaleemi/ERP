@@ -228,6 +228,7 @@
 
   <div class="row pr-5 pl-5" >
   <h3>Assign Price</h3>
+  <p id="error_message_duplicate_id"></p>
   <table class="table" style="border-radius:10px;" id='tbl'>
 <thead>
 <tr class=" bg-light1">
@@ -239,18 +240,18 @@
 <tbody>
   @php
   $counter = 1;
-  $sum = 0;
+  $sum = 1;
 
-//     if(isset($riders)){
-//       $resultItems = $riders['items'];
-//       foreach($resultItems as $rowItem)
-//       $sum = count($riders['items']);
-// }
+    // if(isset($riders))
+    //   $resultItems = $riders['items'];
+    //   foreach($resultItems as $rowItem)
+    //   $sum = count($riders['items']);
       @endphp
 <tr class="bg-light1" id="{{$counter}}">
 <td class="col-sm-4 itemsDropMenu">
+
   {{-- select2 --}}
-<select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}}" id="item_id">
+<select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}} dFields" id="item_id" required>
   <option value="0">Select Item</option>
   @php
       $items = \App\Models\Items::all();
@@ -265,25 +266,26 @@
 </td>
 <td class="col-sm-4">
 <!-- <label>Price: </label> -->
-  <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)) $rowItem->price @endif" name="items[{{$counter}}][price]" id="item_price" />
+  <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)) $rowItem->price @endif"
+  name="items[{{$counter}}][price]" id="item_price" />
 </td>
 <td>
-  @if($counter == 1)
-<input type="button" class="btn btn-lg btn-dark btn-sm btn-block" data-id="{{$sum}}" style="width: 200px;background:#000;" id="addrowItems" value="Add Item" />
-@else
-<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
-@endif
+  @if(isset($riders))
+  <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
+  @endif
 </td>
 </tr>
-{{-- @php
-if(isset($riders)){
+@php
+if(isset($riders))
 $counter++;
-}
-
-@endphp --}}
+// endif
+// endif
+@endphp
 </tbody>
-
 </table>
+<input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"
+style="width: 200px;background:#000;" id="addrowItems" value="Add Item" />
+
 <!-- @php
       $rider_items = \App\Models\RiderItemPrice::all();
   @endphp

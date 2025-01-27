@@ -241,12 +241,94 @@
   @php
   $counter = 1;
   $sum = 1;
-
-    // if(isset($riders))
-    //   $resultItems = $riders['items'];
-    //   foreach($resultItems as $rowItem)
-    //   $sum = count($riders['items']);
+@endphp
+    @if(isset($riders))
+@php
+$resultItems = $riders['items']; @endphp
+      @foreach($resultItems as $rowItem)
+      @php $sum = count($riders['items']);
       @endphp
+<tr class="bg-light1" id="{{$counter}}">
+  <td class="col-sm-4 itemsDropMenu">
+
+    {{-- select2 --}}
+  <select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}} dFields" id="item_id" required>
+    <option value="0">Select Item</option>
+    @php
+        $items = \App\Models\Items::all();
+    @endphp
+  @foreach($items as $item)
+        <option value="{{$item->id}}"
+           @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif
+           >{{$item->name.' - '.$item->price}}</option>
+   @endforeach
+  </select>
+  <span id="notification1" style="font-size: 13px;color:red"></span>
+  </td>
+  <td class="col-sm-4">
+  <!-- <label>Price: </label> -->
+    <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)){{(int)$rowItem->price}}@endif"
+    name="items[{{$counter}}][price]" id="item_price" />
+  </td>
+  <td>
+    @if(isset($riders) && $counter != 1)
+    <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
+    @endif
+  </td>
+  </tr>
+  @php
+if(isset($riders))
+$counter++;
+@endphp
+@endforeach
+@else
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <tr class="bg-light1" id="{{$counter}}">
 <td class="col-sm-4 itemsDropMenu">
 
@@ -275,12 +357,7 @@
   @endif
 </td>
 </tr>
-@php
-if(isset($riders))
-$counter++;
-// endif
-// endif
-@endphp
+@endif
 </tbody>
 </table>
 <input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"

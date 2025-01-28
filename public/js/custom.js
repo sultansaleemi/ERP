@@ -48,11 +48,11 @@ $(document).on('submit', '#formajax', function (e) {
       values.push($(this).val());
       console.log(values);
   });
-  $('#error_message_duplicate_id').html("");
+  $('#error_message_duplicate_id').html("Array has duplicates");
     // Repeat id check karein
   if (values.length !== values.filter((item, index) => values.indexOf(item) === index).length) {
     console.log("Array has duplicates");
-    $('#error_message_duplicate_id').html("Items has duplicates");
+    $('#error_message_duplicate_id').html("Array has duplicates");
     return false;
   }
 

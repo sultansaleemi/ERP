@@ -24,26 +24,34 @@ $(document).ready(function(){
     // }
     counter++;
     // alert(counter);
-    var row='<tr class="bg-light1" id="'+counter+'">'+
-    '<td class="col-sm-4">'+
-    '<select name="items['+counter+'][id]" class="form-control form-control-sm select2 selectvalue'+counter+' dFields" id="item_id" required>'+
+    var row=
+    '<tr class="bg-light1" id="'+counter+'">'+
+    '<td class="col-sm-6">'+
+    '<label>Select Items</label>'+
+    '<select name="items['+counter+'][id]" class="form-control selectvalue'+counter+' dFields" id="item_id" required>'+
       '<option id="op'+counter+'" value="0">Select Item</option>'+
     '</select>'+
     '<span id="notification'+counter+'" style="font-size: 13px;color:red">'+
     '</td>'+
-    '<td>'+
-    '<input type="number" class="form-control form-control-sm" step="any" name="items['+counter+'][price]" id="item_price" />'+
+    '<td class="col-sm-6">'+
+    '<label>Price</label>'+
+    '<input type="number" class="form-control" step="any" name="items['+counter+'][price]" id="item_price" placeholder="Items Price"/>'+
     '</td>'+
     '<td>'+
     // '<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">'+
-    '<button class="rmv btn btn-dark">Remove</button>'+
+    // '<button class="rmv btn btn-dark">Remove</button>'+
+    // '<button class="rmv "><i class="fa fa-trash"></i></button>'+
+    '<label></label>'+
+    '<a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>'+
     '</td>'+
     '</tr>';
     $("#tbl tbody").append(row);
 
     $(document).ready(function () {
+      var base_url = $('#base_url').val();
+      base_url = base_url.replace('/home', '');
       $.ajax({
-          url: "/itmeslist",
+          url: base_url +"/itmeslist",
           datatype: "JSON",
           type: "Get",
           success: function (data) {

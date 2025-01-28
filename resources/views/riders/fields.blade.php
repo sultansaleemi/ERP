@@ -224,24 +224,23 @@
   {!! Form::label('other_details', 'Other Details:') !!}
   {!! Form::textarea('other_details', null, ['class' => 'form-control', 'rows' => 2]) !!}
 </div>
-
-
+<style>
+.borderless tr td {
+  border: none !important;
+  padding-bottom: 0px !important;
+}
+</style>
   <div class="row pr-5 pl-5" >
-  <h3>Assign Price</h3>
-  <p id="error_message_duplicate_id"></p>
-  <table class="table" style="border-radius:10px;" id='tbl'>
-<thead>
-<tr class=" bg-light1">
-<td>Select Item</td>
-<td>Enter Price</td>
-<td>Action</td>
-</tr>
-</thead>
+  <label><h5>Assign Price</h5></label>
+  <span id="error_message_duplicate_id"></span>
+  <table class="table borderless" style="border-radius:10px;" id='tbl'>
 <tbody>
   @php
   $counter = 1;
   $sum = 1;
 @endphp
+
+
     @if(isset($riders))
 @php
 $resultItems = $riders['items']; @endphp
@@ -249,10 +248,10 @@ $resultItems = $riders['items']; @endphp
       @php $sum = count($riders['items']);
       @endphp
 <tr class="bg-light1" id="{{$counter}}">
-  <td class="col-sm-4 itemsDropMenu">
-
+  <td class="col-sm-6 itemsDropMenu">
+    <label>Select Items</label>
     {{-- select2 --}}
-  <select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}} dFields" id="item_id" required>
+  <select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields" id="item_id" required>
     <option value="0">Select Item</option>
     @php
         $items = \App\Models\Items::all();
@@ -265,15 +264,17 @@ $resultItems = $riders['items']; @endphp
   </select>
   <span id="notification1" style="font-size: 13px;color:red"></span>
   </td>
-  <td class="col-sm-4">
-  <!-- <label>Price: </label> -->
-    <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)){{(int)$rowItem->price}}@endif"
-    name="items[{{$counter}}][price]" id="item_price" />
+  <td class="col-sm-6">
+  <label>Price</label>
+    <input type="number" class="form-control" step="any" value="@if(isset($rowItem)){{(int)$rowItem->price}}@endif"
+    name="items[{{$counter}}][price]" id="item_price" placeholder="Items Price"/>
   </td>
   <td>
     @if(isset($riders) && $counter != 1)
     {{-- <input type="button" value="Remove" class="rmv btn btn-dark"> --}}
-    <button class="rmv btn btn-dark">Remove</button>
+    {{-- <button class="rmv btn btn-dark">Remove</button> --}}
+    <label></label>
+    <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
     @endif
   </td>
   </tr>
@@ -284,10 +285,10 @@ $counter++;
 @endforeach
 @else
 <tr class="bg-light1" id="{{$counter}}">
-<td class="col-sm-4 itemsDropMenu">
-
+<td class="col-sm-6 itemsDropMenu">
+  <label>Select Items</label>
   {{-- select2 --}}
-<select value="0" name="items[{{$counter}}][id]" class="form-control form-control-sm selectvalue{{$counter}} dFields" id="item_id" required>
+<select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields" id="item_id" required>
   <option value="0">Select Item</option>
   @php
       $items = \App\Models\Items::all();
@@ -300,22 +301,28 @@ $counter++;
 </select>
 <span id="notification1" style="font-size: 13px;color:red"></span>
 </td>
-<td class="col-sm-4">
-<!-- <label>Price: </label> -->
-  <input type="number" class="form-control form-control-sm" step="any" value="@if(isset($rowItem)) $rowItem->price @endif"
-  name="items[{{$counter}}][price]" id="item_price" />
+<td class="col-sm-6">
+<label>Price</label>
+  <input type="number" class="form-control" step="any" value="@if(isset($rowItem)) $rowItem->price @endif"
+  name="items[{{$counter}}][price]" id="item_price" placeholder="Items Price"/>
 </td>
 <td>
   @if(isset($riders))
-  <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
+  {{-- <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block"> --}}
+  {{-- <button" class="rmv btn btn-lg btn-dark btn-sm btn-block text-danger btn-remove-row"><i class="fa fa-trash"></i></button> --}}
+  <label></label>
+  <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
   @endif
 </td>
 </tr>
 @endif
 </tbody>
 </table>
-<input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"
-style="width: 200px;background:#000;" id="addrowItems" value="Add Item" />
+
+<button type="button" class="btn btn-success btn-sm mt-3 mb-3 col-sm-2" id="addrowItems" data-id="{{$sum}}">
+  <i class="fa fa-plus"></i> Add Row</button>
+{{-- <input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"
+style="width: 200px;background:#000;" id="addrowItems" value="Add Item" /> --}}
 <!-- @php
       $rider_items = \App\Models\RiderItemPrice::all();
   @endphp

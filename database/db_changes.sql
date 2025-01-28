@@ -41,6 +41,37 @@ ADD COLUMN `account_id`  int(11) NULL AFTER `rider_id`;
 ALTER TABLE `transactions`
 CHANGE COLUMN `entry_id` `trans_code`  bigint(20) NOT NULL AFTER `id`;
 
+DROP TABLE IF EXISTS `vouchers`;
+CREATE TABLE `vouchers` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `trans_date` date DEFAULT NULL,
+  `trans_code` bigint(20) DEFAULT NULL,
+  `posting_date` date DEFAULT NULL,
+  `billing_month` date DEFAULT NULL,
+  `payment_to` bigint(20) DEFAULT NULL,
+  `payment_from` bigint(20) DEFAULT NULL,
+  `payment_type` tinyint(2) DEFAULT NULL,
+  `voucher_type` tinyint(2) DEFAULT 1,
+  `reason` varchar(255) DEFAULT NULL,
+  `amount` decimal(30,2) DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `ref_id` bigint(20) DEFAULT NULL,
+  `rider_id` bigint(20) DEFAULT NULL,
+  `vendor_id` bigint(20) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `invoice_voucher_type` tinyint(2) DEFAULT NULL,
+  `Created_By` int(11) DEFAULT NULL,
+  `toll_gate` varchar(50) DEFAULT NULL,
+  `trip_date` datetime DEFAULT NULL,
+  `direction` varchar(255) DEFAULT NULL,
+  `lease_company` bigint(20) DEFAULT NULL,
+  `Updated_By` int(11) DEFAULT NULL,
+  `attach_file` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 
 

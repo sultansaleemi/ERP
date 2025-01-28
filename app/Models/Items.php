@@ -10,10 +10,13 @@ class Items extends Model
 
   public $fillable = [
     'name',
+    'item_unit',
     'detail',
     'price',
     'cost',
     'vat',
+    'created_by',
+    'updated_by',
     'status'
   ];
 

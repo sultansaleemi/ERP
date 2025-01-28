@@ -36,6 +36,8 @@ class Accounts
         if ($selected) {
           if ($item->id == $selected) {
             $select = 'selected';
+          } else {
+            $select = '';
           }
         }
 

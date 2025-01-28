@@ -764,9 +764,9 @@ class General
       11 => 'Fuel Voucher',
       8 => 'RTA Fine Voucher',
       12 => 'Advance/Loan Voucher',
-      //13 => 'Advance Repay Voucher',
+      //13 => 'Advance Repay Voucher',*/
       14 => 'Expense Voucher',
-      15 => 'Maintenance Voucher',
+      /*15 => 'Maintenance Voucher',
       16 => 'COD Voucher', */
     ];
 
@@ -897,7 +897,7 @@ class General
             $select = 'selected';
           }
         }
-        $html .= '<option value="' . $item->id . '" ' . $select . '>' . $item->name .' - '. $item->price . '</option>';
+        $html .= '<option value="' . $item->id . '" ' . $select . '>' . $item->name . ' - ' . $item->price . '</option>';
       }
     }
 

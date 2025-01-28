@@ -7,6 +7,7 @@ use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\UpdateAccountsRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
+use App\Models\Transactions;
 use App\Repositories\AccountsRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -115,6 +116,15 @@ class AccountsController extends AppBaseController
   public function destroy($id)
   {
     $accounts = $this->accountsRepository->find($id);
+    $isParent = Accounts::where('parent_id', $accounts->id)->count();
+    $Transactions = Transactions::where('account_id', $accounts->id)->count();
+
+    if ($isParent > 0) {
+      return response()->json(['errors' => ['error' => 'This account have child accounts.']], 422);
+    }
+    if ($Transactions > 0) {
+      return response()->json(['errors' => ['error' => 'This account have transactions.']], 422);
+    }
 
     if (empty($accounts)) {
       Flash::error('Accounts not found');

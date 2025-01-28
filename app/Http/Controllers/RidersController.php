@@ -124,8 +124,9 @@ class RidersController extends AppBaseController
    */
   public function update($id, UpdateRidersRequest $request)
   {
-    $riders = $this->ridersRepository->find($id);
-
+    $riders = $this->ridersRepository->getRiderWithItemsRelations($id);
+    // $items = $riders->items;
+    $items = $request->get('items');
     if (empty($riders)) {
       Flash::error('Riders not found');
 
@@ -133,7 +134,28 @@ class RidersController extends AppBaseController
     }
 
     $riders = $this->ridersRepository->update($request->all(), $id);
-
+    if($riders){
+      if($items){
+      foreach($items as $item){
+        if($item['id'] != 0){
+          // dd(RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->where('RID', $riders->id)->first());
+        $riderItemPrice = RiderItemPrice::where('item_id', $item['id'])->where('RID', $riders->id)->first();
+        RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->delete();
+        if($riderItemPrice){
+          $riderItemPrice->item_id = $item['id'];
+          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+          $riderItemPrice->update();
+        }else{
+          $riderItemPrice = new RiderItemPrice();
+          $riderItemPrice->item_id = $item['id'];
+          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+          $riderItemPrice->RID = $riders->id;
+          $riderItemPrice->save();
+        }
+        }
+      }
+    }
+    }
     Flash::success('Riders updated successfully.');
 
     return redirect(route('riders.index'));

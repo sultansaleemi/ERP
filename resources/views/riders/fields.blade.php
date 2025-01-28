@@ -272,7 +272,8 @@ $resultItems = $riders['items']; @endphp
   </td>
   <td>
     @if(isset($riders) && $counter != 1)
-    <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">
+    {{-- <input type="button" value="Remove" class="rmv btn btn-dark"> --}}
+    <button class="rmv btn btn-dark">Remove</button>
     @endif
   </td>
   </tr>
@@ -282,53 +283,6 @@ $counter++;
 @endphp
 @endforeach
 @else
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <tr class="bg-light1" id="{{$counter}}">
 <td class="col-sm-4 itemsDropMenu">
 
@@ -362,7 +316,6 @@ $counter++;
 </table>
 <input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"
 style="width: 200px;background:#000;" id="addrowItems" value="Add Item" />
-
 <!-- @php
       $rider_items = \App\Models\RiderItemPrice::all();
   @endphp

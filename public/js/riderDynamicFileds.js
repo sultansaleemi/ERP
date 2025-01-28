@@ -1,6 +1,8 @@
 // Dynamic Items Dropmenu for Riders
 $(document).ready(function(){
-  var counter = 1;
+  // var counter = 1;
+  var counter = $('#tbl tr').length - 1;
+  // alert(counter);
 //   function itemAlert(select) {
 //   // $(".itemsDropMenu").find(this).on('change', function() {
 //   // $(".itemsDropMenu").siblings("select").change(function() {
@@ -33,7 +35,8 @@ $(document).ready(function(){
     '<input type="number" class="form-control form-control-sm" step="any" name="items['+counter+'][price]" id="item_price" />'+
     '</td>'+
     '<td>'+
-    '<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">'+
+    // '<input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block">'+
+    '<button class="rmv btn btn-dark">Remove</button>'+
     '</td>'+
     '</tr>';
     $("#tbl tbody").append(row);

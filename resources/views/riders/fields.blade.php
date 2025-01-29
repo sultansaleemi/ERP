@@ -239,8 +239,6 @@
   $counter = 1;
   $sum = 1;
 @endphp
-
-
     @if(isset($riders))
 @php
 $resultItems = $riders['items']; @endphp
@@ -250,8 +248,8 @@ $resultItems = $riders['items']; @endphp
 <tr class="bg-light1" id="{{$counter}}">
   <td class="col-sm-6 itemsDropMenu">
     <label>Select Items</label>
-    {{-- select2 --}}
-  <select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields" id="item_id" required>
+  <select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields"
+  id="item_id" required>
     <option value="0">Select Item</option>
     @php
         $items = \App\Models\Items::all();
@@ -271,8 +269,6 @@ $resultItems = $riders['items']; @endphp
   </td>
   <td>
     @if(isset($riders) && $counter != 1)
-    {{-- <input type="button" value="Remove" class="rmv btn btn-dark"> --}}
-    {{-- <button class="rmv btn btn-dark">Remove</button> --}}
     <label></label>
     <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
     @endif
@@ -288,7 +284,8 @@ $counter++;
 <td class="col-sm-6 itemsDropMenu">
   <label>Select Items</label>
   {{-- select2 --}}
-<select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields" id="item_id" required>
+<select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields"
+id="item_id" required>
   <option value="0">Select Item</option>
   @php
       $items = \App\Models\Items::all();
@@ -308,8 +305,6 @@ $counter++;
 </td>
 <td>
   @if(isset($riders))
-  {{-- <input type="button" value="Remove" class="rmv btn btn-lg btn-dark btn-sm btn-block"> --}}
-  {{-- <button" class="rmv btn btn-lg btn-dark btn-sm btn-block text-danger btn-remove-row"><i class="fa fa-trash"></i></button> --}}
   <label></label>
   <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
   @endif
@@ -321,8 +316,6 @@ $counter++;
 
 <button type="button" class="btn btn-success btn-sm mt-3 mb-3 col-sm-2" id="addrowItems" data-id="{{$sum}}">
   <i class="fa fa-plus"></i> Add Row</button>
-{{-- <input type="button" class="btn btn-lg btn-dark btn-sm btn-block col-sm-4" data-id="{{$sum}}"
-style="width: 200px;background:#000;" id="addrowItems" value="Add Item" /> --}}
 <!-- @php
       $rider_items = \App\Models\RiderItemPrice::all();
   @endphp
@@ -339,5 +332,3 @@ style="width: 200px;background:#000;" id="addrowItems" value="Add Item" /> --}}
 @endisset
 </table> -->
 </div>
-
-

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pages\HomePage;
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::any('riders/contract_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'contract_upload'])->name('rider_contract_upload');
   Route::any('riders/picture_upload/{id?}', [\App\Http\Controllers\RidersController::class, 'picture_upload'])->name('rider_picture_upload');
   Route::any('riders/rider-document/{id}', [\App\Http\Controllers\RidersController::class, 'document'])->name('rider.document');
+  Route::get('rider/updateRider', [\App\Http\Controllers\RidersController::class, 'updateRider'])->name('rider.updateRider');
 
 
   Route::resource('vouchers', VouchersController::class);
@@ -73,12 +75,17 @@ Route::middleware(['auth', 'web'])->group(function () {
   });
 
   Route::get('/itmeslist', function () {
-      return App\Helpers\General::dropdownitems();
+    return App\Helpers\General::dropdownitems();
   });
 
   Route::prefix('accounts')->group(function () {
 
     Route::resource('accounts', App\Http\Controllers\AccountsController::class);
+    Route::get('tree', [\App\Http\Controllers\AccountsController::class, 'tree'])->name('accounts.tree');
+
+    Route::get('/ledger', [LedgerController::class, 'index'])->name('accounts.ledger');
+    Route::get('/ledger/data', [LedgerController::class, 'getLedgerData'])->name('ledger.data');
+
 
   });
 

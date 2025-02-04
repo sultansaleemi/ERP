@@ -65,6 +65,20 @@
         </a>
       </li>
 
+      <li class="menu-item {{ Request::is('accounts/tree') ? 'active' : '' }}">
+        <a href="{{ route('accounts.tree') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Accounts Tree View</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Request::is('accounts/ledger') ? 'active' : '' }}">
+        <a href="{{ route('accounts.ledger') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div>Accounts Ledger</div>
+        </a>
+      </li>
+
 
   </ul>
 </li>

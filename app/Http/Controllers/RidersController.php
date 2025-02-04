@@ -69,14 +69,14 @@ class RidersController extends AppBaseController
       $account->ref_id = $riders->id;
       $account->save();
 
-      if($items){
-        foreach($items as $item){
-          if($item['id'] != 0){
-          $riderItemPrice = new RiderItemPrice();
-          $riderItemPrice->item_id = $item['id'];
-          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
-          $riderItemPrice->RID = $riders->id;
-          $riderItemPrice->save();
+      if ($items) {
+        foreach ($items as $item) {
+          if ($item['id'] != 0) {
+            $riderItemPrice = new RiderItemPrice();
+            $riderItemPrice->item_id = $item['id'];
+            $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+            $riderItemPrice->RID = $riders->id;
+            $riderItemPrice->save();
           }
         }
       }
@@ -134,27 +134,27 @@ class RidersController extends AppBaseController
     }
 
     $riders = $this->ridersRepository->update($request->all(), $id);
-    if($riders){
-      if($items){
-      foreach($items as $item){
-        if($item['id'] != 0){
-          // dd(RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->where('RID', $riders->id)->first());
-        $riderItemPrice = RiderItemPrice::where('item_id', $item['id'])->where('RID', $riders->id)->first();
-        RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->delete();
-        if($riderItemPrice){
-          $riderItemPrice->item_id = $item['id'];
-          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
-          $riderItemPrice->update();
-        }else{
-          $riderItemPrice = new RiderItemPrice();
-          $riderItemPrice->item_id = $item['id'];
-          $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
-          $riderItemPrice->RID = $riders->id;
-          $riderItemPrice->save();
-        }
+    if ($riders) {
+      if ($items) {
+        foreach ($items as $item) {
+          if ($item['id'] != 0) {
+            // dd(RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->where('RID', $riders->id)->first());
+            $riderItemPrice = RiderItemPrice::where('item_id', $item['id'])->where('RID', $riders->id)->first();
+            RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->delete();
+            if ($riderItemPrice) {
+              $riderItemPrice->item_id = $item['id'];
+              $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+              $riderItemPrice->update();
+            } else {
+              $riderItemPrice = new RiderItemPrice();
+              $riderItemPrice->item_id = $item['id'];
+              $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+              $riderItemPrice->RID = $riders->id;
+              $riderItemPrice->save();
+            }
+          }
         }
       }
-    }
     }
     Flash::success('Riders updated successfully.');
 
@@ -316,6 +316,30 @@ class RidersController extends AppBaseController
       return "Job Status updated successfully";
     }
     return view('riders.job_status-modal', compact('rider'));
+  }
+
+  public function updateRider()
+  {
+    $riders = Riders::all();
+    $parentAccount = Accounts::firstOrCreate(
+      ['name' => 'Riders', 'account_code' => 'Rider', 'account_type' => 'Liability', 'parent_id' => null],
+      ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => 'Rider']
+    );
+    foreach ($riders as $rider) {
+
+      $account = new Accounts();
+      $account->account_code = 'Rider-' . $rider->id;
+      $account->name = $rider->name;
+      $account->account_type = 'Liability';
+      $account->ref_name = 'Rider';
+      $account->parent_id = $parentAccount->id;
+      $account->ref_id = $rider->id;
+      $account->save();
+
+      $rider->account_id = $account->id;
+      $rider->save();
+    }
+
   }
 
 }

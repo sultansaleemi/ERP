@@ -16,13 +16,19 @@ class AccountsDataTable extends DataTable
    */
   public function dataTable($query)
   {
-    $tree = $this->getAccountTree(); // Fetch hierarchical data
-    $flattenedData = $this->flattenAccountTree($tree);
+    /*  $tree = $this->getAccountTree(); // Fetch hierarchical data
+     $flattenedData = $this->flattenAccountTree($tree); */
 
     // Use DataTables::of() for handling collections
-    $dataTable = DataTables::of($flattenedData)
+    $dataTable = DataTables::of($query)
       ->addColumn('action', 'accounts.datatables_actions');
-    $dataTable = $dataTable->rawColumns(['action', 'name']);
+
+    $dataTable
+      ->addColumn('parent_id', function (Accounts $accounts) {
+        return @$accounts->parent->name ?? '';
+      })
+      ->toJson();
+    $dataTable = $dataTable->rawColumns(['action', 'name', 'parent_id']);
 
     return $dataTable;
   }
@@ -75,7 +81,7 @@ class AccountsDataTable extends DataTable
       'id' => ['title' => 'ID'],
       'name' => ['title' => 'Name'],
       'account_code' => ['title' => 'Code'],
-      /* 'parent_id' => ['title' => 'Parent'], */
+      'parent_id' => ['title' => 'Parent'],
       'account_type' => ['title' => 'Type'],
       'opening_balance' => ['title' => 'Balance']
     ];

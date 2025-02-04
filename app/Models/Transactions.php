@@ -16,6 +16,12 @@ class Transactions extends Model
     'billing_month',
     'narration',
   ];
+
+  function account()
+  {
+    return $this->hasOne(Accounts::class, 'id', 'account_id');
+  }
+
 }
 
 

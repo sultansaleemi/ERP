@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AccountsDataTable;
+use App\Helpers\IConstants;
 use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\UpdateAccountsRequest;
 use App\Http\Controllers\AppBaseController;
@@ -25,9 +26,17 @@ class AccountsController extends AppBaseController
   /**
    * Display a listing of the Accounts.
    */
+
   public function index(AccountsDataTable $accountsDataTable)
   {
     return $accountsDataTable->render('accounts.index');
+
+  }
+  public function tree(AccountsDataTable $accountsDataTable)
+  {
+    //return $accountsDataTable->render('accounts.index');
+    $accounts = Accounts::where('status', IConstants::ACTIVE)->whereNull('parent_id')->get();
+    return view('accounts.tree', compact('accounts'));
   }
 
 

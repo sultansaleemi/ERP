@@ -315,14 +315,16 @@ class RidersController extends AppBaseController
   public function updateRider()
   {
     $riders = Riders::all();
+
     $parentAccount = Accounts::firstOrCreate(
-      ['name' => 'Riders', 'account_code' => 'Rider', 'account_type' => 'Liability', 'parent_id' => null],
-      ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => 'Rider']
+      ['name' => 'Riders', 'account_type' => 'Liability', 'parent_id' => null],
+      ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => Account::code()]
     );
+
     foreach ($riders as $rider) {
 
       $account = new Accounts();
-      $account->account_code = 'Rider-' . $rider->id;
+      $account->account_code = 'RD' . str_pad($rider->rider_id, 4, "0", STR_PAD_LEFT);
       $account->name = $rider->name;
       $account->account_type = 'Liability';
       $account->ref_name = 'Rider';

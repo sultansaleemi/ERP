@@ -1,5 +1,5 @@
-{{-- <script src="{{ asset('js/modal_custom.js') }}"></script>
- --}}
+
+
 <!-- Rider Id Field -->
  <div class="form-group col-sm-3">
   {!! Form::label('rider_id', 'Rider ID:',['class'=>'required']) !!}
@@ -233,88 +233,83 @@
   <div class="row pr-5 pl-5" >
   <label><h5>Assign Price</h5></label>
   <span id="error_message_duplicate_id"></span>
-  <table class="table borderless" style="border-radius:10px;" id='tbl'>
-<tbody>
-  @php
-  $counter = 1;
-  $sum = 1;
-@endphp
-    @if(isset($riders))
-@php
-$resultItems = $riders['items']; @endphp
-      @foreach($resultItems as $rowItem)
-      @php $sum = count($riders['items']);
-      @endphp
-<tr class="bg-light1" id="{{$counter}}">
-  <td class="col-sm-6 itemsDropMenu">
-    <label>Select Items</label>
-  <select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields"
-  id="item_id" required>
-    <option value="0">Select Item</option>
-    @php
-        $items = \App\Models\Items::all();
-    @endphp
-  @foreach($items as $item)
-        <option value="{{$item->id}}"
-           @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif
-           >{{$item->name.' - '.$item->price}}</option>
-   @endforeach
-  </select>
-  <span id="notification1" style="font-size: 13px;color:red"></span>
-  </td>
-  <td class="col-sm-6">
-  <label>Price</label>
-    <input type="number" class="form-control" step="any" value="@if(isset($rowItem)){{(int)$rowItem->price}}@endif"
-    name="items[{{$counter}}][price]" id="item_price" placeholder="Items Price"/>
-  </td>
-  <td>
-    @if(isset($riders) && $counter != 1)
-    <label></label>
-    <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
-    @endif
-  </td>
-  </tr>
-  @php
-if(isset($riders))
-$counter++;
-@endphp
-@endforeach
-@else
-<tr class="bg-light1" id="{{$counter}}">
-<td class="col-sm-6 itemsDropMenu">
-  <label>Select Items</label>
-  {{-- select2 --}}
-<select value="0" name="items[{{$counter}}][id]" class="form-control selectvalue{{$counter}} dFields"
-id="item_id" required>
-  <option value="0">Select Item</option>
-  @php
-      $items = \App\Models\Items::all();
-  @endphp
-@foreach($items as $item)
-      <option value="{{$item->id}}"
-         {{-- @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif --}}
-         >{{$item->name.' - '.$item->price}}</option>
- @endforeach
-</select>
-<span id="notification1" style="font-size: 13px;color:red"></span>
-</td>
-<td class="col-sm-6">
-<label>Price</label>
-  <input type="number" class="form-control" step="any" value="@if(isset($rowItem)) $rowItem->price @endif"
-  name="items[{{$counter}}][price]" id="item_price" placeholder="Items Price"/>
-</td>
-<td>
-  @if(isset($riders))
-  <label></label>
-  <a href="javascript:void(0);" class="text-danger rmv"><i class="fa fa-trash"></i></a>
-  @endif
-</td>
-</tr>
-@endif
-</tbody>
-</table>
+  <div id="rows-container">
 
-<button type="button" class="btn btn-success btn-sm mt-3 mb-3 col-sm-2" id="addrowItems" data-id="{{$sum}}">
+        @php
+        $counter = 1;
+        $sum = 1;
+      @endphp
+          @if(isset($riders))
+      @php
+      $resultItems = $riders['items']; @endphp
+            @foreach($resultItems as $rowItem)
+            @php $sum = count($riders['items']);
+            @endphp
+      <div class="row">
+          <div class="col-sm-4">
+            <label>Select Items</label>
+          <select value="0" name="items[id][]" class="form-select select2" required>
+            <option value="0">Select Item</option>
+            @php
+                $items = \App\Models\Items::all();
+            @endphp
+          @foreach($items as $item)
+                <option value="{{$item->id}}"
+                  @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif
+                  >{{$item->name.' - '.$item->price}}</option>
+          @endforeach
+          </select>
+          <span id="notification1" style="font-size: 13px;color:red"></span>
+          </div>
+          <div class="col-sm-4">
+          <label>Price</label>
+            <input type="number" class="form-control" step="any" value="@if(isset($rowItem)){{(int)$rowItem->price}}@endif"
+            name="items[price][]" id="item_price" placeholder="Items Price"/>
+          </div>
+          <div class="col-sm-2">
+            <label></label>
+            <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-close"></i></a>
+          </div>
+        </div>
+    @php
+      if(isset($riders))
+      $counter++;
+      @endphp
+      @endforeach
+      @else
+      <div class="row">
+      <div class="col-sm-4">
+        <label>Select Items</label>
+        {{-- select2 --}}
+      <select value="0" name="items[id][]" class="form-select select2"
+      id="item_id" required>
+        <option value="0">Select Item</option>
+        @php
+            $items = \App\Models\Items::all();
+        @endphp
+      @foreach($items as $item)
+            <option value="{{$item->id}}"
+              {{-- @if(isset($rowItem->item_id) && $rowItem->item_id == $item->id) selected @endif --}}
+              >{{$item->name.' - '.$item->price}}</option>
+      @endforeach
+      </select>
+      <span id="notification1" style="font-size: 13px;color:red"></span>
+      </div>
+      <div class="col-sm-4">
+      <label>Price</label>
+        <input type="number" class="form-control" step="any" value="@if(isset($rowItem)) $rowItem->price @endif"
+        name="items[price][]" id="item_price" placeholder="Items Price"/>
+      </div>
+      <div class="col-sm-4">
+        <label></label>
+        <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-close"></i></a>
+      </div>
+
+    </div>
+      @endif
+</div>
+
+<button type="button" class="btn btn-success btn-sm mt-3 mb-3 col-sm-2" id="add-new-row">
   <i class="fa fa-plus"></i> Add Row</button>
 <!-- @php
       $rider_items = \App\Models\RiderItemPrice::all();

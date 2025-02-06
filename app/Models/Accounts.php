@@ -28,7 +28,7 @@ class Accounts extends Model
 
   public static array $rules = [
 
-    'account_code' => 'required|string|max:100',
+    'account_code' => 'nullable|string|max:100',
     'name' => 'required|string|max:100',
     'account_type' => 'required|string|max:50',
     'parent_id' => 'nullable',
@@ -60,7 +60,7 @@ class Accounts extends Model
     if ($parent_id) {
       $query = self::select('id', \DB::raw("CONCAT(account_code, '-', name) as full_name"))->where('parent_id', $parent_id)->pluck('full_name', 'id')->prepend('Select', '');
     } else {
-      $query = self::select('id', \DB::raw("CONCAT(account_code, '-', name) as full_name"))->pluck('full_name', 'id')->prepend('Select', '');
+      $query = self::select('id', \DB::raw("CONCAT(account_code, '-', name) as full_name"))->whereNotNull('parent_id')->pluck('full_name', 'id')->prepend('Select', '');
     }
     //return self::select('id', 'plate')->pluck('plate', 'id')->prepend('Select', '');
     return $query;

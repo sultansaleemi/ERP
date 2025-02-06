@@ -8,12 +8,12 @@
                 <div class="col-sm-6">
                     <h3>Accounts Tree View</h3>
                 </div>
-               {{--  <div class="col-sm-6">
+                <div class="col-sm-6">
                     <a class="btn btn-primary float-right action-btn show-modal"
                        href="javascript:void(0);" data-action="{{ route('accounts.create') }}" data-size="lg" data-title="New Account">
                         Add New
                     </a>
-                </div> --}}
+                </div>
             </div>
         </div>
     </section>

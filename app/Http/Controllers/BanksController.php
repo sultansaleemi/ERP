@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\BanksDataTable;
+use App\Helpers\Account;
 use App\Http\Requests\CreateBanksRequest;
 use App\Http\Requests\UpdateBanksRequest;
 use App\Http\Controllers\AppBaseController;
@@ -50,12 +51,12 @@ class BanksController extends AppBaseController
     //Adding Account and setting reference
 
     $parentAccount = Accounts::firstOrCreate(
-      ['name' => 'Bank', 'account_code' => 'Bank', 'account_type' => 'Asset', 'parent_id' => null],
-      ['name' => 'Bank', 'account_type' => 'Asset', 'account_code' => 'Bank']
+      ['name' => 'Bank', 'account_type' => 'Asset', 'parent_id' => null],
+      ['name' => 'Bank', 'account_type' => 'Asset', 'account_code' => Account::code()]
     );
 
     $account = new Accounts();
-    $account->account_code = 'Bank-' . $banks->id;
+    $account->account_code = 'BK' . str_pad($banks->id, 4, "0", STR_PAD_LEFT);
     $account->account_type = 'Asset';
     $account->name = $banks->name;
     $account->parent_id = $parentAccount->id;

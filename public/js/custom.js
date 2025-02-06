@@ -41,18 +41,17 @@ $(document).on('submit', '#formajax', function (e) {
 
   var formData = new FormData(this);
 
-
   // Dynamic fields ki values ko ek array mein store karein
   var values = [];
-  $('.dFields').each(function() {
-      values.push($(this).val());
-      console.log(values);
+  $('.dFields').each(function () {
+    values.push($(this).val());
+    console.log(values);
   });
-  $('#error_message_duplicate_id').html("");
-    // Repeat id check karein
+  $('#error_message_duplicate_id').html('');
+  // Repeat id check karein
   if (values.length !== values.filter((item, index) => values.indexOf(item) === index).length) {
-    console.log("Array has duplicates");
-    $('#error_message_duplicate_id').html("Array has duplicates");
+    console.log('Array has duplicates');
+    $('#error_message_duplicate_id').html('Array has duplicates');
     return false;
   }
 
@@ -283,12 +282,9 @@ $(document).ready(function () {
   });
 });
 
-
 $(document).ready(function () {
   // Initialize select2 for the existing select elements
-  $('.select2').select2({
-    dropdownParent: $('#modalTopbody')
-  });
+  $('.select2').select2();
 
   // Add new row by cloning the first row
   $('#add-new-row').click(function () {
@@ -315,9 +311,7 @@ $(document).ready(function () {
     $('#rows-container').append(newRow);
 
     // Reinitialize select2 for the newly added select element
-    $('.select2').select2({
-      dropdownParent: $('#modalTopbody')
-    });
+    $('.select2').select2();
   });
 
   // Remove a row
@@ -329,6 +323,3 @@ $(document).ready(function () {
     }
   });
 });
-
-
-

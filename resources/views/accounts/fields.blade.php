@@ -13,10 +13,10 @@
 </div>
 <div class="form-group col-sm-6"></div>
 <!-- Account Code Field -->
-<div class="form-group col-sm-6">
+{{-- <div class="form-group col-sm-6">
     {!! Form::label('account_code', 'Account Code:') !!}
     {!! Form::text('account_code', null, ['class' => 'form-control', 'required', 'maxlength' => 20, 'maxlength' => 20]) !!}
-</div>
+</div> --}}
 <!-- Parent Account Id Field -->
 <div class="form-group col-sm-8">
     {!! Form::label('parent_id', 'Parent Account:') !!}

@@ -46,3 +46,7 @@ select {
 .separator:not(:empty)::after {
   margin-left: .25em;
 }
+
+.plus-box{
+  cursor: pointer;border:1px solid #efefef;background:#c9d1ff;padding:2px 5px;
+}

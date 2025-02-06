@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 
+use App\Models\Accounts;
 use App\Models\Accounts\SubHeadAccount;
 use App\Models\Accounts\Transaction;
 use App\Models\Accounts\TransactionAccount;
@@ -37,6 +38,17 @@ class Account
     } else {
       return 1;
     }
+  }
+  public static function code()
+  {
+    $account_code = (int) Accounts::max('id') + 1;
+    return str_pad($account_code, 4, "0", STR_PAD_LEFT);
+    /* $ac = Accounts::max('account_code');
+    if ($ac > 0) {
+      return $ac + 1;
+    } else {
+      return 1;
+    } */
   }
   //@dr or cr
   public static function dc()

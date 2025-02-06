@@ -72,8 +72,10 @@ CREATE TABLE `vouchers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+---------------
 
-
+ALTER TABLE `accounts`
+MODIFY COLUMN `account_code`  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL AFTER `id`;
 
 
 

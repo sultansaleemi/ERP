@@ -1,7 +1,7 @@
 
 
             {!! Form::model($accounts, ['route' => ['accounts.update', $accounts->id], 'method' => 'patch','id'=>'formajax']) !!}
-
+            <input type="hidden" id="reload_page" value="1"/>
             <div class="card-body">
                 <div class="row">
                     @include('accounts.fields')

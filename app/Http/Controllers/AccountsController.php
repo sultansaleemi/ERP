@@ -60,6 +60,8 @@ class AccountsController extends AppBaseController
     $input = $request->all();
 
     $accounts = $this->accountsRepository->create($input);
+    $accounts->account_code = str_pad($accounts->id, 4, "0", STR_PAD_LEFT);
+    $accounts->save();
 
     return response()->json(['message' => 'Account added successfully.']);
 
@@ -129,7 +131,7 @@ class AccountsController extends AppBaseController
     $Transactions = Transactions::where('account_id', $accounts->id)->count();
 
     if ($isParent > 0) {
-      return response()->json(['errors' => ['error' => 'This account have child accounts.']], 422);
+      return response()->json(['errors' => ['error' => 'This account have sub accounts.']], 422);
     }
     if ($Transactions > 0) {
       return response()->json(['errors' => ['error' => 'This account have transactions.']], 422);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RidersDataTable;
+use App\Helpers\Account;
 use App\Helpers\General;
 use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\CreateRidersRequest;
@@ -56,12 +57,12 @@ class RidersController extends AppBaseController
     if ($riders) {
 
       $parentAccount = Accounts::firstOrCreate(
-        ['name' => 'Riders', 'account_code' => 'Rider', 'account_type' => 'Liability', 'parent_id' => null],
-        ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => 'Rider']
+        ['name' => 'Riders', 'account_type' => 'Liability', 'parent_id' => null],
+        ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => Account::code()]
       );
 
       $account = new Accounts();
-      $account->account_code = 'Rider-' . $riders->id;
+      $account->account_code = 'RD' . str_pad($riders->rider_id, 4, "0", STR_PAD_LEFT);
       $account->name = $riders->name;
       $account->account_type = 'Liability';
       $account->ref_name = 'Rider';
@@ -135,24 +136,17 @@ class RidersController extends AppBaseController
 
     $riders = $this->ridersRepository->update($request->all(), $id);
     if ($riders) {
-      if ($items) {
-        foreach ($items as $item) {
-          if ($item['id'] != 0) {
-            // dd(RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->where('RID', $riders->id)->first());
-            $riderItemPrice = RiderItemPrice::where('item_id', $item['id'])->where('RID', $riders->id)->first();
-            RiderItemPrice::whereNotIn('item_id', array_column($items, 'id'))->delete();
-            if ($riderItemPrice) {
-              $riderItemPrice->item_id = $item['id'];
-              $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
-              $riderItemPrice->update();
-            } else {
-              $riderItemPrice = new RiderItemPrice();
-              $riderItemPrice->item_id = $item['id'];
-              $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
-              $riderItemPrice->RID = $riders->id;
-              $riderItemPrice->save();
-            }
-          }
+      if ($request->items) {
+        RiderItemPrice::where('RID', $id)->delete();
+        $items = $request->items;
+        foreach ($items['id'] as $key => $val) {
+
+          $riderItemPrice = new RiderItemPrice();
+          $riderItemPrice->item_id = $items['id'][$key];
+          $riderItemPrice->price = $items['price'][$key] ?? 0;
+          $riderItemPrice->RID = $riders->id;
+          $riderItemPrice->save();
+
         }
       }
     }

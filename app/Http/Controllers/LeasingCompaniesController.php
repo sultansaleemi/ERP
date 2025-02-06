@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\LeasingCompaniesDataTable;
+use App\Helpers\Account;
 use App\Http\Requests\CreateLeasingCompaniesRequest;
 use App\Http\Requests\UpdateLeasingCompaniesRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Accounts;
 use App\Repositories\LeasingCompaniesRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -45,6 +47,27 @@ class LeasingCompaniesController extends AppBaseController
     $input = $request->all();
 
     $leasingCompanies = $this->leasingCompaniesRepository->create($input);
+
+
+    //Adding Account and setting reference
+
+    $parentAccount = Accounts::firstOrCreate(
+      ['name' => 'Leasing Companies', 'account_type' => 'Liability', 'parent_id' => null],
+      ['name' => 'Leasing Companies', 'account_type' => 'Liability', 'account_code' => Account::code()]
+    );
+
+    $account = new Accounts();
+    $account->account_code = 'LC' . str_pad($leasingCompanies->id, 4, "0", STR_PAD_LEFT);
+    $account->account_type = 'Liability';
+    $account->name = $leasingCompanies->name;
+    $account->parent_id = $parentAccount->id;
+    $account->ref_name = 'LeasingCompany';
+    $account->ref_id = $leasingCompanies->id;
+    $account->status = $leasingCompanies->status;
+    $account->save();
+
+    $leasingCompanies->account_id = $account->id;
+    $leasingCompanies->save();
 
     return response()->json(['message' => 'Company added successfully.']);
 

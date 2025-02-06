@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CustomersDataTable;
+use App\Helpers\Account;
 use App\Http\Requests\CreateCustomersRequest;
 use App\Http\Requests\UpdateCustomersRequest;
 use App\Http\Controllers\AppBaseController;
@@ -47,13 +48,14 @@ class CustomersController extends AppBaseController
 
     $customers = $this->customersRepository->create($input);
 
+
     $parentAccount = Accounts::firstOrCreate(
       ['name' => 'Receivable', 'account_type' => 'Asset', 'parent_id' => null],
-      ['name' => 'Receivable', 'account_type' => 'Asset', 'account_code' => 'RECEIVABLE']
+      ['name' => 'Receivable', 'account_type' => 'Asset', 'account_code' => Account::code()]
     );
 
     $account = new Accounts();
-    $account->account_code = 'Customer-' . $customers->id;
+    $account->account_code = 'CS' . str_pad($customers->id, 4, '0', STR_PAD_LEFT);
     $account->account_type = 'Asset';
     $account->name = $customers->name;
     $account->parent_id = $parentAccount->id;

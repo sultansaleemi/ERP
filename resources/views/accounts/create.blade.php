@@ -1,7 +1,7 @@
 
 
             {!! Form::open(['route' => 'accounts.store','id'=>'formajax']) !!}
-
+            <input type="hidden" id="reload_page" value="1"/>
             <div class="card-body">
 
                 <div class="row">

@@ -58,17 +58,17 @@
   </a>
   <ul class="menu-sub">
 
-      <li class="menu-item {{ Request::is('accounts/accounts') ? 'active' : '' }}">
+     {{--  <li class="menu-item {{ Request::is('accounts/accounts') ? 'active' : '' }}">
         <a href="{{ route('accounts.index') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
             <div>Chart Of Accounts</div>
         </a>
       </li>
-
+ --}}
       <li class="menu-item {{ Request::is('accounts/tree') ? 'active' : '' }}">
         <a href="{{ route('accounts.tree') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
-            <div>Accounts Tree View</div>
+            <div>Chart Of Accounts</div>
         </a>
       </li>
 

@@ -20,7 +20,7 @@
 <!-- Parent Account Id Field -->
 <div class="form-group col-sm-8">
     {!! Form::label('parent_id', 'Parent Account:') !!}
-    <select name="parent_id" class="form-control form-select">
+    <select name="parent_id" class="form-control form-select select2">
       <option value="">Select</option>
       {!! App\Helpers\Accounts::dropdown($parents,$accounts->parent_id??null) !!}
     </select>

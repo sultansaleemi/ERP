@@ -77,6 +77,13 @@ CREATE TABLE `vouchers` (
 ALTER TABLE `accounts`
 MODIFY COLUMN `account_code`  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL AFTER `id`;
 
+-----------------------
+
+ALTER TABLE `accounts`
+ADD COLUMN `notes`  varchar(500) NULL AFTER `status`;
+
+ALTER TABLE `leasing_companies`
+ADD COLUMN `account_id`  bigint(20) NULL AFTER `updated_at`;
 
 
 

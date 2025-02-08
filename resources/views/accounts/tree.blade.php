@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h3>Accounts Tree View</h3>
+                    <h3>Chart Of Accounts</h3>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right action-btn show-modal"

@@ -273,14 +273,14 @@ function selectCC(pk) {
   $("#mobileCode option[data-countryCode='" + specific_val + "']").prop('selected', true);
 }
 
-$(document).ready(function () {
+/* $(document).ready(function () {
   $(window).keydown(function (event) {
     if (event.keyCode == 13) {
       event.preventDefault();
       return false;
     }
   });
-});
+}); */
 
 $(document).ready(function () {
   // Initialize select2 for the existing select elements

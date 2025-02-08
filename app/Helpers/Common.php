@@ -106,5 +106,16 @@ class Common
 
   }
 
+  public static function status($status)
+  {
+    if ($status == 1) {
+      return '<span class="badge bg-label-success rounded-0">Active</span>';
+    } elseif ($status == 2) {
+      return '<span class="badge bg-label-danger rounded-0">Inactive</span>';
+    } else {
+      return '<span class="badge bg-label-warning rounded-0">pending</span>';
+    }
+  }
+
 
 }

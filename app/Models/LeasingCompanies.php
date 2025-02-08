@@ -13,6 +13,7 @@ class LeasingCompanies extends Model
     'contact_person',
     'contact_number',
     'detail',
+    'account_id',
     'status'
   ];
 
@@ -34,5 +35,13 @@ class LeasingCompanies extends Model
     'updated_at' => 'nullable'
   ];
 
+  function account()
+  {
+    return $this->hasOne(Accounts::class, 'id', 'account_id');
+  }
 
+  function transactions()
+  {
+    return $this->hasMany(Transactions::class, 'account_id', 'account_id');
+  }
 }

@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Helpers;
+use App\Models\Banks;
+use App\Models\Customers;
+use App\Models\LeasingCompanies;
+use App\Models\Riders;
 use App\Models\Services;
 use App\Models\Settings;
 
@@ -47,6 +51,29 @@ class Accounts
     }
 
     return $html;
+  }
+
+
+  public static function getRef($data)
+  {
+    if ($data['ref_name']) {
+      if ($data['ref_name'] == 'Customer') {
+        $row = Customers::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'Rider') {
+        $row = Riders::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'Bank') {
+        $row = Banks::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'LeasingCompany') {
+        $row = LeasingCompanies::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'Account') {
+        $row = \App\Models\Accounts::find($data['ref_id']);
+      }
+      return $row;
+    }
   }
 
 }

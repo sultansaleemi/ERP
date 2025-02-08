@@ -16,6 +16,7 @@ class Accounts extends Model
     'ref_name',
     'ref_id',
     'status',
+    'notes',
     'opening_balance'
   ];
 

@@ -8,6 +8,10 @@ use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\UpdateAccountsRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
+use App\Models\Banks;
+use App\Models\Customers;
+use App\Models\LeasingCompanies;
+use App\Models\Riders;
 use App\Models\Transactions;
 use App\Repositories\AccountsRepository;
 use Illuminate\Http\Request;
@@ -35,7 +39,7 @@ class AccountsController extends AppBaseController
   public function tree(AccountsDataTable $accountsDataTable)
   {
     //return $accountsDataTable->render('accounts.index');
-    $accounts = Accounts::where('status', IConstants::ACTIVE)->whereNull('parent_id')->get();
+    $accounts = Accounts::whereNull('parent_id')->get();
     return view('accounts.tree', compact('accounts'));
   }
 
@@ -115,6 +119,17 @@ class AccountsController extends AppBaseController
 
     $accounts = $this->accountsRepository->update($request->all(), $id);
 
+    if ($accounts) {
+      $row = \App\Helpers\Accounts::getRef(['ref_name' => $accounts->ref_name, 'ref_id' => $accounts->ref_id]);
+      if (isset($row)) {
+        $row->name = $accounts->name;
+        $row->status = $accounts->status;
+        $row->save();
+      }
+    }
+
+
+
     return response()->json(['message' => 'Account updated successfully.']);
 
   }
@@ -143,6 +158,12 @@ class AccountsController extends AppBaseController
       return redirect(route('accounts.index'));
     }
 
+    if ($accounts) {
+      $row = \App\Helpers\Accounts::getRef(['ref_name' => $accounts->ref_name, 'ref_id' => $accounts->ref_id]);
+      if (isset($row)) {
+        $row->delete();
+      }
+    }
     $this->accountsRepository->delete($id);
 
     return response()->json(['message' => 'Account deleted successfully.']);

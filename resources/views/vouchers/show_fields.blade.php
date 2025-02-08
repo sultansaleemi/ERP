@@ -2,8 +2,13 @@
 <!doctype html>
 <html style="height: 100%;box-sizing: border-box;">
 <head>
+  @php
+    $settings = App\Helpers\Common::settings();
+    $voucher_type = App\Helpers\General::VoucherType($voucher->voucher_type);
+    $i=0;
+@endphp
     <meta charset="utf-8">
-    <title>Payment Voucher</title>
+    <title>{{$voucher_type}} # {{$voucher->id}}</title>
     <style>
         .page-footer, .page-footer-space {
             /*height: 39px;*/
@@ -40,33 +45,35 @@
     </style>
 </head>
 
+
 <body style="">
 <div style="position: relative;min-height: 100%;height: 100%;">
     <table width="100%" style="font-family: sans-serif;">
         <tr>
-            <td width="33.33%"><img src="{{ URL::asset('public/dist/img/print-logo.png') }}" width="150" /></td>
-            <td width="33.33%" style="text-align: center;"><h4 style="margin-bottom: 10px;margin-top: 5px;font-size: 14px;">Express Fast Delivery Service</h4>
-                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;">Office No. 305, Al Rubaya Building Damascus Street Al Qusais 2 Dubai U.A.E</p>
-                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;"> TRN 1005392707000003</p>
+            <td width="33.33%"><img src="{{ URL::asset('assets/img/logo-full.png') }}" width="150" /></td>
+            <td width="33.33%" style="text-align: center;"><h4 style="margin-bottom: 10px;margin-top: 5px;font-size: 14px;">{{$settings['company_name']}}</h4>
+                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;">{{$settings['company_address']}}</p>
+                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;"> TRN {{$settings['vat_number']}}</p>
             <td width="33.33%" style="text-align: right;"></td>
         </tr>
         <tr style="text-align: center;">
-            <td colspan="3"><h4 style="margin-bottom: 15px;margin-top: 25px;font-size: 14px;border-bottom: 1px solid #000;border-top: 1px solid #000;padding: 7px 0px;">{{App\Helpers\CommonHelper::VoucherType($result->voucher_type)}}</h4></td>
+            <td colspan="3"><h4 style="margin-bottom: 15px;margin-top: 25px;font-size: 14px;border-bottom: 1px solid #000;border-top: 1px solid #000;padding: 7px 0px;">{{$voucher_type}}</h4></td>
         </tr>
     </table>
-    @isset($result->trans_code)
+
+    @isset($voucher)
     <table width="100%" style="font-family: sans-serif; margin-top: 20px;font-size: 12px">
 
         <tr>
-            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher No</strong>: {{ $result->trans_code }}</td>
+            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher No</strong>: {{ $voucher->trans_code }}</td>
             <th style="padding: 3px;width: 15%;text-align: left;">Voucher Date:</th>
-            <td style="padding: 3px;width: 20%;text-align: left;">{{ $result->trans_date }}</td>
+            <td style="padding: 3px;width: 20%;text-align: left;">{{ $voucher->trans_date }}</td>
         </tr>
         <tr>
-            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher Type</strong>: {{App\Helpers\CommonHelper::VoucherType($result->voucher_type)}}</td>
-            @isset($result->billing_month)
+            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher Type</strong>:{{$voucher_type}}</td>
+            @isset($voucher->billing_month)
             <th style="padding: 3px;width: 15%;text-align: left;"> Billing Month: </th>
-            <td style="padding: 3px;width: 20%;text-align: left;">{{date('M-Y',strtotime($result->billing_month))}}</td>
+            <td style="padding: 3px;width: 20%;text-align: left;">{{date('M-Y',strtotime($voucher->billing_month))}}</td>
             @endisset
         </tr>
         <tr>
@@ -85,56 +92,26 @@
         </tr>
         </thead>
         <tbody>
-        @php $td=0; $tc=0;
-        $code ='';
-        @endphp
-        @foreach($data as $key=>$val)
-        @php
-            $code ='';
-        @endphp
-            @php
-                if($val->dr_cr==1)
-                {
-                    $td+=$val->amount;
-                }
-                if($val->dr_cr==2)
-                {
-                    $tc+=$val->amount;
-                }
-                if(isset($val->trans_acc->PID)){
-                    if($val->trans_acc->PID == 21){
-                $rider = app\Helpers\Account::getRider($val->trans_acc->Parent_Type);
-                if($rider){
-                    $code = $rider->rider_id.' - ';
-                }
 
-                    }
-                }
-
-            @endphp
-
-
-            <tr>
-                <td style="padding: 5px;border:1px solid">{{ $key+1 }}</td>
+        @foreach($voucher->transactions as $item)
+          <tr>
+                <td style="padding: 5px;border:1px solid">{{ $i+1 }}</td>
                 <td style="padding: 5px;border:1px solid">
-                    @isset($val->trans_acc->Trans_Acc_Name)
-                    {{ @$code.$val->trans_acc->Trans_Acc_Name}}
-                    @endisset
-                    {{-- {{ \App\Models\Accounts\TransactionAccount::where('id',$val->trans_acc_id)->value('trans_acc_name') }} --}}
+                   {{@$item->account->name}}
                 </td>
-                <td style="padding: 5px;border:1px solid;text-align: left">{{ $val->narration }}</td>
-                <td style="padding:5px;border:1px solid">@if($val->dr_cr==1) {{ $val->amount }} @else 0.00 @endif</td>
-                <td style="padding:5px;border:1px solid">@if($val->dr_cr==2) {{ $val->amount }} @else 0.00 @endif</td>
+                <td style="padding: 5px;border:1px solid;text-align: left">{{ $item->narration }}</td>
+                <td style="padding:5px;border:1px solid">{{ $item->debit }}</td>
+                <td style="padding:5px;border:1px solid">{{ $item->credit }}</td>
             </tr>
         @endforeach
         </tbody>
         <tfoot>
-        <tr style="border-top: 1px solid #000;">
+        {{-- <tr style="border-top: 1px solid #000;">
             <td colspan="2" style="padding: 10px;text-align: left;"></td>
             <th style="padding: 10px;text-align: right;">Net:</th>
             <th style="padding: 10px;text-align: center;">{{ \App\Helpers\Account::show_bal_format($td) }}</th>
             <th style="padding: 10px;text-align: center;">{{ \App\Helpers\Account::show_bal_format($tc) }}</th>
-        </tr>
+        </tr> --}}
         </tfoot>
     </table>
     <div id="btns" style="margin-top: 50px">

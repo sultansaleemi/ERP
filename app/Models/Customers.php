@@ -26,7 +26,6 @@ class Customers extends Model
     'contact_number' => 'string',
     'address' => 'string',
     'tax_number' => 'string',
-    'status' => 'boolean',
     'tax_percentage' => 'decimal:2'
   ];
 
@@ -37,7 +36,7 @@ class Customers extends Model
     'contact_number' => 'required|string|max:100',
     'address' => 'nullable|string|max:200',
     'tax_number' => 'required|string|max:100',
-    'status' => 'nullable|boolean',
+
     'created_at' => 'nullable',
     'updated_at' => 'nullable',
     'tax_percentage' => 'required|numeric'

@@ -32,6 +32,7 @@
     {!! Form::label('opening_balance', 'Opening Balance:') !!}
     {!! Form::number('opening_balance', null, ['class' => 'form-control','step'=>'any']) !!}
 </div>
+
 <div class="form-group col-sm-6"></div>
 <!-- Status Field -->
 <div class="form-group col-sm-6">
@@ -42,6 +43,12 @@
      <label for="status" class="pt-0">Is Active</label>
 
   </div>
+</div>
+
+<div class="form-group col-sm-12">
+  {!! Form::label('notes', 'Notes:') !!}
+  {!! Form::textarea('notes', null, ['class' => 'form-control', 'rows' => 4]) !!}
+
 </div>
 {{-- <div class="form-check form-switch mb-2">
   <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">

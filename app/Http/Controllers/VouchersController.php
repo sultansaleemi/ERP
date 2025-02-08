@@ -104,21 +104,22 @@ class VouchersController extends Controller
   public function show($id)
   {
     /** @var Vouchers $vouchers */
-    $result = Vouchers::where('trans_code', $id)->first();
+    /*  $result = Vouchers::where('trans_code', $id)->first();
 
-    if ($result->voucher_type == 2 || $result->voucher_type == 3) {
-      $data = Transactions::where('trans_code', $id)->get();
-    } else {
-      $data = Transactions::where('trans_code', $id)->get();
+     if ($result->voucher_type == 2 || $result->voucher_type == 3) {
+       $data = Transactions::where('trans_code', $id)->get();
+     } else {
+       $data = Transactions::where('trans_code', $id)->get();
 
-    }
-    if (empty($result)) {
+     } */
+    $voucher = Vouchers::find($id);
+    if (empty($voucher)) {
       Flash::error('Vouchers not found');
 
       return redirect(route('vouchers.index'));
     }
 
-    return view('vouchers.show', compact('result', 'data'));
+    return view('vouchers.show', compact('voucher'));
   }
 
   /**

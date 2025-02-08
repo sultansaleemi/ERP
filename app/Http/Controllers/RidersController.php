@@ -136,6 +136,11 @@ class RidersController extends AppBaseController
 
     $riders = $this->ridersRepository->update($request->all(), $id);
     if ($riders) {
+
+      $riders->account->name = $riders->name;
+      $riders->account->account_code = 'RD' . str_pad($riders->rider_id, 4, "0", STR_PAD_LEFT);
+      $riders->account->save();
+
       if ($request->items) {
         RiderItemPrice::where('RID', $id)->delete();
         $items = $request->items;
@@ -150,8 +155,8 @@ class RidersController extends AppBaseController
         }
       }
     }
-    Flash::success('Riders updated successfully.');
-
+    /*     Flash::success('Riders updated successfully.');
+     */
     return redirect(route('riders.index'));
   }
 
@@ -170,7 +175,7 @@ class RidersController extends AppBaseController
       return redirect(route('riders.index'));
     }
 
-    $this->ridersRepository->delete($id);
+    //$this->ridersRepository->delete($id);
 
     Flash::success('Riders deleted successfully.');
 

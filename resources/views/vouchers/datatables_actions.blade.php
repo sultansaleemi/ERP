@@ -6,11 +6,11 @@
         <i class="fa fa-file"></i>
     </a>
     @endcan
-    @can('jv_view')
-    <a href="{{ route('vouchers.show', $trans_code) }}" target="_blank" class='btn btn-default btn-sm'>
+
+    <a href="{{ route('vouchers.show', $id) }}" target="_blank" class='btn btn-default btn-sm'>
         <i class="fa fa-eye"></i>
     </a>
-    @endcan
+
     {{-- @can('jv_edit') --}}
 
     <a  href="javascript:void(0);" data-size="xl" data-title="Edit"

@@ -55,6 +55,9 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::any('riders/rider-document/{id}', [\App\Http\Controllers\RidersController::class, 'document'])->name('rider.document');
   Route::get('rider/updateRider', [\App\Http\Controllers\RidersController::class, 'updateRider'])->name('rider.updateRider');
 
+  Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
+  Route::resource('garages', App\Http\Controllers\GaragesController::class);
+  Route::resource('banks', App\Http\Controllers\BanksController::class);
 
   Route::resource('vouchers', VouchersController::class);
   Route::post('import_excel', 'VouchersController@import_excel')->name('voucher.import_excel');
@@ -67,11 +70,8 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     Route::any('/company', [HomeController::class, 'settings'])->name('settings');
     Route::resource('departments', App\Http\Controllers\DepartmentsController::class);
-    Route::resource('banks', App\Http\Controllers\BanksController::class);
     Route::resource('dropdowns', App\Http\Controllers\DropdownsController::class);
-    Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
 
-    Route::resource('garages', App\Http\Controllers\GaragesController::class);
   });
 
   Route::get('/itmeslist', function () {

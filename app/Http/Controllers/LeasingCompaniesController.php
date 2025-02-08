@@ -119,6 +119,11 @@ class LeasingCompaniesController extends AppBaseController
 
     $leasingCompanies = $this->leasingCompaniesRepository->update($request->all(), $id);
 
+    $leasingCompanies->account->name = $leasingCompanies->name;
+    $leasingCompanies->account->status = $leasingCompanies->status;
+    $leasingCompanies->account->save();
+
+
     return response()->json(['message' => 'Company updated successfully.']);
 
   }
@@ -136,6 +141,13 @@ class LeasingCompaniesController extends AppBaseController
       return response()->json(['errors' => ['error' => 'Company not found!']], 422);
 
     }
+
+    if ($leasingCompanies->transactions->count() > 0) {
+      return response()->json(['errors' => ['error' => 'Company have transactions.!']], 422);
+    } else {
+      $leasingCompanies->account->delete();
+    }
+
 
     $this->leasingCompaniesRepository->delete($id);
 

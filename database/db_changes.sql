@@ -84,6 +84,12 @@ ADD COLUMN `notes`  varchar(500) NULL AFTER `status`;
 
 ALTER TABLE `leasing_companies`
 ADD COLUMN `account_id`  bigint(20) NULL AFTER `updated_at`;
+-------------
+
+ALTER TABLE `vouchers`
+MODIFY COLUMN `voucher_type`  varchar(20) NULL DEFAULT '1' AFTER `payment_type`;
+
+
 
 
 

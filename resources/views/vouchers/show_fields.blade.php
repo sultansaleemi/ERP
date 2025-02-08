@@ -65,7 +65,7 @@
     <table width="100%" style="font-family: sans-serif; margin-top: 20px;font-size: 12px">
 
         <tr>
-            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher No</strong>: {{ $voucher->trans_code }}</td>
+            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher No</strong>: {{ $voucher->voucher_type . '-' . str_pad($voucher->id, '4', '0', STR_PAD_LEFT) }}</td>
             <th style="padding: 3px;width: 15%;text-align: left;">Voucher Date:</th>
             <td style="padding: 3px;width: 20%;text-align: left;">{{ $voucher->trans_date }}</td>
         </tr>

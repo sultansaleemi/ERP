@@ -21,13 +21,13 @@
                 <label for="exampleInputEmail1">Posting Date</label>
                 <input  name="posting_date" class="form-control  date" placeholder="Posting Date" value="{{ date('Y-m-d') }}">
             </div> --}}
-            @if(in_array($voucherType,[5,12,13,14,16]))
+           {{--  @if(in_array($voucherType,[5,12,13,14,16]))
             <div class="form-group col-md-3">
                 <label for="exampleInputEmail1">Bank/Cash A/C</label>
                 {!! Form::select('payment_from',App\Models\Accounts\TransactionAccount::bank_cash_list(),null ,['class' => 'form-control  select2 ','id'=>'payment_from']) !!}
             </div>
-            @endif
-            @if($voucherType==9)
+            @endif --}}
+           {{--  @if($voucherType==9)
             <input type="hidden" name="payment_from" value="811" /><!--Sim Bike and Vendor Charges Account ID-->
             @endif
             @if($voucherType==11)
@@ -41,7 +41,7 @@
             @endif
             @if($voucherType==15)
             <input type="hidden" name="payment_from" value="767" /><!--Bike Maintenance Charges Account ID-->
-            @endif
+            @endif --}}
             <div class="form-group col-md-2">
                 <label for="exampleInputEmail1">Payment Type</label>
                 {!! Form::select('payment_type',App\Helpers\Account::payment_type_list(),null ,['class' => 'form-select form-select-sm select2 ','id'=>'payment_type']) !!}
@@ -56,7 +56,7 @@
 
         </div>
 
-            @if($voucherType == 3)
+            @if($voucherType == 'JV')
             <h5>Journal Voucher</h5>
             @include("vouchers.journal_fields")
             @endif

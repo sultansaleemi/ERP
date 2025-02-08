@@ -757,7 +757,7 @@ class General
   public static function VoucherType($type = null)
   {
     $result = [
-      3 => 'Journal Voucher',
+      'JV' => 'Journal Voucher',
       /* 5 => 'Invoice Voucher',
       9 => 'Vendor Voucher',
       10 => 'Bike Rent Voucher',

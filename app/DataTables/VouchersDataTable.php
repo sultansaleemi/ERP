@@ -21,6 +21,10 @@ class VouchersDataTable extends DataTable
     $dataTable = new EloquentDataTable($query);
 
 
+    $dataTable->addColumn('id', function (Vouchers $row) {
+      return $row->voucher_type . '-' . str_pad($row->id, '4', '0', STR_PAD_LEFT);
+    })->toJson();
+
     $dataTable->addColumn('trans_date', function (Vouchers $row) {
       return Common::DateFormat($row->trans_date);
     })->toJson();
@@ -95,8 +99,8 @@ class VouchersDataTable extends DataTable
   protected function getColumns()
   {
     return [
+      'id',
       'trans_date',
-      'trans_code',
       'billing_month',
       'voucher_type',
       'amount',

@@ -105,6 +105,10 @@ Route::get('/artisan-optimize', function () {
   Artisan::call('optimize');
   return 'optimized';
 });
+Route::get('/artisan-optimize-clear', function () {
+  Artisan::call('optimize:clear');
+  return 'optimized';
+});
 Route::get('/artisan-storage-link', function () {
   Artisan::call('storage:link');
   return 'storage link';

@@ -62,7 +62,7 @@ class VouchersController extends Controller
     $request->billing_month = $request->billing_month . "-01";
 
     /** @var Vouchers $vouchers */
-    if ($request->voucher_type == 3) {
+    if ($request->voucher_type == 'JV') {
       $result = $voucherService->JournalVoucher($request);
     }
     if ($request->voucher_type == 5) {
@@ -165,7 +165,7 @@ class VouchersController extends Controller
 
       return redirect(route('vouchers.index'));
     }
-    if ($request->voucher_type == 3) {
+    if ($request->voucher_type == 'JV') {
       $voucherService->JournalVoucher($request);
     }
     if ($request->voucher_type == 5) {

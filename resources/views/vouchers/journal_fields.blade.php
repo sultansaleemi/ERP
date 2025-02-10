@@ -1,4 +1,4 @@
-<div id="rows-container">
+<div id="rows-container" style="width: 98%;">
 @isset($data)
     @foreach($data as $entry)
     <div class="row">

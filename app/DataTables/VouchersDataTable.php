@@ -62,7 +62,7 @@ class VouchersDataTable extends DataTable
    */
   public function query(Vouchers $model)
   {
-    return $model->newQuery();
+    return $model->newQuery()->orderByDesc('id');
   }
 
   /**
@@ -79,6 +79,8 @@ class VouchersDataTable extends DataTable
       ->parameters([
         'dom' => 'Bfrtip',
         'stateSave' => true,
+        'responsive' => true,
+        'autoWidth' => false,
         'order' => [[0, 'desc']],
         'buttons' => [
           // Enable Buttons as per your need

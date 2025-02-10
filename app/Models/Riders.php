@@ -112,7 +112,7 @@ class Riders extends Model
 
   public static array $rules = [
     'name' => 'required|string|max:191',
-    'rider_id' => 'required',
+    'rider_id' => 'required|unique:riders,rider_id',
     'personal_contact' => 'nullable|string|max:191',
     'company_contact' => 'nullable|string|max:191',
     'personal_email' => 'required|string|max:191',

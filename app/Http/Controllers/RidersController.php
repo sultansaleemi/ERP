@@ -71,11 +71,11 @@ class RidersController extends AppBaseController
       $account->save();
 
       if ($items) {
-        foreach ($items as $item) {
-          if ($item['id'] != 0) {
+        foreach ($items['id'] as $key => $val) {
+          if ($items['id'][$key] != 0) {
             $riderItemPrice = new RiderItemPrice();
-            $riderItemPrice->item_id = $item['id'];
-            $riderItemPrice->price = isset($item['price']) ? $item['price'] : 0;
+            $riderItemPrice->item_id = $items['id'][$key];
+            $riderItemPrice->price = isset($item['price'][$key]) ? $items['price'][$key] : 0;
             $riderItemPrice->RID = $riders->id;
             $riderItemPrice->save();
           }

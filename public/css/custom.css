@@ -50,3 +50,6 @@ select {
 .plus-box{
   cursor: pointer;border:1px solid #efefef;background:#c9d1ff;padding:2px 5px;
 }
+.scrollbar{
+  max-height: calc(70vh - 100px) !important; overflow-y: auto !important;margin-bottom:20px;border-top:1px solid #efefef;border-bottom:1px solid #efefef;
+}

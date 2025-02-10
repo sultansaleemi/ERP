@@ -239,7 +239,7 @@
         $counter = 1;
         $sum = 1;
       @endphp
-          @if(isset($riders))
+          @if(isset($riders['items']) && count($riders['items'])>0)
       @php
       $resultItems = $riders['items']; @endphp
             @foreach($resultItems as $rowItem)
@@ -311,19 +311,4 @@
 
 <button type="button" class="btn btn-success btn-sm mt-3 mb-3 col-sm-2" id="add-new-row">
   <i class="fa fa-plus"></i> Add Row</button>
-<!-- @php
-      $rider_items = \App\Models\RiderItemPrice::all();
-  @endphp
-<table id="myTable" class="table order-list2">
-@isset($rider_items)
-@foreach($rider_items as $item)
-<tr>
-<td width="250"><label>{{@$item->item->item_name }}(Price: {{@$item->item->pirce}})</label></td>
-<td width="130"><input type="number" name="items[{{@$item->item->id}}]" id="item-{{@$item->tem->id}}" value="{{$item->price}}" step="any" class="form-control form-control-sm" /></td>
-
-<td width="300"><input type="button" class="ibtnDel btn btn-md btn-xs btn-danger "  value="Delete"></td>
-</tr>
-@endforeach
-@endisset
-</table> -->
 </div>

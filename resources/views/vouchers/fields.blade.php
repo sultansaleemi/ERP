@@ -1,4 +1,4 @@
-<script src="{{ asset('js/modal_custom.js') }}"></script>
+d<script src="{{ asset('js/modal_custom.js') }}"></script>
 
 
 @isset($vouchers->voucher_type)
@@ -51,11 +51,11 @@
             <div class="form-group col-md-2">
                 <label for="exampleInputEmail1">Billing Month</label>
 {{--                 {!! Form::select('billing_month',App\Helpers\CommonHelper::BillingMonth(),null ,['class' => 'form-control  select2 ','id'=>'billing_month']) !!}
- --}}                <input type="month" name="billing_month" class="form-control " value="@isset($vouchers->billing_month){{date('Y-m',strtotime($vouchers->billing_month)) }}@else{{date('Y-m')}}@endisset">
+ --}}                <input type="month" name="billing_month" class="form-control " value="@isset($vouchers->billing_month){{date('Y-m',strtotime($vouchers->billing_month)) }}@endisset" required>
             </div>
 
         </div>
-
+        <div class="scrollbar">
             @if($voucherType == 'JV')
             <h5>Journal Voucher</h5>
             @include("vouchers.journal_fields")
@@ -72,6 +72,7 @@
 
             @include("vouchers.default_fields")
             @endif
+          </div>
            {{--  @if($voucherType == 11)
             <h5>Fuel Voucher</h5>
             @include("vouchers.fuel_fields")
@@ -91,7 +92,8 @@
 
 
             <div class="row">
-                <div class="col-md-7 text-right">Total:</div>
+              <div class="col-md-5"></div>
+                <div class="col-md-2 content-right mt-1">Total:&nbsp;<a href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></a></div>
                 <div class="form-group col-md-2">
                     <input type="number" class="form-control " id="total_dr" readonly placeholder="Total Dr">
                 </div>

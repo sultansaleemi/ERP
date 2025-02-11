@@ -13,7 +13,7 @@
 
     {{-- @can('jv_edit') --}}
 
-    <a  href="javascript:void(0);" data-size="xl" data-title="Edit"
+    <a  href="javascript:void(0);" data-size="xl" data-title="Edit Voucher No. {{$voucher_type.'-'.str_pad($id,4,"0",STR_PAD_LEFT)}}"
     data-action="{{ route('vouchers.edit', $trans_code) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>

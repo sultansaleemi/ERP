@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Transactions;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -27,7 +28,9 @@ class LedgerDataTable extends DataTable
         return number_format($row->credit, 2) ?? '-';
       })
       ->addColumn('balance', function ($row) {
-        static $balance = 0;
+        $balance = 0;/*  Transactions::where('account_id', $row->account_id)
+->whereDate('billing_month', '<', $row->billing_month)
+->sum(\DB::raw("debit - credit")); */
         $balance += $row->debit;
         $balance -= $row->credit;
         return number_format($balance, 2);
@@ -46,7 +49,17 @@ class LedgerDataTable extends DataTable
    */
   public function query(Transactions $model)
   {
-    return $model->newQuery()->with(['account']);
+    $model = $model->newQuery()->with(['account']);
+
+    if (request('month')) {
+      //$model = $model->where(\DB::raw('DATE_FORMAT(billing_month, "%Y-%m")'), '=', request('month'));
+      $model = $model->where('billing_month', request('month'));
+    }
+
+    if (request('account')) {
+      $model = $model->where('account_id', request('account'));
+    }
+    return $model;
   }
 
   /**
@@ -64,6 +77,9 @@ class LedgerDataTable extends DataTable
         'dom' => 'Bfrtip',
         'stateSave' => true,
         'order' => [[0, 'desc']],
+        "ordering" => false,
+        //"pageLength" => 5, // Set default page length
+        //"lengthMenu" => [[10, 25, 50, 100], [10, 25, 50, 100]], // Custom length menu
         'buttons' => [
           // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],

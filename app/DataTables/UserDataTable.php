@@ -54,6 +54,7 @@ class UserDataTable extends DataTable
         'dom' => 'Bfrtip',
         'stateSave' => true,
         'order' => [[0, 'desc']],
+        /* 'pageLength' => 2, */
         'buttons' => [
           // Enable Buttons as per your need
           //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],

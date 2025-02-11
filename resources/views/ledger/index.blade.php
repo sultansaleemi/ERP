@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('title','Account Ledger')
+@section('title','Transactions')
 @section('content')
 <div class="container">
-    <h2>Account Ledger</h2>
-
-   {{--  <div class="row mb-3">
+    <h2>Transactions</h2>
+<form action="" method="get">
+    <div class="row mb-3">
         <div class="col-md-3">
-            <input type="date" id="start_date" class="form-control" placeholder="Start Date">
+          {!! Form::select('account', App\Models\Accounts::dropdown(null), request('account'), ['class' => 'form-select form-select-sm select2']) !!}
         </div>
         <div class="col-md-3">
-            <input type="date" id="end_date" class="form-control" placeholder="End Date">
+            <input type="month" name="billing_month" value="{{request('billing_month')}}" class="form-control" placeholder="Billing Month">
         </div>
         <div class="col-md-3">
             <button id="filter" class="btn btn-primary">Filter</button>
-            <button id="reset" class="btn btn-secondary">Reset</button>
         </div>
-    </div> --}}
+    </div>
+  </form>
 
     <div class="content">
 
@@ -25,6 +25,19 @@
       <div class="clearfix"></div>
 
       <div class="card">
+        {{-- @isset($summary)
+        <div class="row mb-3 bg-label-success m-2 ">
+          <table class="table table-responsive dataTable">
+            <tr>
+              <th>Account:</th>
+              <th>Debit</th>
+              <th>Credit</th>
+              <th>Balance</th>
+            </tr>
+          </table>
+        </div>
+        @endisset --}}
+
     @push('third_party_stylesheets')
     @include('layouts.datatables_css')
 @endpush

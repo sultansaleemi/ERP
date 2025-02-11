@@ -8,7 +8,7 @@
     $i=0;
 @endphp
     <meta charset="utf-8">
-    <title>{{$voucher_type}} # {{$voucher->id}}</title>
+    <title>{{$voucher_type}} # {{$voucher->voucher_type.'-'.str_pad($voucher->id,4,"0",STR_PAD_LEFT)}}</title>
     <style>
         .page-footer, .page-footer-space {
             /*height: 39px;*/
@@ -87,31 +87,38 @@
             <th style="border: 1px solid #000; padding: 10px;width: 20px;">Sr</th>
             <th style="border: 1px solid #000; padding: 10px;">Account Name</th>
             <th style="border: 1px solid #000; padding: 10px;">Particulars</th>
-            <th style="border: 1px solid #000; padding: 10px;">Dr.</th>
-            <th style="border: 1px solid #000; padding: 10px;">Cr.</th>
+            <th style="border: 1px solid #000; padding: 10px;text-align: right;">Debit</th>
+            <th style="border: 1px solid #000; padding: 10px;text-align: right;">Credit</th>
         </tr>
         </thead>
         <tbody>
-
+@php
+  $totalD = 0;
+  $totalC = 0;
+@endphp
         @foreach($voucher->transactions as $item)
           <tr>
-                <td style="padding: 5px;border:1px solid">{{ $i+1 }}</td>
+                <td style="padding: 5px;border:1px solid">{{ $i+=1 }}</td>
                 <td style="padding: 5px;border:1px solid">
                    {{@$item->account->name}}
                 </td>
                 <td style="padding: 5px;border:1px solid;text-align: left">{{ $item->narration }}</td>
-                <td style="padding:5px;border:1px solid">{{ $item->debit }}</td>
-                <td style="padding:5px;border:1px solid">{{ $item->credit }}</td>
+                <td style="padding:5px;border:1px solid;text-align: right;">{{ $item->debit }}</td>
+                <td style="padding:5px;border:1px solid;text-align: right;">{{ $item->credit }}</td>
             </tr>
+            @php
+                $totalD+=$item->debit;
+                $totalC+=$item->credit;
+            @endphp
         @endforeach
         </tbody>
         <tfoot>
-        {{-- <tr style="border-top: 1px solid #000;">
+        <tr style="border-top: 1px solid #000;">
             <td colspan="2" style="padding: 10px;text-align: left;"></td>
             <th style="padding: 10px;text-align: right;">Net:</th>
-            <th style="padding: 10px;text-align: center;">{{ \App\Helpers\Account::show_bal_format($td) }}</th>
-            <th style="padding: 10px;text-align: center;">{{ \App\Helpers\Account::show_bal_format($tc) }}</th>
-        </tr> --}}
+            <th style="padding: 10px;text-align: right;">{{ \App\Helpers\Account::show_bal_format($totalD) }}</th>
+            <th style="padding: 10px;text-align: right;">{{ \App\Helpers\Account::show_bal_format($totalC) }}</th>
+        </tr>
         </tfoot>
     </table>
     <div id="btns" style="margin-top: 50px">

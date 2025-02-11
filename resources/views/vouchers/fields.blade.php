@@ -1,4 +1,4 @@
-d<script src="{{ asset('js/modal_custom.js') }}"></script>
+<script src="{{ asset('js/modal_custom.js') }}"></script>
 
 
 @isset($vouchers->voucher_type)
@@ -93,7 +93,7 @@ d<script src="{{ asset('js/modal_custom.js') }}"></script>
 
             <div class="row">
               <div class="col-md-5"></div>
-                <div class="col-md-2 content-right mt-1">Total:&nbsp;<a href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></a></div>
+                <div class="col-md-2 content-right mt-1">Total:&nbsp;<a href="javascript:void(0);" onclick="getTotal();" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></a></div>
                 <div class="form-group col-md-2">
                     <input type="number" class="form-control " id="total_dr" readonly placeholder="Total Dr">
                 </div>
@@ -120,7 +120,7 @@ d<script src="{{ asset('js/modal_custom.js') }}"></script>
 
     $(document).ready(function () {
    var base_url = $('#base_url').val();
-
+   getTotal();
 
 
 

@@ -90,10 +90,10 @@
         </a>
       </li>
 
-      <li class="menu-item {{ Request::is('accounts/ledger') ? 'active' : '' }}">
-        <a href="{{ route('accounts.ledger') }}" class="menu-link">
+      <li class="menu-item {{ Request::is('accounts/transactions') ? 'active' : '' }}">
+        <a href="{{ route('accounts.transactions') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
-            <div>Accounts Ledger</div>
+            <div>Transactions</div>
         </a>
       </li>
 

@@ -12,11 +12,11 @@
         </div>
         <div class="form-group col-md-2">
             <label>Dr Amount</label>
-            <input type="number" step="any" name="dr_amount[]" value="{{$entry->debit}}" class="form-control  dr_amount" placeholder="Paid Amount">
+            <input type="number" step="any" name="dr_amount[]" value="{{$entry->debit}}" class="form-control  dr_amount" onchange="getTotal();" placeholder="Paid Amount">
         </div>
         <div class="form-group col-md-2">
             <label>Cr Amount</label>
-            <input type="number" step="any" name="cr_amount[]" value="{{$entry->credit}}" class="form-control  cr_amount" placeholder="Paid Amount">
+            <input type="number" step="any" name="cr_amount[]" value="{{$entry->credit}}" class="form-control  cr_amount" onchange="getTotal();" placeholder="Paid Amount">
         </div>
         <div class="form-group col-md-1 d-flex align-items-end">
           <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-trash"></i></a>

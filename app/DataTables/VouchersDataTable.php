@@ -23,6 +23,8 @@ class VouchersDataTable extends DataTable
 
     $dataTable->addColumn('id', function (Vouchers $row) {
       return $row->voucher_type . '-' . str_pad($row->id, '4', '0', STR_PAD_LEFT);
+    })->filterColumn('id', function ($query, $keyword) {
+      $query->whereRaw("CONCAT(voucher_type, '-', LPAD(id, 4, '0')) LIKE ?", ["%{$keyword}%"]);
     })->toJson();
 
     $dataTable->addColumn('trans_date', function (Vouchers $row) {
@@ -50,6 +52,7 @@ class VouchersDataTable extends DataTable
 
     $dataTable->rawColumns(['role', 'action']);
     $dataTable->addColumn('action', 'vouchers.datatables_actions');
+
     return $dataTable;
 
   }
@@ -78,10 +81,10 @@ class VouchersDataTable extends DataTable
       ->addAction(['width' => '120px', 'printable' => false])
       ->parameters([
         'dom' => 'Bfrtip',
-        'stateSave' => true,
-        'responsive' => true,
-        'autoWidth' => false,
+        'stateSave' => false,
         'order' => [[0, 'desc']],
+        'pageLength' => 100,
+        'responsive' => true,
         'buttons' => [
           // Enable Buttons as per your need
           //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -101,7 +104,7 @@ class VouchersDataTable extends DataTable
   protected function getColumns()
   {
     return [
-      'id',
+      'id' => ['searchable' => true],
       'trans_date',
       'billing_month',
       'voucher_type',

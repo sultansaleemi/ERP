@@ -25,6 +25,7 @@ class LedgerController extends Controller
       }
 
     } */
+
     return $LedgerDataTable->render('ledger.index');
   }
 

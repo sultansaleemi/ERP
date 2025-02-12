@@ -56,8 +56,10 @@ class ItemsDataTable extends DataTable
       ->addAction(['width' => '120px', 'printable' => false])
       ->parameters([
         'dom' => 'Bfrtip',
-        'stateSave' => true,
+        'stateSave' => false,
         'order' => [[0, 'desc']],
+        'pageLength' => 100,
+        'responsive' => true,
         'buttons' => [
           // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],

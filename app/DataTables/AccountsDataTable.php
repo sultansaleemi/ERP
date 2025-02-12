@@ -57,8 +57,10 @@ class AccountsDataTable extends DataTable
       ->addAction(['width' => '120px', 'printable' => false])
       ->parameters([
         'dom' => 'Bfrtip',
-        'stateSave' => true,
-        /* 'order' => [[0, 'desc']], */
+        'stateSave' => false,
+        'order' => [[0, 'desc']],
+        'pageLength' => 100,
+        'responsive' => true,
         'buttons' => [
           /* ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner'],
           ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],

@@ -2,84 +2,109 @@
 
 namespace App\DataTables;
 
+use App\Helpers\Common;
 use App\Models\Transactions;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\DB;
 
 class LedgerDataTable extends DataTable
 {
   /**
    * Build DataTable class.
-   *
-   * @param mixed $query Results from query() method.
-   * @return \Yajra\DataTables\DataTableAbstract
    */
   public function dataTable($query)
   {
-    $dataTable = new EloquentDataTable($query);
-    $dataTable->addColumn('account_name', function ($row) {
-      return $row->account->name ?? 'N/A'; // Show account name
-    })
-      ->addColumn('debit', function ($row) {
-        return number_format($row->debit, 2) ?? '-';
-      })
-      ->addColumn('credit', function ($row) {
-        return number_format($row->credit, 2) ?? '-';
-      })
-      ->addColumn('balance', function ($row) {
-        $balance = 0;/*  Transactions::where('account_id', $row->account_id)
-->whereDate('billing_month', '<', $row->billing_month)
-->sum(\DB::raw("debit - credit")); */
-        $balance += $row->debit;
-        $balance -= $row->credit;
-        return number_format($balance, 2);
-      });
+    $transactions = $query->get(); // Fetch the actual transactions
+    $openingBalance = $this->getOpeningBalance();
 
-    $dataTable->rawColumns(['debit', 'credit', 'balance']);
+    $data = [];
+    $runningBalance = $openingBalance;
 
-    return $dataTable;
+    // Add Balance Forward row at the top
+    $data[] = [
+      'date' => '<b>Balance Forward</b>',
+      'account_name' => '',
+      'billing_month' => '',
+      'debit' => '',
+      'credit' => '',
+      'balance' => number_format($openingBalance, 2),
+    ];
+
+    // Process transactions and maintain running balance
+    foreach ($transactions as $row) {
+      $runningBalance += $row->debit - $row->credit;
+
+      $data[] = [
+        'date' => Common::DateFormat($row->created_at),
+        'account_name' => $row->account->name ?? 'N/A',
+        'billing_month' => $row->billing_month,
+        'debit' => number_format($row->debit, 2),
+        'credit' => number_format($row->credit, 2),
+        'balance' => number_format($runningBalance, 2),
+      ];
+    }
+
+    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance']);
   }
 
   /**
    * Get query source of dataTable.
-   *
-   * @param \App\Models\Departments $model
-   * @return \Illuminate\Database\Eloquent\Builder
    */
   public function query(Transactions $model)
   {
-    $model = $model->newQuery()->with(['account']);
-
-    if (request('month')) {
-      //$model = $model->where(\DB::raw('DATE_FORMAT(billing_month, "%Y-%m")'), '=', request('month'));
-      $model = $model->where('billing_month', request('month'));
-    }
+    $query = $model->newQuery()->with(['account']);
 
     if (request('account')) {
-      $model = $model->where('account_id', request('account'));
+      $query->where('account_id', request('account'));
     }
-    return $model;
+
+    if (request('month')) {
+      $query->where('billing_month', request('month') . '-01');
+    }
+
+    return $query;
   }
 
   /**
-   * Optional method if you want to use html builder.
-   *
-   * @return \Yajra\DataTables\Html\Builder
+   * Get Opening Balance before the selected date.
+   */
+  private function getOpeningBalance()
+  {
+    if (!request('month') || !request('account')) {
+      return 0;
+    }
+
+    return Transactions::where('account_id', request('account'))
+      ->whereDate('billing_month', '<', request(key: 'month') . '-01')
+      ->sum(DB::raw("debit - credit"));
+  }
+
+  /**
+   * Optional method if you want to use HTML builder.
    */
   public function html()
   {
     return $this->builder()
       ->columns($this->getColumns())
       ->minifiedAjax()
-      //->addAction(['width' => '120px', 'printable' => false])
       ->parameters([
         'dom' => 'Bfrtip',
-        'stateSave' => true,
-        'order' => [[0, 'desc']],
-        "ordering" => false,
-        //"pageLength" => 5, // Set default page length
-        //"lengthMenu" => [[10, 25, 50, 100], [10, 25, 50, 100]], // Custom length menu
+        'order' => [[0, 'asc']], // Order by date ascending
+        'orderable' => false,
+        'pageLength' => 50,
+        'stateSave' => true, // Ensures balance maintains on pagination
+        'responsive' => true,
+        /* 'stateLoadCallback' => 'function(settings) {
+                var savedState = localStorage.getItem(settings.sInstance);
+                if (savedState) {
+                    var state = JSON.parse(savedState);
+                    state.length = 50; // Force default page length
+                    state.orderable = false; // Force default page length
+                    return state;
+                }
+                return null;
+            }', */
         'buttons' => [
           // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -93,25 +118,21 @@ class LedgerDataTable extends DataTable
 
   /**
    * Get columns.
-   *
-   * @return array
    */
   protected function getColumns()
   {
     return [
+      'date',
       'account_name',
+      'billing_month',
       'debit',
       'credit',
       'balance'
-
-
     ];
   }
 
   /**
    * Get filename for export.
-   *
-   * @return string
    */
   protected function filename(): string
   {

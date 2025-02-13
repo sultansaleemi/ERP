@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title','Users')
 @section('content')
+@role('Super Admin')
 <h4 class="mb-4">Top 5 Roles</h4>
 
 <p class="mb-4">A role provided access to predefined menus and features so that depending on <br> assigned role an administrator can have access to what user needs.</p>
@@ -48,6 +49,7 @@
       </div>
     </div>
   </div>
+  @endrole
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

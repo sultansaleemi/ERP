@@ -9,10 +9,12 @@
                     <h3>Sims</h3>
                 </div>
                 <div class="col-sm-6">
+                  @can('sim_create')
                     <a class="btn btn-primary action-btn show-modal"
                     href="javascript:void(0);" data-size="lg" data-title="New Sim" data-action="{{ route('sims.create') }}">
                         Add New
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

@@ -27,6 +27,10 @@ class BanksController extends AppBaseController
    */
   public function index(BanksDataTable $banksDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('bank_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $banksDataTable->render('banks.index');
   }
 

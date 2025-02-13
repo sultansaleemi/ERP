@@ -7,6 +7,7 @@
 <!-- Role cards -->
 <div class="row g-4">
     @foreach($roles as $role)
+    @if($role->name != 'Super Admin')
     <div class="col-xl-4 col-lg-6 col-md-6">
 
     <div class="card">
@@ -25,6 +26,7 @@
       </div>
     </div>
   </div>
+  @endcan
 
 @endforeach
 

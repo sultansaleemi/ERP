@@ -9,10 +9,12 @@
                     <h3>Riders</h3>
                 </div>
                 <div class="col-sm-6">
+                  @can('rider_create')
                     <a class="btn btn-primary action-btn show-modal"
                        href="{{ route('riders.create') }}">
                         Add New
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

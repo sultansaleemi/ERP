@@ -33,6 +33,10 @@ class AccountsController extends AppBaseController
 
   public function index(AccountsDataTable $accountsDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('account_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $accountsDataTable->render('accounts.index');
 
   }

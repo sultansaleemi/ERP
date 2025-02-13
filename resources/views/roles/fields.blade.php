@@ -11,7 +11,7 @@
 </div>
 <br>
 <h5>Role Permissions</h5>
-<div class="table-responsive">
+<div class="table-responsive scrollbar" >
     <table class="table table-flush-spacing">
       <tbody>
        {{--  <tr>
@@ -29,10 +29,10 @@
              use Spatie\Permission\Models\Permission;
 
             $modules = Permission::where(['parent_id'=>0])->orWhere('parent_id',NULL)->get();
-            
+
         @endphp
         @foreach ($modules as $module)
-      
+
         <tr>
           <td class="text-nowrap fw-medium">{{$module->name}}</td>
           @php
@@ -41,24 +41,24 @@
           <td>
             <div class="d-flex">
           @foreach ($permissions as $item)
-         
+
                 <div class="form-check me-3 me-lg-5">
                     <input class="form-check-input" name="permission[]" id="{{$item->id}}" value="{{$item->name}}" type="checkbox"
                     @isset($rolePermissions[$item->id]) checked @endisset >
                     @php
                          $name = explode('_',$item->name,2);
                         $name = ucwords(str_replace("_"," ",$name[1]));
-                    @endphp 
+                    @endphp
                     <label class="form-check-label" for="{{$item->id}}">{{$name}}</label>
                 </div>
-      
+
             @endforeach
         </div>
           </td>
         </tr>
-              
+
         @endforeach
-       
+
       </tbody>
     </table>
   </div>
@@ -69,11 +69,11 @@ $("#selectAll").click(function(){
 
     $(':checkbox').each(function() {
     if(this.checked == true) {
-      this.checked = false;                        
+      this.checked = false;
     } else {
-      this.checked = true;                        
-    }      
+      this.checked = true;
+    }
   });
 })
-</script> 
+</script>
   @endpush

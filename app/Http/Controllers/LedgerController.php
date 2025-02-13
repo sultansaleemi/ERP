@@ -25,7 +25,9 @@ class LedgerController extends Controller
       }
 
     } */
-
+    if (!auth()->user()->hasPermissionTo('gn_ledger')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $LedgerDataTable->render('ledger.index');
   }
 

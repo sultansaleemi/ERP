@@ -13,10 +13,13 @@
                 <div class="col-sm-6">
 {{--                     <button type="button" class="text-white btn btn-success btn-sm btn-flat float-right" data-toggle="modal" data-target="#excel-modal"><i class="fa fa-file-excel"></i> Import Excel</button>
  --}}
+ @can('voucher_create')
  @foreach(App\Helpers\General::VoucherType() as $key => $value)
  <a class="show-modal action-btn btn btn-primary" style="margin-right:5px;" href="javascript:void(0);" data-size="xl" data-title="Create {{$value}}"
  data-action="{{ route('vouchers.create',["vt"=>$key]) }}"><i class="fa fa-plus"></i>&nbsp;{{$value}}</a>
  @endforeach
+
+ @endcan
                     {{-- <div class="dropdown action-btn">
                         <button class="btn btn-primary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-plus"></i> Create Voucher

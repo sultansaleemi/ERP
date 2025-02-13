@@ -27,6 +27,10 @@ class LeasingCompaniesController extends AppBaseController
    */
   public function index(LeasingCompaniesDataTable $leasingCompaniesDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('leasing_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $leasingCompaniesDataTable->render('leasing_companies.index');
   }
 

@@ -6,25 +6,26 @@
         <i class="fa fa-file"></i>
     </a>
     @endcan
-
+    @can('voucher_view')
     <a href="{{ route('vouchers.show', $id) }}" target="_blank" class='btn btn-default btn-sm'>
         <i class="fa fa-eye"></i>
     </a>
+    @endcan
 
     {{-- @can('jv_edit') --}}
-
+    @can('voucher_edit')
     <a  href="javascript:void(0);" data-size="xl" data-title="Edit Voucher No. {{$voucher_type.'-'.str_pad($id,4,"0",STR_PAD_LEFT)}}"
     data-action="{{ route('vouchers.edit', $trans_code) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>
     {{-- @endcan --}}
-    {{-- @can('jv_delete') --}}
+    @can('voucher_delete')
 
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-sm',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
-   {{--  @endcan --}}
+    @endcan
 </div>
 {!! Form::close() !!}

@@ -33,6 +33,11 @@ class RidersController extends AppBaseController
    */
   public function index(RidersDataTable $ridersDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('rider_view')) {
+      abort(403, 'Unauthorized action.');
+    }
+
     return $ridersDataTable->render('riders.index');
   }
 

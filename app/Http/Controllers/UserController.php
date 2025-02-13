@@ -46,6 +46,10 @@ class UserController extends AppBaseController
         abort(404);
       }
     }*/
+
+    if (!auth()->user()->hasPermissionTo('user_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     $roles = Role::all();
 
     return $userDataTable->render('users.index', compact('roles'));

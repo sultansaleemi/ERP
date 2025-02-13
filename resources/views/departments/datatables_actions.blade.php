@@ -5,12 +5,13 @@
         <i class="fa fa-eye"></i>
     </a>
     @endcan --}}
-   {{--  @can('department_edit') --}}
+    @can('department_edit')
     <a href="javascript:void(0);" data-title="Edit" data-size="sm" data-action="{{ route('departments.edit', $id) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>
-    {{-- @endcan
-    @can('department_delete') --}}
+    @endcan
+
+    @can('department_delete')
 
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
@@ -18,6 +19,6 @@
         'onclick' => 'return confirm("Are you sure, want to delete this department ?")'
 
     ]) !!}
-   {{--  @endcan --}}
+    @endcan
 </div>
 {!! Form::close() !!}

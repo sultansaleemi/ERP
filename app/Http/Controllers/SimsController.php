@@ -25,6 +25,10 @@ class SimsController extends AppBaseController
    */
   public function index(SimsDataTable $simsDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('sim_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $simsDataTable->render('sims.index');
   }
 

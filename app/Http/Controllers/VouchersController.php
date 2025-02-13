@@ -35,6 +35,9 @@ class VouchersController extends Controller
    */
   public function index(VouchersDataTable $vouchersDataTable)
   {
+    if (!auth()->user()->hasPermissionTo('voucher_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $vouchersDataTable->render('vouchers.index');
   }
 

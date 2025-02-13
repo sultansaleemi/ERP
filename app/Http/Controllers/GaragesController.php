@@ -25,6 +25,10 @@ class GaragesController extends AppBaseController
    */
   public function index(GaragesDataTable $garagesDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('garage_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $garagesDataTable->render('garages.index');
   }
 

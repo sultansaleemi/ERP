@@ -9,10 +9,12 @@
                     <h3>Garages</h3>
                 </div>
                 <div class="col-sm-6">
+                  @can('garage_create')
                     <a class="btn btn-primary action-btn show-modal"
                     href="javascript:void(0);" data-size="md" data-title="New" data-action="{{ route('garages.create') }}">
                         Add New
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

@@ -21,9 +21,10 @@ class Transactions extends Model
   {
     return $this->hasOne(Accounts::class, 'id', 'account_id');
   }
+  function voucher()
+  {
+    return $this->hasOne(Vouchers::class, 'trans_code', 'trans_code');
+  }
 
 }
 
-
-
-?>

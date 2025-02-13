@@ -26,6 +26,8 @@ class LedgerDataTable extends DataTable
       'date' => '<b>Balance Forward</b>',
       'account_name' => '',
       'billing_month' => '',
+      'voucher' => '',
+      'narration' => '',
       'debit' => '',
       'credit' => '',
       'balance' => number_format($openingBalance, 2),
@@ -38,14 +40,16 @@ class LedgerDataTable extends DataTable
       $data[] = [
         'date' => Common::DateFormat($row->created_at),
         'account_name' => $row->account->name ?? 'N/A',
-        'billing_month' => $row->billing_month,
+        'billing_month' => date('M Y', strtotime($row->billing_month)),
+        'voucher' => '<a href="' . route('vouchers.show', $row->voucher->id) . '" target="_blank">' . $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT) . '</a>',
+        'narration' => $row->narration,
         'debit' => number_format($row->debit, 2),
         'credit' => number_format($row->credit, 2),
         'balance' => number_format($runningBalance, 2),
       ];
     }
 
-    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance']);
+    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'voucher']);
   }
 
   /**
@@ -123,8 +127,10 @@ class LedgerDataTable extends DataTable
   {
     return [
       'date',
-      'account_name',
-      'billing_month',
+      'account_name' => ['title' => 'Account'],
+      'billing_month' => ['title' => 'Month'],
+      'voucher',
+      'narration',
       'debit',
       'credit',
       'balance'

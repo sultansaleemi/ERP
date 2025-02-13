@@ -9,10 +9,12 @@
                     <h3>Accounts</h3>
                 </div>
                 <div class="col-sm-6">
+                  @can('account_create')
                     <a class="btn btn-primary float-right action-btn show-modal"
                        href="javascript:void(0);" data-action="{{ route('accounts.create') }}" data-size="lg" data-title="New Account">
                         Add New
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

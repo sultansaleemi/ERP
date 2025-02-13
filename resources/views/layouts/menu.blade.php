@@ -6,69 +6,84 @@
      {{--  <div class="badge bg-white text-dark rounded-pill ms-auto">2</div>  --}}
     </a>
   </li>
-
+@can('item_view')
   <li class="menu-item {{ Request::is('items*') ? 'active' : '' }}">
     <a href="{{ route('items.index') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-notes"></i>
         <div>Items</div>
     </a>
 </li>
-
+@endcan
+@can('customer_view')
 <li class="menu-item {{ Request::is('customers*') ? 'active' : '' }}">
   <a href="{{ route('customers.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-user-star"></i>
       <div>Customers</div>
   </a>
 </li>
+@endcan
+@can('rider_view')
 <li class="menu-item {{ Request::is('riders*') ? 'active' : '' }}">
   <a href="{{ route('riders.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-user-pin"></i>
       <div>Riders</div>
   </a>
 </li>
+@endcan
+@can('bank_view')
 <li class="menu-item {{ Request::is('banks') ? 'active' : '' }}">
   <a href="{{ route('banks.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-building-bank"></i>
       <div>Banks</div>
   </a>
 </li>
+@endcan
+@can('leasing_view')
 <li class="menu-item {{ Request::is('leasingCompanies*') ? 'active' : '' }}">
   <a href="{{ route('leasingCompanies.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-building"></i>
       <div>Leasing Companies</div>
   </a>
 </li>
+@endcan
+@can('garage_view')
 <li class="menu-item {{ Request::is('garages*') ? 'active' : '' }}">
   <a href="{{ route('garages.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-parking"></i>
       <div>Garages</div>
   </a>
 </li>
+@endcan
+@can('voucher_view')
 <li class="menu-item {{ Request::is('vouchers*') ? 'active' : '' }}">
   <a href="{{ route('vouchers.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-device-sim"></i>
       <div>Vouchers</div>
   </a>
 </li>
+@endcan
+@can('bike_view')
 <li class="menu-item {{ Request::is('bikes*') ? 'active' : '' }}">
   <a href="{{ route('bikes.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-motorbike"></i>
       <div>Bikes</div>
   </a>
 </li>
-
+@endcan
+@can('sim_view')
 <li class="menu-item {{ Request::is('sims*') ? 'active' : '' }}">
   <a href="{{ route('sims.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-device-sim"></i>
       <div>Sims</div>
   </a>
 </li>
+@endcan
 
 
 
 
 
-
+@canany(['account_view','gn_ledger'])
  <li class="menu-item {{ Request::is('accounts*') ? 'open' : '' }} {">
   <a href="javascript:void(0);" class="menu-link menu-toggle ">
     <i class="menu-icon tf-icons ti ti-graph"></i>
@@ -83,12 +98,16 @@
         </a>
       </li>
  --}}
+ @can('account_view')
       <li class="menu-item {{ Request::is('accounts/tree') ? 'active' : '' }}">
         <a href="{{ route('accounts.tree') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
             <div>Chart Of Accounts</div>
         </a>
       </li>
+      @endcan
+
+      @can('gn_ledger')
 
       <li class="menu-item {{ Request::is('accounts/transactions') ? 'active' : '' }}">
         <a href="{{ route('accounts.transactions') }}" class="menu-link">
@@ -96,11 +115,12 @@
             <div>Transactions</div>
         </a>
       </li>
+      @endcan
 
 
   </ul>
 </li>
-
+@endcan
 
   @can('user_view')
   <li class="menu-item {{ Request::is('users*') ? 'open' : '' }} {{ Request::is('roles*') ? 'open' : '' }}">
@@ -138,27 +158,30 @@
 </li>
 @endcan
 
-
+@canany(['gn_settings','department_view','dropdown_view'])
 <li class="menu-item {{ Request::is('settings*') ? 'open' : '' }} {">
   <a href="javascript:void(0);" class="menu-link menu-toggle ">
     <i class="menu-icon tf-icons ti ti-settings"></i>
     <div data-i18n="Front Pages">Company Settings</div>
   </a>
   <ul class="menu-sub">
-
+    @can('gn_settings')
       <li class="menu-item {{ Request::is('settings/company') ? 'active' : '' }}">
         <a href="{{ route('settings') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
             <div>Settings</div>
         </a>
       </li>
-
+@endcan
+@can('department_view')
       <li class="menu-item {{ Request::is('settings/departments') ? 'active' : '' }}">
         <a href="{{ route('departments.index') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
             <div>Departments</div>
         </a>
       </li>
+      @endcan
+      @can('dropdown_view')
 
       <li class="menu-item {{ Request::is('settings/dropdowns') ? 'active' : '' }}">
         <a href="{{ route('dropdowns.index') }}" class="menu-link">
@@ -166,8 +189,10 @@
             <div>Dropdowns</div>
         </a>
       </li>
+      @endcan
 
   </ul>
 </li>
+@endcan
 
 

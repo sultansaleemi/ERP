@@ -27,6 +27,10 @@ class CustomersController extends AppBaseController
    */
   public function index(CustomersDataTable $customersDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('customer_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $customersDataTable->render('customers.index');
   }
 

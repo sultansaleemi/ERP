@@ -8,12 +8,12 @@
                     <h3>Departments</h3>
                 </div>
                 <div class="col-sm-6">
-                    {{-- @can('department_create') --}}
+                    @can('department_create')
                     <a class="btn btn-primary float-right show-modal" style="float:right;"
                     href="javascript:void(0);" data-title="Add New" data-size="sm" data-action="{{ route('departments.create') }}">
                         Add New
                     </a>
-                  {{--   @endcan --}}
+                    @endcan
                 </div>
             </div>
         </div>

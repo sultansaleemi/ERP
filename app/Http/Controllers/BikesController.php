@@ -25,6 +25,10 @@ class BikesController extends AppBaseController
    */
   public function index(BikesDataTable $bikesDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('bike_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $bikesDataTable->render('bikes.index');
   }
 

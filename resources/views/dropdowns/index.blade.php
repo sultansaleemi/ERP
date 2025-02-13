@@ -9,12 +9,12 @@
                     <h3>Dropdowns</h3>
                 </div>
                 <div class="col-sm-6">
-                  @role('Administrator')
+                  @can('dropdown_create')
                     <a class="btn btn-primary action-btn show-modal"
                     href="javascript:void(0);" data-size="lg" data-title="New Dropdown" data-action="{{ route('dropdowns.create') }}">
                         Add New
                     </a>
-                    @endrole
+                    @endcan
                 </div>
             </div>
         </div>

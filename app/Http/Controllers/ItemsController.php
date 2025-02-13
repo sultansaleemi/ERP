@@ -25,6 +25,10 @@ class ItemsController extends AppBaseController
    */
   public function index(ItemsDataTable $itemsDataTable)
   {
+
+    if (!auth()->user()->hasPermissionTo('item_view')) {
+      abort(403, 'Unauthorized action.');
+    }
     return $itemsDataTable->render('items.index');
   }
 

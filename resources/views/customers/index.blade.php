@@ -9,10 +9,12 @@
                     <h3>Customers</h3>
                 </div>
                 <div class="col-sm-6">
+                  @can('customer_create')
                     <a class="btn btn-primary action-btn show-modal"
                     href="javascript:void(0);" data-size="lg" data-title="New Customer" data-action="{{ route('customers.create') }}">
                         Add New
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

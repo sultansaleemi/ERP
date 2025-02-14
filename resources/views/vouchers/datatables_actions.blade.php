@@ -18,7 +18,7 @@
     data-action="{{ route('vouchers.edit', $trans_code) }}" class='btn btn-info btn-sm show-modal'>
         <i class="fa fa-edit"></i>
     </a>
-    {{-- @endcan --}}
+    @endcan
     @can('voucher_delete')
 
     {!! Form::button('<i class="fa fa-trash"></i>', [

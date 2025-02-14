@@ -23,11 +23,11 @@ class LedgerDataTable extends DataTable
 
     // Add Balance Forward row at the top
     $data[] = [
-      'date' => '<b>Balance Forward</b>',
+      'date' => '',
       'account_name' => '',
       'billing_month' => '',
       'voucher' => '',
-      'narration' => '',
+      'narration' => '<b>Balance Forward</b>',
       'debit' => '',
       'credit' => '',
       'balance' => number_format($openingBalance, 2),
@@ -49,7 +49,7 @@ class LedgerDataTable extends DataTable
       ];
     }
 
-    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'voucher']);
+    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'voucher', 'narration']);
   }
 
   /**

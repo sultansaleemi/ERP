@@ -350,19 +350,19 @@ class VouchersController extends Controller
 
   public function fileUpload(Request $request, $id)
   {
-
+    $voucher = Vouchers::find($id);
     if (isset($request->attach_file)) {
       $photo = $request->attach_file;
       $docFile = $photo->store('public/vouchers');
       $data['attach_file'] = basename($docFile);
-      $voucher = Vouchers::find($id);
+
       $voucher->attach_file = $data['attach_file'];
       $voucher->save();
 
 
     }
 
-    return view('vouchers.attach_file', compact('id'));
+    return view('vouchers.attach_file', compact('id', 'voucher'));
 
 
   }

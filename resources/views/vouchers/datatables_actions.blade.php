@@ -1,11 +1,11 @@
 {!! Form::open(['route' => ['vouchers.destroy', $trans_code], 'method' => 'delete','id'=>'formajax']) !!}
 <div class='btn-group'>
-    @can('jv_view')
+  @can('voucher_edit')
     <a  href="javascript:void(0);" data-size="sm" data-title="Upload Document"
-    data-action="{{ url('attach_file/'.$id) }}"  class='btn btn-success btn-sm show-modal'>
+    data-action="{{ url('voucher/attach_file/'.$id) }}"  class='btn btn-success btn-sm show-modal'>
         <i class="fa fa-file"></i>
     </a>
-    @endcan
+@endcan
     @can('voucher_view')
     <a href="{{ route('vouchers.show', $id) }}" target="_blank" class='btn btn-default btn-sm'>
         <i class="fa fa-eye"></i>

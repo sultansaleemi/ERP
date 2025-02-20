@@ -27,7 +27,7 @@
                                 <input type="file" name="documents[{{$file->type}}][file_name]"  />
                             </div>
                             <div class="col-3">
-                                <a href="{{ Storage::url('app/rider/'.$file->file_name)}}" class="btn btn-default" target="_blank">
+                                <a href="{{ url('storage2/rider/'.$file->file_name)}}" class="btn btn-default" target="_blank">
 
                                 @if($file->file_type == 'pdf')
                                     <i class="fa fa-file-pdf text-danger"></i>

@@ -1,5 +1,5 @@
 @if($voucher->attach_file)
-<a href="{{ Storage::url('app/public/vouchers/'.$voucher->attach_file)}}" class="btn btn-default" target="_blank">
+<a href="{{ url('storage/vouchers/'.$voucher->attach_file) }}" class="btn btn-default" target="_blank">
   @if(in_array($voucher->attach_file,['jpeg','jpg','png']))
       <i class="fa fa-file-image text-primary"></i>
       @else

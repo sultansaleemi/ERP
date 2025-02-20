@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\VouchersController;
@@ -92,6 +93,9 @@ Route::middleware(['auth', 'web'])->group(function () {
   });
 
 });
+
+Route::get('/storage/{folder}/{filename}', [FileController::class, 'show'])->where('filename', '.*');
+Route::get('/storage2/{folder}/{filename}', [FileController::class, 'root'])->where('filename', '.*');
 
 
 Route::get('/artisan-cache', function () {

@@ -36,7 +36,7 @@ if(is_numeric(request()->segment(3))){
                 @csrf
             @php
                         if(@$result['image_name']){
-                            $image_name = Storage::url('app/profile/'.$result['image_name']);
+                            $image_name = url('storage2/profile/'.$result['image_name']);//Storage::url('app/profile/'.$result['image_name']);
                         }else{
                             $image_name = asset('public/uploads/default.png');
                         }
@@ -129,7 +129,7 @@ if(is_numeric(request()->segment(3))){
                                 @endisset
                          </li>
                          <li class="list-group-item pb-1 ">
-                            <b>Balance</b> <span class="float-right">@isset($rider->account->id){{App\Helpers\Account::show_bal(App\Helpers\Account::Monthly_ob(date('y-m-d'), $rider->account->id))??'not-set'}}@endisset</span>
+                            <b>Balance</b> <span class="float-right">{{-- @isset($rider->account->id){{App\Helpers\Account::show_bal(App\Helpers\Account::Monthly_ob(date('y-m-d'), $rider->account->id))??'not-set'}}@endisset --}}</span>
                          </li>
                       </ul>
 

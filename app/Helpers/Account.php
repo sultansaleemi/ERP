@@ -7,6 +7,7 @@ use App\Models\Accounts\Transaction;
 use App\Models\Accounts\TransactionAccount;
 use App\Models\Rider;
 use App\Models\RiderInvoice;
+use App\Models\Riders;
 use App\Models\Transactions;
 use App\Models\Vouchers;
 use DB;
@@ -114,17 +115,17 @@ class Account
   {
     $df = date('Y-m-d', strtotime('0 day', strtotime('2015-08-10')));
     $dt = date('Y-m-d', strtotime('-1 day', strtotime($date)));
-    $ob_res = TransactionAccount::find($tid);
+    $ob_res = Accounts::find($tid);
     if ($ob_res->OB_Type == '1') {
       $opening_balance = $ob_res->OB;
     } else {
       $opening_balance = -$ob_res->OB;
     }
-    $dr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
+    $dr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
       ->where(function ($query) use ($df, $dt) {
         $query->WhereBetween('trans_date', [$df, $dt]);
       })->sum('amount');
-    $cr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
+    $cr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
       ->where(function ($query) use ($df, $dt) {
         $query->WhereBetween('trans_date', [$df, $dt]);
       })->sum('amount');
@@ -138,18 +139,18 @@ class Account
   }
   public static function Monthly_ob($date, $tid)
   {
-    $ob_res = TransactionAccount::find($tid);
+    $ob_res = Accounts::find($tid);
     if ($ob_res->OB_Type == '1') {
       $opening_balance = $ob_res->OB;
     } else {
       $opening_balance = -$ob_res->OB;
     }
-    $dr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
+    $dr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
       ->where(function ($query) use ($date) {
         $query->whereDate('billing_month', '<', $date)/* ->orWhereNull('billing_month') */ ;
       })->sum('amount');
 
-    $cr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
+    $cr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
       ->where(function ($query) use ($date) {
         $query->whereDate('billing_month', '<', $date)/* ->orWhereNull('billing_month') */ ;
       })->sum('amount');
@@ -164,18 +165,18 @@ class Account
   }
   public static function BillingMonth_Balance($date, $tid)
   {
-    $ob_res = TransactionAccount::find($tid);
+    $ob_res = Accounts::find($tid);
     if ($ob_res->OB_Type == '1') {
       $opening_balance = $ob_res->OB;
     } else {
       $opening_balance = -$ob_res->OB;
     }
-    $dr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
+    $dr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 1])
       ->where(function ($query) use ($date) {
         $query->whereDate('billing_month', '=', $date)/* ->orWhereNull('billing_month') */ ;
       })->sum('amount');
 
-    $cr = Transaction::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
+    $cr = Transactions::where(['trans_acc_id' => $tid, 'dr_cr' => 2])
       ->where(function ($query) use ($date) {
         $query->whereDate('billing_month', '=', $date)/* ->orWhereNull('billing_month') */ ;
       })->sum('amount');
@@ -313,14 +314,14 @@ class Account
 
   public static function getRider($id)
   {
-    return Rider::find($id);
+    return Riders::find($id);
   }
 
   public static function getVouchers($rider_id, $billing_month, $vt)
   {
-    $RTAID = TransactionAccount::where(['PID' => 21, 'Parent_Type' => $rider_id])->value('id');
+    $RTAID = Accounts::where(['PID' => 21, 'Parent_Type' => $rider_id])->value('id');
 
-    $result = Transaction::select(\DB::raw('SUM(amount) as charges'))
+    $result = Transactions::select(\DB::raw('SUM(amount) as charges'))
       ->where('trans_acc_id', $RTAID)->where('vt', $vt);
     if ($billing_month) {
       $result = $result->where('billing_month', $billing_month);
@@ -331,9 +332,9 @@ class Account
   }
   public static function getVouchersTillMonth($rider_id, $billing_month, $vt)
   {
-    $RTAID = TransactionAccount::where(['PID' => 21, 'Parent_Type' => $rider_id])->value('id');
+    $RTAID = Accounts::where(['PID' => 21, 'Parent_Type' => $rider_id])->value('id');
 
-    $result = Transaction::select(\DB::raw('SUM(amount) as charges'))
+    $result = Transactions::select(\DB::raw('SUM(amount) as charges'))
       ->where('trans_acc_id', $RTAID)->where('vt', $vt);
     if ($billing_month) {
       $result = $result->where('billing_month', '<', $billing_month);
@@ -373,7 +374,7 @@ class Account
     $tData['dr_cr'] = 1;
     $tData['amount'] = $data['amount'];
     $tData['narration'] = $data['narration'];
-    Transaction::create($tData);
+    Transactions::create($tData);
 
 
     //cr to compnay
@@ -381,7 +382,7 @@ class Account
     $tData['trans_acc_id'] = $data['payment_from'];
     $tData['dr_cr'] = 2;
     $tData['amount'] = $data['amount'];
-    Transaction::create($tData);
+    Transactions::create($tData);
 
     //creating/updating voucher
     $vdata['trans_date'] = $data['trans_date'];

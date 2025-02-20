@@ -88,6 +88,9 @@ ADD COLUMN `account_id`  bigint(20) NULL AFTER `updated_at`;
 
 ALTER TABLE `vouchers`
 MODIFY COLUMN `voucher_type`  varchar(20) NULL DEFAULT '1' AFTER `payment_type`;
+--------------
+
+INSERT INTO `permissions` (`parent_id`, `name`, `guard_name`) VALUES ('102', 'voucher_document', 'web');
 
 
 

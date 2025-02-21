@@ -91,6 +91,11 @@ MODIFY COLUMN `voucher_type`  varchar(20) NULL DEFAULT '1' AFTER `payment_type`;
 --------------
 
 INSERT INTO `permissions` (`parent_id`, `name`, `guard_name`) VALUES ('102', 'voucher_document', 'web');
+------------
+
+ALTER TABLE `transactions`
+ADD COLUMN `trans_date`  date NULL AFTER `id`;
+
 
 
 

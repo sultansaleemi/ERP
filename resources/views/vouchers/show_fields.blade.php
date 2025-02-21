@@ -100,7 +100,7 @@
           <tr>
                 <td style="padding: 5px;border:1px solid">{{ $i+=1 }}</td>
                 <td style="padding: 5px;border:1px solid">
-                   {{@$item->account->name}}
+                  {{@$item->account->account_code}}-{{@$item->account->name}}
                 </td>
                 <td style="padding: 5px;border:1px solid;text-align: left">{{ $item->narration }}</td>
                 <td style="padding:5px;border:1px solid;text-align: right;">{{ $item->debit }}</td>

@@ -18,6 +18,7 @@ class TransactionService
       'reference_id' => $data['reference_id'],
       'reference_type' => $data['reference_type'],
       'trans_code' => $data['trans_code'],
+      'trans_date' => $data['trans_date'],
       'narration' => $data['narration'],
       'debit' => $data['debit'] ?? 0,
       'credit' => $data['credit'] ?? 0,

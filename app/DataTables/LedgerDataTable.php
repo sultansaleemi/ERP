@@ -38,7 +38,7 @@ class LedgerDataTable extends DataTable
       $runningBalance += $row->debit - $row->credit;
 
       $data[] = [
-        'date' => Common::DateFormat($row->created_at),
+        'date' => Common::DateFormat($row->trans_date),
         'account_name' => $row->account->name ?? 'N/A',
         'billing_month' => date('M Y', strtotime($row->billing_month)),
         'voucher' => '<a href="' . route('vouchers.show', $row->voucher->id) . '" target="_blank">' . $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT) . '</a>',

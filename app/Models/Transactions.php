@@ -8,6 +8,7 @@ class Transactions extends Model
 {
   protected $fillable = [
     'trans_code',
+    'trans_date',
     'reference_id',
     'reference_type',
     'account_id',

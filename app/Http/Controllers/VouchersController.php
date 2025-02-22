@@ -64,10 +64,10 @@ class VouchersController extends Controller
 
     $request->billing_month = $request->billing_month . "-01";
 
-    if (array_sum($request->dr_amount) != array_sum($request->cr_amount)) {
+    /* if (array_sum($request->dr_amount) != array_sum($request->cr_amount)) {
 
       return response()->json(['errors' => ['error' => 'Total debit and credit must be equal.']], 422);
-    }
+    } */
 
     /** @var Vouchers $vouchers */
     if ($request->voucher_type == 'JV') {
@@ -168,10 +168,10 @@ class VouchersController extends Controller
 
     $request->billing_month = $request->billing_month . "-01";
 
-    if (array_sum($request->dr_amount) != array_sum($request->cr_amount)) {
+    /* if (array_sum($request->dr_amount) != array_sum($request->cr_amount)) {
 
       return response()->json(['errors' => ['error' => 'Total debit and credit must be equal.']], 422);
-    }
+    } */
 
     if (empty($vouchers)) {
       Flash::error('Vouchers not found');

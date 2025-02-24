@@ -86,7 +86,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('tree', [\App\Http\Controllers\AccountsController::class, 'tree'])->name('accounts.tree');
 
     Route::get('/ledgerreport', [LedgerController::class, 'ledger'])->name('accounts.ledgerreport');
-    Route::get('/transactions', [LedgerController::class, 'index'])->name('accounts.transactions');
+    Route::get('/ledger', [LedgerController::class, 'index'])->name('accounts.ledger');
     Route::get('/ledger/data', [LedgerController::class, 'getLedgerData'])->name('ledger.data');
 
 

@@ -9,10 +9,18 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <style>
-            body {margin: 20px}
-        </style>
-    </head>
-    <body>
+          body {margin: 20px}
+          @media print
+{
+  .no-print, .no-print *
+  {
+      display: none !important;
+  }
+}
+      </style>
+  </head>
+  <body>
+    <a href="{{url()->previous()}}" class="btn btn-primary no-print">Back</a>
         <table class="table table-bordered table-condensed table-striped">
             @foreach($data as $row)
                 @if ($loop->first)
@@ -33,5 +41,8 @@
                 </tr>
             @endforeach
         </table>
+        <script>
+          window.print();
+        </script>
     </body>
 </html>

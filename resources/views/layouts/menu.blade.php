@@ -109,10 +109,10 @@
 
       @can('gn_ledger')
 
-      <li class="menu-item {{ Request::is('accounts/transactions') ? 'active' : '' }}">
-        <a href="{{ route('accounts.transactions') }}" class="menu-link">
+      <li class="menu-item {{ Request::is('accounts/ledger') ? 'active' : '' }}">
+        <a href="{{ route('accounts.ledger') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-settings"></i>
-            <div>Transactions</div>
+            <div>Ledger</div>
         </a>
       </li>
       @endcan

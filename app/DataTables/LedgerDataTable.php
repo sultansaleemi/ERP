@@ -36,13 +36,16 @@ class LedgerDataTable extends DataTable
     // Process transactions and maintain running balance
     foreach ($transactions as $row) {
       $runningBalance += $row->debit - $row->credit;
-
+      $view_file = '';
+      if ($row->voucher->attach_file) {
+        $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '"  target="_blank">View File</a>';
+      }
       $data[] = [
         'date' => Common::DateFormat($row->trans_date),
-        'account_name' => $row->account->name ?? 'N/A',
+        'account_name' => $row->account->account_code . '-' . $row->account->name ?? 'N/A',
         'billing_month' => date('M Y', strtotime($row->billing_month)),
         'voucher' => '<a href="' . route('vouchers.show', $row->voucher->id) . '" target="_blank">' . $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT) . '</a>',
-        'narration' => $row->narration,
+        'narration' => $row->narration . $view_file,
         'debit' => number_format($row->debit, 2),
         'credit' => number_format($row->credit, 2),
         'balance' => number_format($runningBalance, 2),
@@ -95,7 +98,7 @@ class LedgerDataTable extends DataTable
       ->parameters([
         'dom' => 'Bfrtip',
         'order' => [[0, 'asc']], // Order by date ascending
-        'orderable' => false,
+        'ordering' => false,
         'pageLength' => 50,
         'stateSave' => true, // Ensures balance maintains on pagination
         'responsive' => true,
@@ -113,8 +116,8 @@ class LedgerDataTable extends DataTable
           // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+          ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+          //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
         ],
       ]);

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title','Transactions')
+@section('title','Ledger')
 @section('content')
 <div class="container">
-    <h2>Transactions</h2>
+    <h2>Ledger</h2>
 <form action="" method="get">
     <div class="row mb-3">
         <div class="col-md-3">

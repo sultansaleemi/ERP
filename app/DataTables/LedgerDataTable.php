@@ -38,13 +38,14 @@ class LedgerDataTable extends DataTable
       $runningBalance += $row->debit - $row->credit;
       $view_file = '';
       if ($row->voucher->attach_file) {
-        $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '"  target="_blank">View File</a>';
+        $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print"  target="_blank">View File</a>';
       }
+      $vouhcer_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
       $data[] = [
         'date' => Common::DateFormat($row->trans_date),
         'account_name' => $row->account->account_code . '-' . $row->account->name ?? 'N/A',
         'billing_month' => date('M Y', strtotime($row->billing_month)),
-        'voucher' => '<a href="' . route('vouchers.show', $row->voucher->id) . '" target="_blank">' . $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT) . '</a>',
+        'voucher' => '<span class="d-none">' . $vouhcer_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $vouhcer_ID . '</a>',
         'narration' => $row->narration . $view_file,
         'debit' => number_format($row->debit, 2),
         'credit' => number_format($row->credit, 2),

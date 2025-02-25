@@ -27,8 +27,8 @@ class LedgerDataTable extends DataTable
     $data[] = [
       'date' => '',
       'account_name' => '',
-      /* 'billing_month' => '',
-      'voucher' => '', */
+      'billing_month' => '',
+      'voucher' => '',
       'narration' => '<b>Balance Forward</b>',
       'debit' => '',
       'credit' => '',
@@ -51,9 +51,9 @@ class LedgerDataTable extends DataTable
       $data[] = [
         'date' => "<span style='white-space: nowrap;'>" . Common::DateFormat($row->trans_date) . "</span>",
         'account_name' => $row->account->account_code . '-' . $row->account->name ?? 'N/A',
-        /* 'billing_month' => $month,
-        'voucher' => '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>', */
-        'narration' => $row->narration . ", <b>Month:</b>" . $month . ', #' . $voucher_text . ', ' . $view_file,
+        'billing_month' => $month,
+        'voucher' => $voucher_text,
+        'narration' => $row->narration . ', ' . $view_file,
         $view_file,
         'debit' => number_format($row->debit, 2),
         'credit' => number_format($row->credit, 2),
@@ -65,15 +65,15 @@ class LedgerDataTable extends DataTable
     $data[] = [
       'date' => '',
       'account_name' => '',
-      /*  'billing_month' => '',
-       'voucher' => '', */
+      'billing_month' => '',
+      'voucher' => '',
       'narration' => '<b>Total</b>',
       'debit' => '<b>' . number_format($totalDebit, 2) . '</b>',
       'credit' => '<b>' . number_format($totalCredit, 2) . '</b>',
       'balance' => '<b>' . number_format($runningBalance, 2) . '</b>',
     ];
 
-    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'narration']);
+    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'narration', 'voucher', 'billing_month']);
   }
 
   /**
@@ -117,7 +117,10 @@ class LedgerDataTable extends DataTable
       ->columns($this->getColumns())
       ->minifiedAjax()
       ->parameters([
-        'dom' => 'Bfrtip',
+        'dom' => "<'row'<'col-md-6'><'col-md-6 d-flex justify-content-end'B>>" . // Export buttons fully right-aligned
+          "<'row'<'col-md-6'><'col-md-6'f>>" . // Search box on the right
+          "<'row'<'col-md-12'tr>>" .
+          "<'row'<'col-md-5'i><'col-md-7'p>>", // Info (left) and Pagination (right)
         'order' => [[0, 'asc']], // Order by date ascending
         'ordering' => false,
         'pageLength' => 50,
@@ -129,13 +132,13 @@ class LedgerDataTable extends DataTable
                         return typeof i === 'string' ? parseFloat(i.replace(/[\$,]/g, '')) : (typeof i === 'number' ? i : 0);
                     };
 
-                    totalDebit = api.column(3, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
-                    totalCredit = api.column(4, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
-                    totalBalance = api.column(5, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                    totalDebit = api.column(5, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                    totalCredit = api.column(6, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                    totalBalance = api.column(7, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
 
-                    $(api.column(3).footer()).html('<b>' + totalDebit.toFixed(2) + '</b>');
-                    $(api.column(4).footer()).html('<b>' + totalCredit.toFixed(2) + '</b>');
-                    $(api.column(5).footer()).html('<b>' + totalBalance.toFixed(2) + '</b>');
+                    $(api.column(5).footer()).html('<b>' + totalDebit.toFixed(2) + '</b>');
+                    $(api.column(6).footer()).html('<b>' + totalCredit.toFixed(2) + '</b>');
+                    $(api.column(7).footer()).html('<b>' + totalBalance.toFixed(2) + '</b>');
                 }",
         'buttons' => [
           ['extend' => 'excel', 'className' => 'btn btn-success btn-sm no-corner', 'text' => '<i class="fa fa-file-excel"></i>&nbsp;Export to Excel'],
@@ -154,8 +157,8 @@ class LedgerDataTable extends DataTable
     return [
       'date',
       'account_name' => ['title' => 'Account'],
-      /* 'billing_month' => ['title' => 'Month'],
-      'voucher', */
+      'billing_month' => ['title' => 'Month'],
+      'voucher',
       'narration',
       'debit',
       'credit',

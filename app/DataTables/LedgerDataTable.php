@@ -20,13 +20,15 @@ class LedgerDataTable extends DataTable
 
     $data = [];
     $runningBalance = $openingBalance;
+    $totalDebit = 0;
+    $totalCredit = 0;
 
     // Add Balance Forward row at the top
     $data[] = [
       'date' => '',
       'account_name' => '',
-      'billing_month' => '',
-      'voucher' => '',
+      /* 'billing_month' => '',
+      'voucher' => '', */
       'narration' => '<b>Balance Forward</b>',
       'debit' => '',
       'credit' => '',
@@ -36,24 +38,42 @@ class LedgerDataTable extends DataTable
     // Process transactions and maintain running balance
     foreach ($transactions as $row) {
       $runningBalance += $row->debit - $row->credit;
+      $totalDebit += $row->debit;
+      $totalCredit += $row->credit;
+
       $view_file = '';
       if ($row->voucher->attach_file) {
         $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print"  target="_blank">View File</a>';
       }
-      $vouhcer_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
+      $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
+      $month = "<span style='white-space: nowrap;'>" . date('M Y', strtotime($row->billing_month)) . "</span>";
+      $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
       $data[] = [
-        'date' => Common::DateFormat($row->trans_date),
+        'date' => "<span style='white-space: nowrap;'>" . Common::DateFormat($row->trans_date) . "</span>",
         'account_name' => $row->account->account_code . '-' . $row->account->name ?? 'N/A',
-        'billing_month' => date('M Y', strtotime($row->billing_month)),
-        'voucher' => '<span class="d-none">' . $vouhcer_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $vouhcer_ID . '</a>',
-        'narration' => $row->narration . $view_file,
+        /* 'billing_month' => $month,
+        'voucher' => '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>', */
+        'narration' => $row->narration . ", <b>Month:</b>" . $month . ', #' . $voucher_text . ', ' . $view_file,
+        $view_file,
         'debit' => number_format($row->debit, 2),
         'credit' => number_format($row->credit, 2),
         'balance' => number_format($runningBalance, 2),
       ];
     }
 
-    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'voucher', 'narration']);
+    // Add Total Row at the Bottom
+    $data[] = [
+      'date' => '',
+      'account_name' => '',
+      /*  'billing_month' => '',
+       'voucher' => '', */
+      'narration' => '<b>Total</b>',
+      'debit' => '<b>' . number_format($totalDebit, 2) . '</b>',
+      'credit' => '<b>' . number_format($totalCredit, 2) . '</b>',
+      'balance' => '<b>' . number_format($runningBalance, 2) . '</b>',
+    ];
+
+    return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'narration']);
   }
 
   /**
@@ -84,7 +104,7 @@ class LedgerDataTable extends DataTable
     }
 
     return Transactions::where('account_id', request('account'))
-      ->whereDate('billing_month', '<', request(key: 'month') . '-01')
+      ->whereDate('billing_month', '<', request('month') . '-01')
       ->sum(DB::raw("debit - credit"));
   }
 
@@ -103,23 +123,25 @@ class LedgerDataTable extends DataTable
         'pageLength' => 50,
         'stateSave' => true, // Ensures balance maintains on pagination
         'responsive' => true,
-        /* 'stateLoadCallback' => 'function(settings) {
-                var savedState = localStorage.getItem(settings.sInstance);
-                if (savedState) {
-                    var state = JSON.parse(savedState);
-                    state.length = 50; // Force default page length
-                    state.orderable = false; // Force default page length
-                    return state;
-                }
-                return null;
-            }', */
+        'footerCallback' => "function(row, data, start, end, display) {
+                    var api = this.api();
+                    var intVal = function(i) {
+                        return typeof i === 'string' ? parseFloat(i.replace(/[\$,]/g, '')) : (typeof i === 'number' ? i : 0);
+                    };
+
+                    totalDebit = api.column(3, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                    totalCredit = api.column(4, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                    totalBalance = api.column(5, { page: 'current' }).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+
+                    $(api.column(3).footer()).html('<b>' + totalDebit.toFixed(2) + '</b>');
+                    $(api.column(4).footer()).html('<b>' + totalCredit.toFixed(2) + '</b>');
+                    $(api.column(5).footer()).html('<b>' + totalBalance.toFixed(2) + '</b>');
+                }",
         'buttons' => [
-          // Enable Buttons as per your need
-//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-          ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-          //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+          ['extend' => 'excel', 'className' => 'btn btn-success btn-sm no-corner', 'text' => '<i class="fa fa-file-excel"></i>&nbsp;Export to Excel'],
+          //['extend' => 'pdf', 'className' => 'btn btn-danger btn-sm no-corner', 'text' => 'Export to PDF'],
+          //['extend' => 'csv', 'className' => 'btn btn-info btn-sm no-corner', 'text' => 'Export to CSV'],
+          ['extend' => 'print', 'className' => 'btn btn-primary btn-sm no-corner', 'text' => '<i class="fa fa-print"></i>&nbsp;Print'],
         ],
       ]);
   }
@@ -132,8 +154,8 @@ class LedgerDataTable extends DataTable
     return [
       'date',
       'account_name' => ['title' => 'Account'],
-      'billing_month' => ['title' => 'Month'],
-      'voucher',
+      /* 'billing_month' => ['title' => 'Month'],
+      'voucher', */
       'narration',
       'debit',
       'credit',

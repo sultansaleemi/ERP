@@ -36,7 +36,7 @@
 
   </table>
 
-        <table class="table table-bordered table-condensed table-striped">
+        <table class="table table-condensed">
             @foreach($data as $row)
                 @if ($loop->first)
                     <tr>

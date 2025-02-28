@@ -4,9 +4,11 @@
         <i class="fa fa-eye"></i>
     </a> --}}
     @can('account_edit')
+    @if(!$parent_id)
     <a href="javascript:void(0);" data-size="lg" data-title="Edit Account" data-action="{{ route('accounts.edit', $id) }}" class='btn btn-info btn-sm show-modal' >
         <i class="fa fa-edit"></i>
     </a>
+    @endif
     @endcan
 
     @can('account_delete')

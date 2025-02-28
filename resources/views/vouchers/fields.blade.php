@@ -58,9 +58,11 @@
         <div class="scrollbar">
             @if($voucherType == 'JV')
             <h5>Journal Voucher</h5>
-            @include("vouchers.journal_fields")
+            @php($accounts = \App\Models\Accounts::dropdown(null))
             @endif
-            @if($voucherType == 5)
+
+            @include("vouchers.default_fields")
+            {{-- @if($voucherType == 5)
             <h5>Invoice Voucher</h5>
             @include("vouchers.invoice_fields")
             @endif
@@ -71,7 +73,7 @@
             @if(in_array($voucherType,[10,11,8,12,13,14,15,16]))
 
             @include("vouchers.default_fields")
-            @endif
+            @endif --}}
           </div>
            {{--  @if($voucherType == 11)
             <h5>Fuel Voucher</h5>

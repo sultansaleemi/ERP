@@ -1,105 +1,59 @@
-
-<div class="bg-light" style="border-radius:5px;padding:10px;">
-
-
-
-@isset($data)
-<div id="fetchRiderInv" class="bg-white">
-
-    <div class="row ">
-        <div class="col-md-4">
-        Account
+<div id="rows-container" style="width: 98%;">
+  @isset($data)
+      @foreach($data as $entry)
+      <div class="row">
+          <div class="form-group col-md-3">
+              <label for="exampleInputEmail1">Select Account</label>
+              {!! Form::select('account_id[]', $accounts, $entry->account_id??null, ['class' => 'form-control  form-select select2 ']) !!}
+          </div>
+          <div class="form-group col-md-4">
+              <label>Narration</label>
+              <textarea name="narration[]"  class="form-control " rows="10" placeholder="Narration" style="height: 40px !important;">{{$entry->narration}}</textarea>
+          </div>
+          <div class="form-group col-md-2">
+              <label>Dr Amount</label>
+              <input type="number" step="any" name="dr_amount[]" value="{{$entry->debit}}" class="form-control  dr_amount" onchange="getTotal();" placeholder="Paid Amount">
+          </div>
+          <div class="form-group col-md-2">
+              <label>Cr Amount</label>
+              <input type="number" step="any" name="cr_amount[]" value="{{$entry->credit}}" class="form-control  cr_amount" onchange="getTotal();" placeholder="Paid Amount">
+          </div>
+          <div class="form-group col-md-1 d-flex align-items-end">
+            <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-trash"></i></a>
         </div>
-        <div class="col-md-4">
-            Narration
+         {{--  <div class="form-group col-md-1">
+              <label style="visibility: hidden">plus</label>
+              <button type="button" class="btn btn-primary btn-xs new_line"><i class="fa fa-plus"></i> </button>
+          </div> --}}
+      </div>
+      @endforeach
+  @else
+
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Select Account</label>
+            {!! Form::select('account_id[]', $accounts, null, ['class' => 'form-select form-select-sm select2']) !!}
         </div>
-        <div class="col-md-2">
-            Debit
+        <div class="form-group col-md-4">
+            <label>Narration</label>
+            <textarea name="narration[]" class="form-control" rows="10" placeholder="Narration" style="height: 40px !important;"></textarea>
         </div>
-        <div class="col-md-2">
-            Credit
+        <div class="form-group col-md-2">
+            <label>Dr Amount</label>
+            <input type="number" step="any" name="dr_amount[]" class="form-control dr_amount" placeholder="Paid Amount" onchange="getTotal();">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Cr Amount</label>
+            <input type="number" step="any" name="cr_amount[]" class="form-control cr_amount" placeholder="Paid Amount" onchange="getTotal();">
+        </div>
+        <div class="form-group col-md-1 d-flex align-items-end">
+            <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-trash"></i></a>
         </div>
     </div>
-    @foreach($data as $entry)
-
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <br>
-                    @isset($entry->trans_acc->riderDetail)
-                        <input type="hidden" name="id[]" value="{{@$entry->trans_acc->riderDetail->id}}">
-                       {{ @$entry->trans_acc->riderDetail->name.' ('.@$entry->trans_acc->riderDetail->rider_id.')'}}
-                    @else
-                    <input type="hidden" name="id[]" value="{{@$entry->trans_acc->id}}">
-                    {{@$entry->trans_acc->Trans_Acc_Name}}
-                    @endisset
-
-                    @if(in_array($entry->vt,[8,10,11,15]))
-                    @if($entry->SID)
-                    <input type="hidden" name="bike_id[]" value="{{$entry->SID}}">
-                    {{ ' (Bike:'.@$entry->bike->plate.')'}}
-                    @endif
-                    @endif
-                </div>
 
 
-                <div class="form-group col-md-4">
-                    <textarea name="narration[]" class="form-control  narration" rows="10" placeholder="Narration" style="height: 40px !important;">{{$entry->narration}}</textarea>
-                </div>
-               @if($entry->dr_cr == 1)
-                <div class="form-group col-md-2">
-                    <input type="number" step="any" name="amount[]" value="{{$entry->amount}}" class="form-control  dr_amount" placeholder="Paid Amount">
-                </div>
-                @endif
-                @if($entry->dr_cr == 2)
-                <div class="form-group col-md-2">
-                </div>
-                <div class="form-group col-md-2">
-                    <input type="number" step="any" name="amount[]" value="{{$entry->amount}}" class="form-control " placeholder="Paid Amount">
-                </div>
-                @endif
-            </div>
-    @endforeach
+  @endisset
 
-    </div>
-@else
-<div class="row rows-container" >
-    <div class="form-group col-md-4">
-        <label for="exampleInputEmail1">Select Account</label>
+  </div>
 
-            @if(in_array(request('vt'),[14]))
-            {!! Form::select('id[]', App\Models\Accounts::dropdown(null), $vouchers->payment_to??null, ['class' => 'form-select  select2 ','id'=>'RID']) !!}
-            @else
-            {!! Form::select('id[]', App\Models\Riders::dropdown(), $vouchers->payment_to??null, ['class' => 'form-control  form-select select2 ','id'=>'RID']) !!}
-
-
-            @endif
-
-    </div>
-    {{-- @if(in_array(request('vt'),[8,10,11,15]))
-    <div class="form-group col-md-2">
-        <label for="exampleInputEmail1">Select Bike</label>
-        <select name="bike_id[]" class="form-control  select2" id="BIKEID" >
-            <option value="">Select</option>
-            {!! \App\Models\Bike::dropdown(@$vouchers->payment_to) !!}
-        </select>
-    </div>
-@endif --}}
-    <div class="form-group col-md-3">
-        <label>Narration</label>
-        <textarea name="narration[]" id="narration" class="form-control  narration" rows="10" placeholder="Narration" style="height: 40px !important;"></textarea>
-    </div>
-    <div class="form-group col-md-2">
-        <label>Amount</label>
-        <input type="text" name="amount[]" class="form-control  dr_amount" id="riderAmount" placeholder="Amount" step="any" onchange="getTotal();">
-    </div>
-    <div class="col-md-1"></div>
-
-</div>
-<div class="append-line"></div>
-<button type="button" class="btn btn-success btn-sm @if(in_array(request('vt'),[12,13,16]))new_rider_line @endif @if(in_array(request('vt'),[14]))new_expense_line @endif @if(in_array(request('vt'),[8,10,11,15]))new_bike_line @endif" id="" ><i class="fa fa-plus"></i> Add Row</button>
-
-</div>
-<table id="myTable" class="table order-list">
-</table>
-
-@endisset
+  <button type="button" id="add-new-row" class="btn btn-success btn-sm mt-3 mb-3">Add New</button>

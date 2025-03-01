@@ -50,35 +50,30 @@
 <div style="position: relative;min-height: 100%;height: 100%;">
     <table width="100%" style="font-family: sans-serif;">
         <tr>
-            <td width="33.33%"><img src="{{ URL::asset('assets/img/logo-full.png') }}" width="150" />
-              <h4 style="margin-bottom: 10px;margin-top: 5px;font-size: 14px;">{{$settings['company_name']}}</h4>
-              <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;">{{$settings['company_address']}}</p>
-              <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;"> TRN {{$settings['vat_number']}}</p>
-            </td>
-            <td width="33.33%" style="text-align: center;"></td>
-            <td width="33.33%" style="text-align: right; text-transform: uppercase;">
-              {{$voucher_type}}<br/>
-              {{ $voucher->voucher_type . '-' . str_pad($voucher->id, '4', '0', STR_PAD_LEFT) }}
-            </td>
+            <td width="33.33%"><img src="{{ URL::asset('assets/img/logo-full.png') }}" width="150" /></td>
+            <td width="33.33%" style="text-align: center;"><h4 style="margin-bottom: 10px;margin-top: 5px;font-size: 14px;">{{$settings['company_name']}}</h4>
+                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;">{{$settings['company_address']}}</p>
+                <p style="margin-bottom: 5px;font-size: 14px;margin-top: 5px;"> TRN {{$settings['vat_number']}}</p>
+            <td width="33.33%" style="text-align: right;"></td>
         </tr>
-        {{-- <tr style="text-align: center;">
-            <td colspan="3"><h4 style="margin-bottom: 15px;margin-top: 25px;font-size: 14px;border-bottom: 1px solid #000;border-top: 1px solid #000;padding: 7px 0px;"></h4></td>
-        </tr> --}}
+        <tr style="text-align: center;">
+            <td colspan="3"><h4 style="margin-bottom: 15px;margin-top: 25px;font-size: 14px;border-bottom: 1px solid #000;border-top: 1px solid #000;padding: 7px 0px;">{{$voucher_type}}</h4></td>
+        </tr>
     </table>
 
     @isset($voucher)
-    <table width="100%" style="font-family: sans-serif; margin-top: 20px;font-size: 12px;">
+    <table width="100%" style="font-family: sans-serif; margin-top: 20px;font-size: 12px">
 
         <tr>
-            <td style="padding: 3px;width: 75%;text-align: left;"><strong>Notes</strong>: {{$voucher->reason}}</td>
-            <th style="padding: 3px;width: 15%;text-align: left;">Date:</th>
+            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher No</strong>: {{ $voucher->voucher_type . '-' . str_pad($voucher->id, '4', '0', STR_PAD_LEFT) }}</td>
+            <th style="padding: 3px;width: 15%;text-align: left;">Voucher Date:</th>
             <td style="padding: 3px;width: 20%;text-align: left;">{{ $voucher->trans_date }}</td>
         </tr>
         <tr>
-            <td style="padding: 3px;width: 65%;text-align: left;">{{-- <strong>Voucher Type</strong>:{{$voucher_type}} --}}</td>
+            <td style="padding: 3px;width: 65%;text-align: left;"><strong>Voucher Type</strong>:{{$voucher_type}}</td>
             @isset($voucher->billing_month)
-            <th style="padding: 3px;width: 15%;text-align: left;"> Amount: </th>
-            <td style="padding: 3px;width: 20%;text-align: left;">{{$voucher->amount}}</td>
+            <th style="padding: 3px;width: 15%;text-align: left;"> Billing Month: </th>
+            <td style="padding: 3px;width: 20%;text-align: left;">{{date('M-Y',strtotime($voucher->billing_month))}}</td>
             @endisset
         </tr>
         <tr>
@@ -88,12 +83,12 @@
     </table>
     <table style="width: 100%; font-family: sans-serif;text-align: left;border: 1px solid #000; border-collapse: collapse; margin-top: 20px;font-size: 12px;">
         <thead>
-        <tr style="background-color:#333333;print-color-adjust: exact;-webkit-print-color-adjust: exact;  color: #ffffff;">
-            <th style="border-bottom: 1px solid #000; padding: 10px;width: 20px;">Sr</th>
-            <th style="border-bottom: 1px solid #000; padding: 10px;">Account Name</th>
-           {{--  <th style="border: 1px solid #000; padding: 10px;">Particulars</th> --}}
-            <th style="border-bottom: 1px solid #000; padding: 10px;text-align: right;">Debit</th>
-            <th style="border-bottom: 1px solid #000; padding: 10px;text-align: right;">Credit</th>
+        <tr style="border: 1px solid #000;">
+            <th style="border: 1px solid #000; padding: 10px;width: 20px;">Sr</th>
+            <th style="border: 1px solid #000; padding: 10px;">Account Name</th>
+            <th style="border: 1px solid #000; padding: 10px;">Particulars</th>
+            <th style="border: 1px solid #000; padding: 10px;text-align: right;">Debit</th>
+            <th style="border: 1px solid #000; padding: 10px;text-align: right;">Credit</th>
         </tr>
         </thead>
         <tbody>
@@ -103,15 +98,13 @@
 @endphp
         @foreach($voucher->transactions as $item)
           <tr>
-                <td style="padding: 5px;border-bottom:1px solid">{{ $i+=1 }}</td>
-                <td style="padding: 5px;border-bottom:1px solid">
+                <td style="padding: 5px;border:1px solid">{{ $i+=1 }}</td>
+                <td style="padding: 5px;border:1px solid">
                   {{@$item->account->account_code}}-{{@$item->account->name}}
-                  <br/>
-                  <span style="color:#666666;">{{ $item->narration }}</span>
                 </td>
-{{--                 <td style="padding: 5px;border:1px solid;text-align: left">{{ $item->narration }}</td>
- --}}                <td style="padding:5px;border-bottom:1px solid;text-align: right;">{{ $item->debit }}</td>
-                <td style="padding:5px;border-bottom:1px solid;text-align: right;">{{ $item->credit }}</td>
+                <td style="padding: 5px;border:1px solid;text-align: left">{{ $item->narration }}</td>
+                <td style="padding:5px;border:1px solid;text-align: right;">{{ $item->debit }}</td>
+                <td style="padding:5px;border:1px solid;text-align: right;">{{ $item->credit }}</td>
             </tr>
             @php
                 $totalD+=$item->debit;
@@ -121,11 +114,17 @@
         </tbody>
         <tfoot>
         <tr style="border-top: 1px solid #000;">
-            <td colspan="1" style="padding: 10px;text-align: left;"></td>
-            <th style="padding: 10px;text-align: right;">Net:</th>
+            <td colspan="2" style="padding: 10px;text-align: left;"></td>
+            <th style="padding: 10px;text-align: right;">Sub Total:</th>
             <th style="padding: 10px;text-align: right;">{{ \App\Helpers\Account::show_bal_format($totalD) }}</th>
             <th style="padding: 10px;text-align: right;">{{ \App\Helpers\Account::show_bal_format($totalC) }}</th>
         </tr>
+        <tr style="border-top: 1px solid #000; background-color: #dfdfdf;">
+          <td colspan="2" style="padding: 10px;text-align: left;"></td>
+          <th style="padding: 10px;text-align: right;">Total:</th>
+          <th style="padding: 10px;text-align: right;">AED{{ \App\Helpers\Account::show_bal_format($totalD) }}</th>
+          <th style="padding: 10px;text-align: right;">AED{{ \App\Helpers\Account::show_bal_format($totalC) }}</th>
+      </tr>
         </tfoot>
     </table>
     <div id="btns" style="margin-top: 50px">

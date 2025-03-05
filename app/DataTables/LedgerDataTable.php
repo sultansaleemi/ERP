@@ -42,12 +42,19 @@ class LedgerDataTable extends DataTable
       $totalCredit += $row->credit;
 
       $view_file = '';
-      if ($row->voucher->attach_file) {
+      $voucher_ID = '';
+      $voucher_text = '';
+      if (isset($row->voucher->attach_file)) {
         $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print"  target="_blank">View File</a>';
       }
-      $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
+      if ($row->reference_type == 'Voucher') {
+        $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
+        $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
+      }
+
+
       $month = "<span style='white-space: nowrap;'>" . date('M Y', strtotime($row->billing_month)) . "</span>";
-      $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
+
       $data[] = [
         'date' => "<span style='white-space: nowrap;'>" . Common::DateFormat($row->trans_date) . "</span>",
         'account_name' => $row->account->account_code . '-' . $row->account->name ?? 'N/A',

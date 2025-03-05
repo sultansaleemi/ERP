@@ -4,6 +4,7 @@ namespace App\Helpers;
 use App\Models\Accounts\ServiceProvidor;
 use App\Models\Accounts\Transaction;
 use App\Models\Item;
+use App\Models\Items;
 use App\Models\RiderItemPrice;
 use App\Models\RoomType;
 use App\Models\Supervisors;
@@ -661,7 +662,7 @@ class General
     if ($res && $res->price > 0) {
       return $res->price;
     } else {
-      return Item::where('id', $itemID)->value('pirce');
+      return Items::where('id', $itemID)->value('price');
     }
   }
   public static function inv_sch($inv, $date)

@@ -29,6 +29,12 @@
       <div>Riders</div>
   </a>
 </li>
+<li class="menu-item">
+  <a href="{{ route('riderInvoices.index') }}" class="menu-link {{ Request::is('riderInvoices*') ? 'active' : '' }}">
+      <i class="menu-icon tf-icons ti ti-file"></i>
+      <div>Rider Invoices</div>
+  </a>
+</li>
 @endcan
 @can('bank_view')
 <li class="menu-item {{ Request::is('banks') ? 'active' : '' }}">
@@ -194,5 +200,7 @@
   </ul>
 </li>
 @endcan
+
+
 
 

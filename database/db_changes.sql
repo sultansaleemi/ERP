@@ -95,6 +95,12 @@ INSERT INTO `permissions` (`parent_id`, `name`, `guard_name`) VALUES ('102', 'vo
 
 ALTER TABLE `transactions`
 ADD COLUMN `trans_date`  date NULL AFTER `id`;
+---------------
+
+ALTER TABLE `rider_invoices`
+CHANGE COLUMN `RID` `rider_id`  bigint(20) UNSIGNED NOT NULL AFTER `inv_date`,
+CHANGE COLUMN `VID` `vendor_id`  bigint(20) UNSIGNED NOT NULL AFTER `rider_id`;
+
 
 
 

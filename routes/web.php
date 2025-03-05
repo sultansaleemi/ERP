@@ -56,6 +56,10 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::any('riders/rider-document/{id}', [\App\Http\Controllers\RidersController::class, 'document'])->name('rider.document');
   Route::get('rider/updateRider', [\App\Http\Controllers\RidersController::class, 'updateRider'])->name('rider.updateRider');
 
+  Route::resource('riderInvoices', App\Http\Controllers\RiderInvoicesController::class);
+  Route::any('rider/invoice-import', [\App\Http\Controllers\RiderInvoicesController::class, 'import'])->name('rider.invoice_import');
+
+
   Route::resource('leasingCompanies', App\Http\Controllers\LeasingCompaniesController::class);
   Route::resource('garages', App\Http\Controllers\GaragesController::class);
   Route::resource('banks', App\Http\Controllers\BanksController::class);
@@ -135,6 +139,7 @@ Route::get('/artisan-storage-unlink', function () {
         'create' => 'calculations.create',
         'edit' => 'calculations.edit'
     ]); */
+
 
 
 

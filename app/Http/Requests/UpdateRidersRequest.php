@@ -26,7 +26,7 @@ class UpdateRidersRequest extends FormRequest
   public function rules()
   {
     $rules = Riders::$rules;
-    $rules['rider_id'] = ['required', Rule::unique('riders')->ignore($this->riders)];
+    $rules['rider_id'] = ['required', Rule::unique('riders')->ignore($this->rider)];
     return $rules;
   }
 }

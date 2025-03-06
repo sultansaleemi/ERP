@@ -46,11 +46,18 @@ class VouchersDataTable extends DataTable
     $dataTable->addColumn('Updated_By', function (Vouchers $row) {
       return Common::UserName($row->Updated_By);
     })->toJson();
+    $dataTable->addColumn('attach_file', function (Vouchers $row) {
+      $view_file = '';
+      if ($row->attach_file) {
+        $view_file = '  <a href="' . url('storage/vouchers/' . $row->attach_file) . '" class="no-print"  target="_blank">View</a>';
+      }
+      return $view_file;
+    })->toJson();
 
 
 
 
-    $dataTable->rawColumns(['role', 'action']);
+    $dataTable->rawColumns(['role', 'action', 'attach_file']);
     $dataTable->addColumn('action', 'vouchers.datatables_actions');
 
     return $dataTable;
@@ -105,12 +112,13 @@ class VouchersDataTable extends DataTable
   {
     return [
       'id' => ['searchable' => true],
-      'trans_date',
-      'billing_month',
-      'voucher_type',
+      'trans_date' => ['title' => 'Date'],
+      'billing_month' => ['title' => 'Month'],
+      'voucher_type' => ['title' => 'Type'],
       'amount',
       'Created_By',
-      'Updated_By'
+      'Updated_By',
+      'attach_file' => ['title' => 'File']
 
     ];
   }

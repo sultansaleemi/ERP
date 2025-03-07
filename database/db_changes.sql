@@ -100,6 +100,18 @@ ADD COLUMN `trans_date`  date NULL AFTER `id`;
 ALTER TABLE `rider_invoices`
 CHANGE COLUMN `RID` `rider_id`  bigint(20) UNSIGNED NOT NULL AFTER `inv_date`,
 CHANGE COLUMN `VID` `vendor_id`  bigint(20) UNSIGNED NOT NULL AFTER `rider_id`;
+--------------
+
+ALTER TABLE `items`
+ADD COLUMN `status`  tinyint(2) NULL DEFAULT 1 AFTER `vat`;
+------------
+
+ALTER TABLE `items`
+ADD COLUMN `code`  varchar(50) NULL AFTER `status`,
+ADD COLUMN `barcode`  varchar(50) NULL AFTER `code`;
+------------
+
+
 
 
 

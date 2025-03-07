@@ -15,6 +15,8 @@ class Items extends Model
     'price',
     'cost',
     'vat',
+    'code',
+    'barcode',
     'created_by',
     'updated_by',
     'status'

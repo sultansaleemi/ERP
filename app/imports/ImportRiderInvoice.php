@@ -52,8 +52,6 @@ class ImportRiderInvoice implements ToCollection
       $rows[0][20]
     ];
     $i = 1;
-    $missing = '';
-    $error = '';
     foreach ($rows as $row) {
       $i++;
       try {
@@ -78,155 +76,150 @@ class ImportRiderInvoice implements ToCollection
 
 
             $rider = Riders::where('rider_id', $row[1])->first();
-            if ($rider) {
+            if (!$rider) {
+              throw ValidationException::withMessages(['file' => 'Row(' . $i . ') - Rider ID ' . $row[1] . ' do not match.']);
+            }
+            $RID = $rider->id;
+            $VID = $rider->VID;
+            //$VID = AssignVendorRider::where('RID', $RID)->value('VID');
 
-              $RID = $rider->id;
-              $VID = $rider->VID;
-              //$VID = AssignVendorRider::where('RID', $RID)->value('VID');
+            if (isset($row[21])) {
 
-              if (isset($row[21])) {
+              $ret = RiderInvoices::create([
+                'inv_date' => $invoice_date,
+                'rider_id' => $RID,
+                'vendor_id' => $VID,
+                'zone' => $row[23],
+                'login_hours' => $row[22],
+                'working_days' => $row[24],
+                'perfect_attendance' => $row[25],
+                'rejection' => $row[21],
+                'performance' => $row[27],
+                'billing_month' => $billing_month,
+                'off' => $row[26],
+                'descriptions' => $row[29],
+                /*  'gaurantee' => $row[30], */
+                'notes' => $row[30],
+              ]);
 
-                $ret = RiderInvoices::create([
-                  'inv_date' => $invoice_date,
-                  'rider_id' => $RID,
-                  'vendor_id' => $VID,
-                  'zone' => $row[23],
-                  'login_hours' => $row[22],
-                  'working_days' => $row[24],
-                  'perfect_attendance' => $row[25],
-                  'rejection' => $row[21],
-                  'performance' => $row[27],
-                  'billing_month' => $billing_month,
-                  'off' => $row[26],
-                  'descriptions' => $row[29],
-                  /*  'gaurantee' => $row[30], */
-                  'notes' => $row[30],
-                ]);
+              $j = 3;
+              foreach ($items as $item) {
 
-                $j = 3;
-                foreach ($items as $item) {
+                $itemId = Items::where('name', $item)->value('id');
 
-                  $itemId = Items::where('name', $item)->value('id');
-
-                  if ($itemId) {
-                    $riderPrice = General::riderItemPrice($RID, $itemId);
-                    $dta['item_id'] = $itemId;
-                    $dta['qty'] = $row[$j] ?? 0;
-                    $dta['rate'] = $riderPrice;
-                    $dta['amount'] = ($riderPrice) * ($row[$j]);
-                    $dta['inv_id'] = $ret->id;
-                    RiderInvoiceItem::create($dta);
+                if ($itemId) {
+                  $riderPrice = General::riderItemPrice($RID, $itemId);
+                  $dta['item_id'] = $itemId;
+                  $dta['qty'] = $row[$j] ?? 0;
+                  $dta['rate'] = $riderPrice;
+                  $dta['amount'] = ($riderPrice) * ($row[$j]);
+                  $dta['inv_id'] = $ret->id;
+                  RiderInvoiceItem::create($dta);
+                }
+                $j++;
+              }
+              /* $k = 2;
+              foreach ($items as $itemm) {
+                  $itemIdd = Item::where('item_name', $itemm)->value('id');
+                  if($itemIdd) {
+                      $vendorPrice=CommonHelper::vendorItemPrice($VID, $itemIdd);
+                      $dtaa['item_id'] = $itemIdd;
+                      $dtaa['qty'] = $row[$k]??0;
+                      $dtaa['rate'] = $vendorPrice;
+                      $dtaa['amount'] = ($vendorPrice) * ($row[$k]);
+                      $dtaa['inv_id'] = $ret->id;
+                      VendorInvoiceItem::create($dtaa);
                   }
-                  $j++;
-                }
-                /* $k = 2;
-                foreach ($items as $itemm) {
-                    $itemIdd = Item::where('item_name', $itemm)->value('id');
-                    if($itemIdd) {
-                        $vendorPrice=CommonHelper::vendorItemPrice($VID, $itemIdd);
-                        $dtaa['item_id'] = $itemIdd;
-                        $dtaa['qty'] = $row[$k]??0;
-                        $dtaa['rate'] = $vendorPrice;
-                        $dtaa['amount'] = ($vendorPrice) * ($row[$k]);
-                        $dtaa['inv_id'] = $ret->id;
-                        VendorInvoiceItem::create($dtaa);
-                    }
-                    $k++;
-                } */
-                $total = RiderInvoiceItem::where('inv_id', $ret->id)->sum('amount');
-                RiderInvoices::where('id', $ret->id)->update(['total_amount' => $total]);
-                //accounts entries
-                $rider_amount = RiderInvoiceItem::where('inv_id', $ret->id)->sum('amount');
-                //$vendor_amount=VendorInvoiceItem::where('inv_id',$ret->id)->sum('amount');
-                //$profit=$vendor_amount-$rider_amount;
+                  $k++;
+              } */
+              $total = RiderInvoiceItem::where('inv_id', $ret->id)->sum('amount');
+              RiderInvoices::where('id', $ret->id)->update(['total_amount' => $total]);
+              //accounts entries
+              $rider_amount = RiderInvoiceItem::where('inv_id', $ret->id)->sum('amount');
+              //$vendor_amount=VendorInvoiceItem::where('inv_id',$ret->id)->sum('amount');
+              //$profit=$vendor_amount-$rider_amount;
 
-                $trans_code = Account::trans_code();
-                $transactionService = new TransactionService();
+              $trans_code = Account::trans_code();
+              $transactionService = new TransactionService();
 
-                $transactionData = [
-                  'account_id' => $rider->account_id,
-                  'reference_id' => $ret->id,
-                  'reference_type' => 'Invoice',
-                  'trans_code' => $trans_code,
-                  'trans_date' => $invoice_date,
-                  'narration' => "Rider Invoice #" . $ret->id . ' - ' . $row[29],
-                  //'debit' => $request['dr_amount'][$key] ?? 0,
-                  'credit' => $rider_amount ?? 0,
-                  'billing_month' => date("Y-m-01", strtotime($row[28])),
-                ];
-                $transactionService->recordTransaction($transactionData);
-
-                $transactionData = [
-                  'account_id' => 1103, //Salary Account asked to set by Adnan 08-03-2025
-                  'reference_id' => $ret->id,
-                  'reference_type' => 'Invoice',
-                  'trans_code' => $trans_code,
-                  'trans_date' => $invoice_date,
-                  'narration' => "Rider Invoice #" . $ret->id . ' - ' . $row[29],
-                  'debit' => $rider_amount ?? 0,
-                  'billing_month' => date("Y-m-01", strtotime($row[28])),
-                ];
-                $transactionService->recordTransaction($transactionData);
-
-                // creating Vendor Voucher for Bike rent and Sim charges
-                /* if ($row[31]) {
-
-                  $Vdata['billing_month'] = $data['billing_month'];
-                  $Vdata['trans_acc_id'] = $data['trans_acc_id'];
-                  $Vdata['trans_date'] = $data['trans_date'];
-                  $Vdata['amount'] = $row[31];
-                  $Vdata['narration'] = "Bike & Sim Charges";
-                  $Vdata['voucher_type'] = 9;
-                  $Vdata['payment_from'] = 811; //Account ID
-                  $Vdata['payment_type'] = 1; //dr/cr
-                  Account::CreatVoucher($Vdata);
+              $transactionData = [
+                'account_id' => $rider->account_id,
+                'reference_id' => $ret->id,
+                'reference_type' => 'Invoice',
+                'trans_code' => $trans_code,
+                'trans_date' => $invoice_date,
+                'narration' => "Rider Invoice #" . $ret->id . ' - ' . $row[29],
+                //'debit' => $request['dr_amount'][$key] ?? 0,
+                'credit' => $rider_amount ?? 0,
+                'billing_month' => date("Y-m-01", strtotime($row[28])),
+              ];
+              $transactionService->recordTransaction($transactionData);
 
 
-                }
+              $transactionData = [
+                'account_id' => 1103, //Salary Account asked to set by Adnan 08-03-2025
+                'reference_id' => $ret->id,
+                'reference_type' => 'Invoice',
+                'trans_code' => $trans_code,
+                'trans_date' => $invoice_date,
+                'narration' => "Rider Invoice #" . $ret->id . ' - ' . $row[29],
+                'debit' => $rider_amount ?? 0,
+                'billing_month' => date("Y-m-01", strtotime($row[28])),
+              ];
+              $transactionService->recordTransaction($transactionData);
+              // creating Vendor Voucher for Bike rent and Sim charges
+              /* if ($row[31]) {
 
-                //creating Fuel Voucher
-                if ($row[32]) {
+                $Vdata['billing_month'] = $data['billing_month'];
+                $Vdata['trans_acc_id'] = $data['trans_acc_id'];
+                $Vdata['trans_date'] = $data['trans_date'];
+                $Vdata['amount'] = $row[31];
+                $Vdata['narration'] = "Bike & Sim Charges";
+                $Vdata['voucher_type'] = 9;
+                $Vdata['payment_from'] = 811; //Account ID
+                $Vdata['payment_type'] = 1; //dr/cr
+                Account::CreatVoucher($Vdata);
 
-                  $Vdata['billing_month'] = $data['billing_month'];
-                  $Vdata['trans_acc_id'] = $data['trans_acc_id'];
-                  $Vdata['trans_date'] = $data['trans_date'];
-                  $Vdata['amount'] = $row[32];
-                  $Vdata['narration'] = $row[33];
-                  $Vdata['voucher_type'] = 11;
-                  $Vdata['payment_from'] = 617; //Account ID
-                  $Vdata['payment_type'] = 1; //dr/cr
-                  Account::CreatVoucher($Vdata);
-
-                }
-                // creating RTA Voucher
-                if ($row[34]) {
-
-                  $Vdata['billing_month'] = $data['billing_month'];
-                  $Vdata['trans_acc_id'] = $data['trans_acc_id'];
-                  $Vdata['trans_date'] = $data['trans_date'];
-                  $Vdata['amount'] = $row[34];
-                  $Vdata['narration'] = $row[35];
-                  $Vdata['voucher_type'] = 8;
-                  $Vdata['payment_from'] = 425; //Account ID
-                  $Vdata['payment_type'] = 1; //dr/cr
-                  Account::CreatVoucher($Vdata);
-
-                } */
 
               }
-            } else {
-              //throw ValidationException::withMessages(['file' => 'Row(' . $i . ') - Rider ID ' . $row[1] . ' do not match.']);
-              $missing .= 'Row(' . $i . ') - Rider ID ' . $row[1] . ' do not match.<br/>';
+
+              //creating Fuel Voucher
+              if ($row[32]) {
+
+                $Vdata['billing_month'] = $data['billing_month'];
+                $Vdata['trans_acc_id'] = $data['trans_acc_id'];
+                $Vdata['trans_date'] = $data['trans_date'];
+                $Vdata['amount'] = $row[32];
+                $Vdata['narration'] = $row[33];
+                $Vdata['voucher_type'] = 11;
+                $Vdata['payment_from'] = 617; //Account ID
+                $Vdata['payment_type'] = 1; //dr/cr
+                Account::CreatVoucher($Vdata);
+
+              }
+              // creating RTA Voucher
+              if ($row[34]) {
+
+                $Vdata['billing_month'] = $data['billing_month'];
+                $Vdata['trans_acc_id'] = $data['trans_acc_id'];
+                $Vdata['trans_date'] = $data['trans_date'];
+                $Vdata['amount'] = $row[34];
+                $Vdata['narration'] = $row[35];
+                $Vdata['voucher_type'] = 8;
+                $Vdata['payment_from'] = 425; //Account ID
+                $Vdata['payment_type'] = 1; //dr/cr
+                Account::CreatVoucher($Vdata);
+
+              } */
+
             }
           }
-
         }
         DB::commit();
       } catch (QueryException $e) {
         DB::rollBack();
         throw $e;
       }
-
     }
   }
 }

@@ -67,10 +67,10 @@ class RiderInvoicesDataTable extends DataTable
   {
     return [
       'inv_date',
+      'billing_month',
       'rider_id' => ['title' => 'Rider', 'data' => 'rider.name'],
       'descriptions',
-      'total_amount',
-      'billing_month'
+      'total_amount'
 
     ];
   }

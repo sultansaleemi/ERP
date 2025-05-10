@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Helpers\Account;
 use App\Helpers\General;
+use App\Helpers\HeadAccount;
 use App\Models\Items;
 use App\Models\RiderInvoiceItem;
 use App\Models\RiderInvoices;
@@ -155,6 +156,18 @@ class ImportRiderInvoice implements ToCollection
               ];
               $transactionService->recordTransaction($transactionData);
 
+
+              $transactionData = [
+                'account_id' => HeadAccount::SALARY_ACCOUNT, //Salary Account asked to set by Adnan 08-03-2025
+                'reference_id' => $ret->id,
+                'reference_type' => 'Invoice',
+                'trans_code' => $trans_code,
+                'trans_date' => $invoice_date,
+                'narration' => "Rider Invoice #" . $ret->id . ' - ' . $row[29],
+                'debit' => $rider_amount ?? 0,
+                'billing_month' => date("Y-m-01", strtotime($row[28])),
+              ];
+              $transactionService->recordTransaction($transactionData);
               // creating Vendor Voucher for Bike rent and Sim charges
               /* if ($row[31]) {
 

@@ -29,6 +29,7 @@ class Bikes extends Model
     'insurance_expiry',
     'status',
     'insurance_co',
+    'contract_number',
     'policy_no'
   ];
 
@@ -44,9 +45,9 @@ class Bikes extends Model
     'traffic_file_number' => 'string',
     'emirates' => 'string',
     'bike_code' => 'string',
-    'registration_date' => 'date',
-    'expiry_date' => 'date',
-    'insurance_expiry' => 'date',
+    /*   'registration_date' => 'date',
+      'expiry_date' => 'date',
+      'insurance_expiry' => 'date', */
     'insurance_co' => 'string',
     'policy_no' => 'string'
   ];
@@ -78,6 +79,14 @@ class Bikes extends Model
   public static function dropdown()
   {
     return self::select('id', 'plate')->pluck('plate', 'id')->prepend('Select', '');
+  }
+  public function rider()
+  {
+    return $this->belongsTo(Riders::class, 'rider_id', 'id');
+  }
+  public function LeasingCompany()
+  {
+    return $this->belongsTo(LeasingCompanies::class, 'company');
   }
 
 }

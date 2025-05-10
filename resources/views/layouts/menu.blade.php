@@ -29,10 +29,16 @@
       <div>Riders</div>
   </a>
 </li>
-<li class="menu-item">
-  <a href="{{ route('riderInvoices.index') }}" class="menu-link {{ Request::is('riderInvoices*') ? 'active' : '' }}">
+<li class="menu-item {{ Request::is('riderInvoices*') ? 'active' : '' }}">
+  <a href="{{ route('riderInvoices.index') }}" class="menu-link ">
       <i class="menu-icon tf-icons ti ti-file"></i>
-      <div>Rider Invoices</div>
+      <div>Invoices</div>
+  </a>
+</li>
+<li class="menu-item {{ Request::is('riderActivities*') ? 'active' : '' }}">
+  <a href="{{ route('riderActivities.index') }}" class="menu-link ">
+      <i class="menu-icon tf-icons ti ti-bike"></i>
+      <div>Activities</div>
   </a>
 </li>
 @endcan
@@ -75,6 +81,12 @@
       <div>Bikes</div>
   </a>
 </li>
+{{-- <li class="menu-item {{ Request::is('bikeHistories*') ? 'active' : '' }}">
+  <a href="{{ route('bikeHistories.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-bike-off"></i>
+      <div>Bike History</div>
+  </a>
+</li> --}}
 @endcan
 @can('sim_view')
 <li class="menu-item {{ Request::is('sims*') ? 'active' : '' }}">
@@ -202,5 +214,23 @@
 @endcan
 
 
+{{-- <li class="nav-item">
+    <a href="{{ route('riderAttendances.index') }}" class="nav-link {{ Request::is('riderAttendances*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Rider Attendances</p>
+    </a>
+</li> --}}
 
+{{-- <li class="nav-item">
+    <a href="{{ route('riderActivities.index') }}" class="nav-link {{ Request::is('riderActivities*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Rider Activities</p>
+    </a>
+</li> --}}
 
+{{-- <li class="nav-item">
+    <a href="{{ route('riderEmails.index') }}" class="nav-link {{ Request::is('riderEmails*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Rider Emails</p>
+    </a>
+</li> --}}

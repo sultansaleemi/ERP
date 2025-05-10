@@ -2,21 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LedgerDataTable;
+use App\DataTables\RiderActivitiesDataTable;
+use App\DataTables\RiderAttendanceDataTable;
+use App\DataTables\RiderEmailsDataTable;
+use App\DataTables\RiderInvoicesDataTable;
 use App\DataTables\RidersDataTable;
+use App\Exports\MonthlyActivityExport;
+use App\Exports\RiderExport;
 use App\Helpers\Account;
 use App\Helpers\General;
+use App\Helpers\HeadAccount;
 use App\Http\Requests\CreateAccountsRequest;
 use App\Http\Requests\CreateRidersRequest;
 use App\Http\Requests\UpdateRidersRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
+use App\Models\RiderEmails;
 use App\Models\RiderItemPrice;
 use App\Models\JobStatus;
 use App\Models\Riders;
 use App\Models\Files;
+use App\Models\Transactions;
 use App\Repositories\RidersRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Flash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RidersController extends AppBaseController
 {
@@ -61,17 +73,17 @@ class RidersController extends AppBaseController
     $riders = $this->ridersRepository->create($input);
     if ($riders) {
 
-      $parentAccount = Accounts::firstOrCreate(
+      /* $parentAccount = Accounts::firstOrCreate(
         ['name' => 'Riders', 'account_type' => 'Liability', 'parent_id' => null],
         ['name' => 'Riders', 'account_type' => 'Liability', 'account_code' => Account::code()]
-      );
+      ); */
 
       $account = new Accounts();
       $account->account_code = 'RD' . str_pad($riders->rider_id, 4, "0", STR_PAD_LEFT);
       $account->name = $riders->name;
       $account->account_type = 'Liability';
       $account->ref_name = 'Rider';
-      $account->parent_id = $parentAccount->id;
+      $account->parent_id = HeadAccount::RIDER;
       $account->ref_id = $riders->id;
       $account->save();
 
@@ -99,12 +111,12 @@ class RidersController extends AppBaseController
    */
   public function show($id)
   {
-    $riders = $this->ridersRepository->find($id);
+    $rider = $this->ridersRepository->find($id);
     // $rider_items = $rider->items;
-    $result = $riders->toArray();
+    $result = $rider->toArray();
     $job_status = JobStatus::where('RID', $id)->orderByDesc('id')->get();
 
-    return view('riders.show_fields', compact('result', 'riders', 'job_status'));
+    return view('riders.show_fields', compact('result', 'rider', 'job_status'));
 
   }
 
@@ -314,10 +326,10 @@ class RidersController extends AppBaseController
       $input['RID'] = $id;
       $input['status_by'] = auth()->user()->id;
       JobStatus::create($input);
-      $rider = Riders::find($id);
-      $rider->job_status = $input['job_status'];
-      $rider->save();
-      return "Job Status updated successfully";
+      /*  $rider = Riders::find($id);
+       $rider->job_status = $input['job_status'];
+       $rider->save(); */
+      return "Timeline added successfully";
     }
     return view('riders.job_status-modal', compact('rider'));
   }
@@ -346,6 +358,77 @@ class RidersController extends AppBaseController
       $rider->save();
     }
 
+  }
+
+  public function ledger($rider_id, LedgerDataTable $ledgerDataTable)
+  {
+    $rider = Riders::find($rider_id);
+    $files = Transactions::where('account_id', $rider->account_id)->get();
+    $account_id = $rider->account_id;
+
+    return $ledgerDataTable->with(['account_id' => $account_id])->render('riders.ledger', compact('files', 'rider'));
+  }
+
+  public function attendance($rider_id, RiderAttendanceDataTable $riderAttendanceDataTable)
+  {
+    return $riderAttendanceDataTable->with(['rider_id' => $rider_id])->render('riders.attendance');
+  }
+  public function activities($rider_id, RiderActivitiesDataTable $riderActivitiesDataTable)
+  {
+    return $riderActivitiesDataTable->with(['rider_id' => $rider_id])->render('riders.activities');
+  }
+  public function invoices($rider_id, RiderInvoicesDataTable $riderInvoicesDataTable)
+  {
+    return $riderInvoicesDataTable->with(['rider_id' => $rider_id])->render('riders.invoices');
+  }
+  public function emails($rider_id, RiderEmailsDataTable $riderEmailsDataTable)
+  {
+    return $riderEmailsDataTable->with(['rider_id' => $rider_id])->render('riders.emails');
+  }
+
+  public function sendEmail($id, Request $request)
+  {
+
+    if ($request->isMethod('post')) {
+
+      $data = [
+        'html' => $request->email_message
+      ];
+      /* $res = RiderInvoices::with(['riderInv_item'])->where('id', $id)->get();
+      $pdf = \PDF::loadView('invoices.rider_invoices.show', ['res' => $res]); */
+
+      $fileName = $id . "_monthly_activity_{$request->month}.xlsx";
+      $filePath = storage_path("app/public/{$fileName}");
+
+      Excel::store(new MonthlyActivityExport($id, $request->month), "public/{$fileName}");
+
+      Mail::send('emails.general', $data, function ($message) use ($request, $filePath) {
+        $message->to([$request->email_to]);
+        $message->cc(env('ADMIN_CC_EMAIL'));
+        $message->bcc(["haseeb@efdservice.com", "adnan@efdservice.com", "sumayya@efdservice.com"]);
+        $message->replyTo([env('ADMIN_CC_EMAIL')]);
+        $message->subject($request->email_subject);
+        //$message->attachData($pdf->output(), $request->email_subject . '.pdf');
+        $message->attach($filePath);
+        $message->priority(3);
+      });
+      $email_data = [
+        'rider_id' => $id,
+        'mail_to' => $request->email_to,
+        'subject' => $request->email_subject,
+        'message' => $request->email_message,
+      ];
+      RiderEmails::create($email_data);
+
+    }
+    $rider = Riders::find($id);
+    return view('riders.send_email', compact('rider'));
+  }
+
+  public function exportRiders()
+  {
+
+    return Excel::download(new RiderExport(), 'Riders_export_' . now() . '.xlsx');
   }
 
 }

@@ -9,48 +9,117 @@ use Yajra\DataTables\EloquentDataTable;
 
 class RidersDataTable extends DataTable
 {
-  /**
-   * Build DataTable class.
-   *
-   * @param mixed $query Results from query() method.
-   * @return \Yajra\DataTables\DataTableAbstract
-   */
   public function dataTable($query)
   {
     $dataTable = new EloquentDataTable($query);
 
-    $dataTable = $dataTable->addColumn('action', 'riders.datatables_actions');
-
     $dataTable
+      ->addColumn('action', 'riders.datatables_actions')
       ->addColumn('status', function (Riders $rider) {
-        return '<span class="badge  bg-label-success">' . General::RiderStatus($rider->status) . '</span>';
+        $statusText = General::RiderStatus($rider->status);
+        $badgeClass = ($rider->status == 1) ? 'bg-label-success' : 'bg-label-danger';
+        return '<span class="badge ' . $badgeClass . '">' . $statusText . '</span>';
       })
-      ->toJson();
-    $dataTable
+      /* ->addColumn('job_status', function (Riders $rider) {
+        $statusText = General::JobStatus($rider->job_status);
+        $badgeClass = ($rider->job_status == 1) ? 'bg-label-success' : 'bg-label-info';
+        return '<span class="badge ' . $badgeClass . '">' . $statusText . '</span>';
+      }) */
       ->addColumn('name', function (Riders $rider) {
-        return '<a href="' . route('riders.show', $rider->id) . '">' . $rider->name . '</a>';
+        /* $phone = preg_replace('/[^0-9]/', '', $rider->company_contact);
+        $whatsappNumber = '+971' . ltrim($phone, '0'); */
+        $name = '<a href="' . route('riders.show', $rider->id) . '">' . $rider->name . '</a><br/>';
+        /*  if (!$rider->company_contact) {
+           $name .= 'Contact: N/A<br/>';
+         } else {
+           $phone = preg_replace('/[^0-9]/', '', $rider->company_contact);
+           $whatsappNumber = '+971' . ltrim($phone, '0');
+
+           $name .= 'Contact: <a href="https://wa.me/' . $whatsappNumber . '" target="_blank" class="text-success">
+                         <i class="fab fa-whatsapp"></i> ' . $rider->company_contact . '
+                     </a><br/>';
+         }
+         $name .= 'HUB: ' . $rider->emirate_hub; */
+
+        return $name;
       })
-      ->toJson();
-    $dataTable->rawColumns(['name', 'status', 'action']);
+      ->addColumn('bike', function (Riders $rider) {
+        return $rider->bikes->plate ?? '-';
+      })
+      ->addColumn('orders', function (Riders $rider) {
+        return $rider->activity->sum('delivered_orders') ?? '-';
+      })
+      /*  ->addColumn('hr', function (Riders $rider) {
+         return $rider->activity->sum('login_hr') ?? '-';
+       }) */
+      ->addColumn('days', function (Riders $rider) {
+        return $rider->activity->count('date') ?? '-';
+      })
+      ->addColumn('attendance', function (Riders $rider) {
+        return '<a href="javascript:void(0);" data-action="' . url('riders/job_status/' . $rider->id) . '" data-size="md" data-title="Add Timeline" class="show-modal">' . $rider->attendance . '</a>';
+      })
+      ->addColumn('company_contact', function (Riders $rider) {
+        if (!$rider->company_contact)
+          return 'N/A';
+
+        $phone = preg_replace('/[^0-9]/', '', $rider->company_contact);
+        $whatsappNumber = '+971' . ltrim($phone, '0');
+
+        return '<a href="https://wa.me/' . $whatsappNumber . '" target="_blank" class="text-success">
+                        <i class="fab fa-whatsapp"></i> ' . $rider->company_contact . '
+                    </a>';
+      })
+      // Status filter
+      ->filterColumn('status', function ($query, $keyword) {
+        $searchTerm = strtolower(trim($keyword));
+        if ($searchTerm === 'active') {
+          $query->where('status', 1);
+        } elseif ($searchTerm === 'inactive') {
+          $query->where('status', 3);
+        } else {
+          if (str_contains($searchTerm, 'inactive')) {
+            $query->where('status', 3);
+          } elseif (str_contains($searchTerm, 'active')) {
+            $query->where('status', 1);
+          }
+        }
+      })
+      // Name filter (CRUCIAL FIX)
+      ->filterColumn('name', function ($query, $keyword) {
+        $query->where('name', 'LIKE', "%{$keyword}%");
+      })
+      // Contact filter
+      ->filterColumn('company_contact', function ($query, $keyword) {
+        $query->where('company_contact', 'LIKE', "%{$keyword}%");
+      })
+      // Fleet Supervisor filter
+      ->filterColumn('fleet_supervisor', function ($query, $keyword) {
+        $query->where('fleet_supervisor', 'LIKE', "%{$keyword}%");
+      })
+      // Emirate Hub filter
+      ->filterColumn('emirate_hub', function ($query, $keyword) {
+        $query->where('emirate_hub', 'LIKE', "%{$keyword}%");
+      })
+      ->rawColumns(['name', 'status', 'action', 'company_contact', 'attendance']);
+
     return $dataTable;
   }
-
-  /**
-   * Get query source of dataTable.
-   *
-   * @param \App\Models\Riders $model
-   * @return \Illuminate\Database\Eloquent\Builder
-   */
   public function query(Riders $model)
   {
-    return $model->newQuery();
+    return $model->newQuery()->select([
+      'id',
+      'rider_id',
+      'name',
+      'company_contact',
+      'fleet_supervisor',
+      'emirate_hub',
+      'status',
+      'shift',
+      'attendance'
+
+    ]);
   }
 
-  /**
-   * Optional method if you want to use html builder.
-   *
-   * @return \Yajra\DataTables\Html\Builder
-   */
   public function html()
   {
     return $this->builder()
@@ -63,40 +132,108 @@ class RidersDataTable extends DataTable
         'order' => [[0, 'desc']],
         'pageLength' => 100,
         'responsive' => true,
-        'buttons' => [
-          // Enable Buttons as per your need
-//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+        'buttons' => [// Enable Buttons as per your need
+          //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+          // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+          //['extend' => 'excel', 'className' => 'btn btn-success btn-sm no-corner'],
+          //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+          //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
         ],
+        'initComplete' => "function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var header = $(column.header());
+
+                        if (header.text() === 'Status') {
+                            var input = $('<input type=\"text\" placeholder=\"Search Status\" class=\"form-control form-control-sm\"/>')
+                                .appendTo(header)
+                                .on('keyup change clear', function () {
+                                    column.search($(this).val()).draw();
+                                });
+                        }
+                    });
+                }"
       ]);
   }
 
-  /**
-   * Get columns.
-   *
-   * @return array
-   */
   protected function getColumns()
   {
     return [
-      'rider_id',  
-      'name',
-      'company_contact',
-      'fleet_supervisor',
-      'emirate_hub',
-      'status'
-
+      [
+        'data' => 'rider_id',
+        'title' => 'Rider ID',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'name',
+        'title' => 'Name',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'company_contact',
+        'title' => 'Contact',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'fleet_supervisor',
+        'title' => 'Fleet Supv',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'emirate_hub',
+        'title' => 'Emirate Hub',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'bike',
+        'title' => 'Bike',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'status',
+        'title' => 'Status',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'shift',
+        'title' => 'Shift',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'attendance',
+        'title' => 'ATTN',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      [
+        'data' => 'orders',
+        'title' => 'Orders',
+        'searchable' => true,
+        'orderable' => true
+      ],
+      /* [
+        'data' => 'hr',
+        'title' => 'HR',
+        'searchable' => true,
+        'orderable' => true
+      ], */
+      [
+        'data' => 'days',
+        'title' => 'Days',
+        'searchable' => true,
+        'orderable' => true
+      ]
     ];
   }
 
-  /**
-   * Get filename for export.
-   *
-   * @return string
-   */
   protected function filename(): string
   {
     return 'riders_datatable_' . time();

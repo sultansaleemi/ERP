@@ -2,7 +2,7 @@
 
 @section('title','Ledger')
 @section('content')
-<div class="container">
+<div class="">
     <h2>Ledger</h2>
 <form action="" method="get">
     <div class="row mb-3">
@@ -13,7 +13,7 @@
             <input type="month" name="month" value="{{request('month')}}" class="form-control" placeholder="Billing Month">
         </div>
         <div class="col-md-3">
-            <button id="filter" class="btn btn-primary">Filter</button>
+            <button id="filter" class="btn btn-primary">Generate Ledger</button>
         </div>
     </div>
   </form>

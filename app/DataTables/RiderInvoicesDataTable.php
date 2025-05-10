@@ -18,7 +18,32 @@ class RiderInvoicesDataTable extends DataTable
   {
     $dataTable = new EloquentDataTable($query);
 
-    return $dataTable->addColumn('action', 'rider_invoices.datatables_actions');
+    $dataTable->addColumn('action', 'rider_invoices.datatables_actions');
+
+    $dataTable
+      ->addColumn('rider_id', function (RiderInvoices $riderInvoices) {
+        return @$riderInvoices->rider->rider_id . '-' . @$riderInvoices->rider->name;
+      });
+    $dataTable
+      ->addColumn('billing_month', function (RiderInvoices $riderInvoices) {
+        return date('M Y', strtotime($riderInvoices->billing_month));
+      });
+
+    // 👇 Add custom filter for searchable rider column
+    $dataTable->filterColumn('billing_month', function ($query, $keyword) {
+      $query->whereRaw("DATE_FORMAT(billing_month, '%b %Y') like ?", ["%{$keyword}%"]);
+
+    });
+    $dataTable->filterColumn('rider_id', function ($query, $keyword) {
+
+      $query->whereHas('rider', function ($q) use ($keyword) {
+        $q->where('rider_id', 'like', "%{$keyword}%")
+          ->orWhere('name', 'like', "%{$keyword}%");
+      });
+    });
+
+    $dataTable->rawColumns(['rider_id', 'action']);
+    return $dataTable;
   }
 
   /**
@@ -29,7 +54,17 @@ class RiderInvoicesDataTable extends DataTable
    */
   public function query(RiderInvoices $model)
   {
-    return $model->newQuery()->with(['rider']);
+    $query = $model->newQuery()->with(['rider']);
+
+    if ($this->rider_id) {
+      $query->where('rider_id', $this->rider_id);
+    }
+    if (request('month')) {
+      $query->where(\DB::raw('DATE_FORMAT(billing_month, "%Y-%m")'), '=', request('month'));
+
+    }
+
+    return $query;
   }
 
   /**
@@ -42,10 +77,13 @@ class RiderInvoicesDataTable extends DataTable
     return $this->builder()
       ->columns($this->getColumns())
       ->minifiedAjax()
-      //->addAction(['width' => '120px', 'printable' => false])
+      ->addAction(['width' => '120px', 'printable' => false])
       ->parameters([
         'dom' => 'Bfrtip',
-        'stateSave' => true,
+        'stateSave' => false,
+        'ordering' => false,
+        'pageLength' => 50,
+        'responsive' => true,
         'order' => [[0, 'desc']],
         'buttons' => [
           // Enable Buttons as per your need
@@ -66,11 +104,13 @@ class RiderInvoicesDataTable extends DataTable
   protected function getColumns()
   {
     return [
+      'id',
       'inv_date',
       'billing_month',
-      'rider_id' => ['title' => 'Rider', 'data' => 'rider.name'],
+      'rider_id' => ['title' => 'Rider'],
       'descriptions',
       'total_amount'
+
 
     ];
   }

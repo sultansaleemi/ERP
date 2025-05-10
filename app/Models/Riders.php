@@ -60,7 +60,9 @@ class Riders extends Model
     'labor_card_expiry',
     'insurance',
     'insurance_expiry',
-    'policy_no'
+    'policy_no',
+    'shift',
+    'attendance'
   ];
 
   protected $casts = [
@@ -107,6 +109,8 @@ class Riders extends Model
     'labor_card_expiry' => 'string',
     'insurance' => 'string',
     'insurance_expiry' => 'string',
+    'shift' => 'string',
+    'attendance' => 'string',
     'policy_no' => 'string'
   ];
 
@@ -174,19 +178,38 @@ class Riders extends Model
 
   public static function dropdown()
   {
-    //return self::select('id', \DB::raw("CONCAT(id, '-', name) as full_name"))->pluck('full_name', 'id')->prepend('Select', '');
-    return self::select('id', 'name')->pluck('name', 'id')->prepend('Select', '');
+    return self::select('id', \DB::raw("CONCAT(rider_id, '-', name) as full_name"))->pluck('full_name', 'id')->prepend('Select', '');
+    //return self::select('id', 'name')->pluck('name', 'id')->prepend('Select', '');
 
 
   }
-
+  public function bikes()
+  {
+    return $this->hasOne(Bikes::class, 'rider_id', 'id');
+  }
+  public function jobstatus()
+  {
+    return $this->hasOne(JobStatus::class, 'RID', 'id')->orderByDesc('id');
+  }
   function account()
   {
     return $this->hasOne(Accounts::class, 'id', 'account_id');
+  }
+  function sim()
+  {
+    return $this->hasOne(Sims::class, 'id', 'assign_to');
+  }
+  function country()
+  {
+    return $this->hasOne(Countries::class, 'id', 'nationality');
   }
 
   function transactions()
   {
     return $this->hasMany(Transactions::class, 'account_id', 'account_id');
+  }
+  function activity()
+  {
+    return $this->hasMany(RiderActivities::class, 'rider_id', 'id')->where(\DB::raw('DATE_FORMAT(date, "%Y-%m")'), '=', date('Y-m'));
   }
 }

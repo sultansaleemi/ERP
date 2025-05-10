@@ -235,15 +235,17 @@ class General
   {
     $array = [
       'Active' => 'Active',
-      'Impound' => 'Impound',
-      'City Garage' => 'City Garage',
-      'Clutch Garage' => 'Clutch Garage',
-      'Express Garage' => 'Express Garage',
-      'Al Sama Garage' => 'Al Sama Garage',
-      'Easy Lease Garage' => 'Easy Lease Garage',
-      'Theft' => 'Theft',
-      'Total Loss' => 'Total Loss',
-      'Return' => 'Return'
+      /*  'Impound' => 'Impound',
+       'City Garage' => 'City Garage',
+       'Clutch Garage' => 'Clutch Garage',
+       'Express Garage' => 'Express Garage',
+       'Al Sama Garage' => 'Al Sama Garage',
+       'Easy Lease Garage' => 'Easy Lease Garage',
+       'Theft' => 'Theft',
+       'Total Loss' => 'Total Loss',*/
+      'Return' => 'Return',
+      'Absconded' => 'Absconded',
+      'Vacation' => 'Vacation'
     ];
     $list = '';
     foreach ($array as $key => $value) {
@@ -700,8 +702,11 @@ class General
   public static function RiderStatus($status = null)
   {
     $result = [
+      1 => 'Active',
+      /* 2 => 'Terminated', */
       3 => 'Inactive',
-      1 => 'Active'
+      4 => 'Vacation',
+      5 => 'Absconded'
     ];
 
     if ($status != null) {
@@ -721,7 +726,8 @@ class General
       5 => 'Absconded',
       6 => 'Stop Salary',
       7 => 'Coming',
-      8 => 'Absent'
+      8 => 'Absent',
+      9 => 'Inactive'
 
     ];
 
@@ -758,7 +764,8 @@ class General
   public static function VoucherType($type = null)
   {
     $result = [
-      'JV' => 'Journal Voucher',
+      'JV' => 'Journal',
+      'LV' => 'Visa Loan',
       /* 5 => 'Invoice Voucher',
       9 => 'Vendor Voucher',
       10 => 'Bike Rent Voucher',

@@ -17,7 +17,6 @@
 </style>
 @php
 if(is_numeric(request()->segment(3))){
-  session()->put('rider_id',request()->segment(3));
   $riders = App\Models\Riders::find(request()->segment(3));
   }
   if(isset($riders)){
@@ -39,7 +38,7 @@ if(is_numeric(request()->segment(3))){
                         if(@$result['image_name']){
                             $image_name = url('storage2/profile/'.$result['image_name']);//Storage::url('app/profile/'.$result['image_name']);
                         }else{
-                            $image_name = asset('uploads/default.png');
+                            $image_name = asset('public/uploads/default.png');
                         }
                     @endphp
                         <img src="{{ $image_name}}" id="output" width="270"  class="profile-user-img img-fluid" />
@@ -124,9 +123,8 @@ if(is_numeric(request()->segment(3))){
                        </li>
                        <li class="list-group-item pb-1">
                         <b>Attendance:</b> <span class="float-right">@isset($result){{$result['attendance']??'not-set'}}@endisset</span>
-
                      </li>
-                        {{--  <li class="list-group-item pb-1 @if(@$result['job_status'] == 1) text-success @else text-danger @endif" >
+                         {{-- <li class="list-group-item pb-1 @if(@$result['job_status'] == 1) text-success @else text-danger @endif" >
                             <b>Job Status:</b> <span class="float-right">
                                 @isset($result)<a href="javascript:void(0);" data-action="{{url('riders/job_status/'.$result['id'])}}" data-title="Change Job Status" class="btn btn-light btn-sm show-modal">Change Status</a>@endisset
                                  @isset($result['job_status']){{App\Helpers\General::JobStatus($result['job_status'])??'not-set'}}@endisset</span>
@@ -144,12 +142,7 @@ if(is_numeric(request()->segment(3))){
           </ul>
           <div class="d-flex justify-content-center">
             @isset($result)
-            <a href="{{route('riders.edit', $result['id'])}}" class="btn btn-outline-primary btn-sm waves-effect waves-light btn-block me-1"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-
-            <a href="javascript:void();" data-action="{{route('rider.sendemail', $result['id'])}}" data-size="md"
-data-title="{{$result['name'] . ' (' . $result['rider_id'] }}')" class="btn btn-outline-warning btn-sm show-modal text-nowrap"><i class="fas fa-envelope"></i>&nbsp;Send Email</a>
-
-<a href="javascript:void(0);" data-action="{{url('riders/job_status/' . $result['id']) }}" data-size="md" data-title="Add Timeline" class="btn btn-outline-success btn-sm text-nowrap show-modal mx-1"><i class="fas fa-chart-bar"></i>&nbsp;Add Timeline</a>
+            <a href="{{route('riders.edit', $result['id'])}}" class="btn btn-primary waves-effect waves-light btn-block me-4"><i class="fa fa-edit"></i>&nbsp;<b>Edit</b></a>
             @endisset
 {{--             <a href="javascript:void(0);" class="btn btn-default btn-block no-print" onclick="window.print();"><i class="fa fa-print"></i>&nbsp;<b>Print</b></a>
  --}}
@@ -165,13 +158,12 @@ data-title="{{$result['name'] . ' (' . $result['rider_id'] }}')" class="btn btn-
       <ul class="nav nav-pills flex-column flex-md-row flex-wrap mb-3 row-gap-2">
         <li class="nav-item"><a class="nav-link @if(is_numeric(request()->segment(2)) ||request()->segment(2)=='create' ) active @endif" href="@isset($result['id']){{route('riders.show',$result['id'])}}@else#@endif"><i class="ti ti-user-check ti-sm me-1_5"></i>Account</a></li>
         @isset($result)
-        <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='timeline') active @endif" href="{{route('rider.timeline',$result['id'])}}"><i class="ti ti-timeline ti-sm me-1_5"></i>Timeline</a></li>
+        {{-- <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='timeline') active @endif" href="{{route('rider.timeline',$result['id'])}}"><i class="ti ti-timeline ti-sm me-1_5"></i>Timeline</a></li> --}}
         <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='rider-document') active @endif" href="{{route('rider.document',$result['id'])}}"><i class="ti ti-file-upload ti-sm me-1_5"></i>Documents</a></li>
         <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='invoices') active @endif" href="{{route('rider.invoices',$result['id'])}}"><i class="ti ti-file-invoice ti-sm me-1_5"></i>Invoices</a></li>
         <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='ledger') active @endif" href="{{route('rider.ledger',$result['id'])}}"><i class="ti ti-file ti-sm me-1_5"></i>Ledger</a></li>
         {{-- <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='attendance') active @endif" href="{{route('rider.attendance',$result['id'])}}"><i class="ti ti-calendar-check ti-sm me-1_5"></i>Attendance</a></li> --}}
         <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='activities') active @endif" href="{{route('rider.activities',$result['id'])}}"><i class="ti ti-motorbike ti-sm me-1_5"></i>Activities</a></li>
-        <li class="nav-item"><a class="nav-link @if(request()->segment(2) =='emails') active @endif" href="{{route('rider.emails',$result['id'])}}"><i class="ti ti-mail ti-sm me-1_5"></i>Emails</a></li>
         @endisset
 
       </ul>

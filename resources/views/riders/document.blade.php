@@ -3,10 +3,8 @@
 @section('page_content')
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid mt-3">
-          <iframe src="{{url("laravel-filemanager?id=".$rider->id)}}" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+        <div class="container-fluid">
 
-{{--
                     <form action="{{route('rider.document',$rider->id)}}" method="post" enctype="multipart/form-data" id="formajax">
                         @csrf
                         @php
@@ -70,7 +68,7 @@
                 @endforeach
                 <input type="hidden" id="reload_page" value="1"/>
                 <button type="submit" class="btn btn-primary mb-3 mt-3">Save Documents</button>
-                    </form> --}}
+                    </form>
 
 
     </div>

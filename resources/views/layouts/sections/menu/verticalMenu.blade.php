@@ -10,9 +10,9 @@ $configData = Helper::appClasses();
     <a href="{{route('home')}}" class="app-brand-link">
       <span class="app-brand-logo ">
 {{--         @include('_partials.macros',["height"=>30])
- --}}        <img src="{{asset('assets/img/logo.png')}}" width="50"/>
+ --}}        <img src="{{ $appLogo }}" alt="App Logo" style="height: 40px;">
       </span>
-      <span class="app-brand-text demo menu-text fw-bold fs-5">{{config('variables.templateName')}}</span>
+      <span class="app-brand-text demo menu-text fw-bold fs-5">{{ $organizationName }}</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">

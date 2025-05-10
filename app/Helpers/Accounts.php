@@ -5,6 +5,8 @@ use App\Models\Banks;
 use App\Models\Customers;
 use App\Models\LeasingCompanies;
 use App\Models\Riders;
+use App\Models\Vendor;
+use App\Models\Supplier;
 use App\Models\Services;
 use App\Models\Settings;
 
@@ -71,6 +73,12 @@ class Accounts
       }
       if ($data['ref_name'] == 'Account') {
         $row = \App\Models\Accounts::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'Supplier') {
+        $row = Supplier::find($data['ref_id']);
+      }
+      if ($data['ref_name'] == 'Vendor') {
+        $row = Vendor::find($data['ref_id']);
       }
       return $row;
     }

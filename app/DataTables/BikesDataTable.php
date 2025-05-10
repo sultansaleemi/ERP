@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Helpers\Common;
 use App\Models\Bikes;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -21,9 +20,6 @@ class BikesDataTable extends DataTable
     $dataTable->addColumn('rider_id', function (Bikes $row) {
       return $row->rider?->rider_id ?? '-';
     });
-    $dataTable->addColumn('expiry_date', function (Bikes $row) {
-      return Common::DateFormat($row->expiry_date) ?? '-';
-    });
 
     $dataTable->addColumn('rider_name', function (Bikes $row) {
       if ($row->rider_id) {
@@ -34,7 +30,7 @@ class BikesDataTable extends DataTable
     });
 
     $dataTable->addColumn('company', function (Bikes $row) {
-      return $row->LeasingCompany?->name ?? '-';
+      return $row->company?->name ?? '-';
     });
 
     $dataTable->filterColumn('rider_id', function ($query, $keyword) {
@@ -50,7 +46,7 @@ class BikesDataTable extends DataTable
     });
 
     $dataTable->filterColumn('company', function ($query, $keyword) {
-      $query->whereHas('LeasingCompany', function ($q) use ($keyword) {
+      $query->whereHas('company', function ($q) use ($keyword) {
         $q->where('name', 'like', "%{$keyword}%");
       });
     });
@@ -69,7 +65,7 @@ class BikesDataTable extends DataTable
    */
   public function query(Bikes $model)
   {
-    return $model->newQuery();
+    return $model->newQuery()->with(['company', 'rider']);
   }
 
   /**
@@ -108,15 +104,14 @@ class BikesDataTable extends DataTable
   protected function getColumns()
   {
     return [
-      /*  'id', */
-      'bike_code' => ['title' => 'Code'],
+      'id',
+      'bike_code',
       'plate',
       'rider_id' => ['title' => 'Rider ID'],
       'rider_name' => ['title' => 'Rider Name'],
-      'contract_number' => ['title' => 'Contract#'],
+      'contract_number',
       'emirates',
-      'company',
-      'expiry_date' => ['title' => 'Expiry'],
+      'company' => ['title' => 'Company'],
     ];
   }
 

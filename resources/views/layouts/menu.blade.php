@@ -97,7 +97,49 @@
 </li>
 @endcan
 
+@can('supplier_view') <!-- Optional permission -->
+<li class="menu-item {{ Request::is('suppliers') ? 'active' : '' }}">
+  <a href="{{ route('suppliers.index') }}" class="menu-link">
+    <i class="menu-icon tf-icons ti ti-truck"></i>
+    <div>Suppliers</div>
+  </a>
+</li>
+@endcan
+@can('vendors_view')
+<li class="menu-item {{ request()->is('vendors') ? 'active' : '' }}">
+    <a class="menu-link" href="{{ route('vendors.index') }}">
+        <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
+        <span>Vendors</span>
+    </a>
+</li>
+@endcan
+@canany(['rta_fine_view', 'salik_fine_view']) <!-- Optional permissions -->
+<li class="menu-item {{ Request::is('fines*') ? 'open' : '' }}">
+  <a href="javascript:void(0);" class="menu-link menu-toggle">
+    <i class="menu-icon tf-icons ti ti-currency-dollar"></i>
+    <div>Fines</div>
+  </a>
+  <ul class="menu-sub">
 
+    @can('rta_fine_view')
+    <li class="menu-item {{ Request::is('fines/rta*') ? 'active' : '' }}">
+      <a href="{{ route('fines.rta.index') }}" class="menu-link">
+        <div>RTA Fine</div>
+      </a>
+    </li>
+    @endcan
+
+    @can('salik_fine_view')
+    <li class="menu-item {{ Request::is('fines/salik*') ? 'active' : '' }}">
+      <a href="{{ route('fines.salik.index') }}" class="menu-link">
+        <div>Salik Fine</div>
+      </a>
+    </li>
+    @endcan
+
+  </ul>
+</li>
+@endcanany
 
 
 
@@ -228,9 +270,4 @@
     </a>
 </li> --}}
 
-{{-- <li class="nav-item">
-    <a href="{{ route('riderEmails.index') }}" class="nav-link {{ Request::is('riderEmails*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Rider Emails</p>
-    </a>
-</li> --}}
+

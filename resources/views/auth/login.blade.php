@@ -37,9 +37,10 @@ $customizerHidden = 'customizer-hide';
           <!-- Logo -->
           <div class="app-brand justify-content-center mb-4 mt-2">
             <a href="{{route('home')}}" class="app-brand-link gap-2">
-              <span class="app-brand-logo">@include('_partials.macros',["height"=>60,"withbg"=>'fill: #fff;'])</span>
-{{--               <span class="app-brand-text demo text-body fw-bold ms-1">{{config('variables.templateName')}}</span>
+              <span class="app-brand-logo"><img src="{{ $appLogo }}" alt="App Logo" style="height: 40px;"></span>
+{{--               
  --}}            </a>
+           <span class="app-brand-text demo text-body fw-bold ms-1">{{ $organizationName }}</span>
           </div>
           <!-- /Logo -->
          {{--  <h4 class="mb-1 pt-2">Welcome to {{env('APP_NAME')}}! </h4>

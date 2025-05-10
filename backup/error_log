@@ -1,0 +1,20 @@
+[18-Mar-2025 18:52:02 UTC] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, WP_Error given in /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-connection/src/class-plugin.php:98
+Stack trace:
+#0 /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-connection/src/class-plugin.php(98): array_key_exists('jetpack', Object(WP_Error))
+#1 /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-connection/src/class-manager.php(2227): Automattic\Jetpack\Connection\Plugin->is_only()
+#2 /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-connection/src/class-manager.php(1865): Automattic\Jetpack\Connection\Manager->disconnect_site(true, false)
+#3 /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/class.jetpack.php(2833): Automattic\Jetpack\Connection\Manager->remove_connection(true)
+#4 /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/class.jetpack.php(2805): Jetpack::disconnect()
+#5 /home2/sxjnqpte/public_html/wp-includes/class-wp-hook.php(324): Jetpack::plugin_deactivation(false)
+#6 /home2/sxjnqpte/public_html/wp-includes/class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#7 /home2/sxjnqpte/public_html/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#8 /home2/sxjnqpte/public_html/wp-admin/includes/plugin.php(826): do_action('deactivate_jetp...', false)
+#9 /home2/sxjnqpte/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-installer/includes/Services/PluginInstaller.php(479): deactivate_plugins('jetpack/jetpack...')
+#10 /home2/sxjnqpte/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-installer/includes/Tasks/PluginDeactivationTask.php(87): NewfoldLabs\WP\Module\Installer\Services\PluginInstaller::deactivate('jetpack')
+#11 /home2/sxjnqpte/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-installer/includes/TaskManagers/PluginDeactivationTaskManager.php(63): NewfoldLabs\WP\Module\Installer\Tasks\PluginDeactivationTask->execute()
+#12 /home2/sxjnqpte/public_html/wp-includes/class-wp-hook.php(324): NewfoldLabs\WP\Module\Installer\TaskManagers\PluginDeactivationTaskManager->deactivate()
+#13 /home2/sxjnqpte/public_html/wp-includes/class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#14 /home2/sxjnqpte/public_html/wp-includes/plugin.php(565): WP_Hook->do_action(Array)
+#15 /home2/sxjnqpte/public_html/wp-cron.php(191): do_action_ref_array('nfd_module_inst...', Array)
+#16 {main}
+  thrown in /home2/sxjnqpte/public_html/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-connection/src/class-plugin.php on line 98

@@ -199,10 +199,6 @@ class Riders extends Model
   {
     return $this->hasOne(Sims::class, 'id', 'assign_to');
   }
-  function country()
-  {
-    return $this->hasOne(Countries::class, 'id', 'nationality');
-  }
 
   function transactions()
   {

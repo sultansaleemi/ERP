@@ -24,10 +24,7 @@
                         Add New
                     </a>
                     @endcan
-                    <a class="btn btn-success action-btn me-2"
-                    href="{{ route('rider.exportRiders') }}" >
-                     <i class="fa fa-file-excel"></i>&nbsp; Export Riders
-                 </a>
+
 
                 </div>
             </div>
@@ -37,7 +34,6 @@
     <div class="content px-0">
 
         <div class="card">
-
             @include('riders.table')
         </div>
     </div>

@@ -49,14 +49,11 @@ class RidersDataTable extends DataTable
       ->addColumn('orders', function (Riders $rider) {
         return $rider->activity->sum('delivered_orders') ?? '-';
       })
-      /*  ->addColumn('hr', function (Riders $rider) {
-         return $rider->activity->sum('login_hr') ?? '-';
-       }) */
+      ->addColumn('hr', function (Riders $rider) {
+        return $rider->activity->sum('login_hr') ?? '-';
+      })
       ->addColumn('days', function (Riders $rider) {
         return $rider->activity->count('date') ?? '-';
-      })
-      ->addColumn('attendance', function (Riders $rider) {
-        return '<a href="javascript:void(0);" data-action="' . url('riders/job_status/' . $rider->id) . '" data-size="md" data-title="Add Timeline" class="show-modal">' . $rider->attendance . '</a>';
       })
       ->addColumn('company_contact', function (Riders $rider) {
         if (!$rider->company_contact)
@@ -100,7 +97,7 @@ class RidersDataTable extends DataTable
       ->filterColumn('emirate_hub', function ($query, $keyword) {
         $query->where('emirate_hub', 'LIKE', "%{$keyword}%");
       })
-      ->rawColumns(['name', 'status', 'action', 'company_contact', 'attendance']);
+      ->rawColumns(['name', 'status', 'action', 'company_contact']);
 
     return $dataTable;
   }
@@ -132,13 +129,7 @@ class RidersDataTable extends DataTable
         'order' => [[0, 'desc']],
         'pageLength' => 100,
         'responsive' => true,
-        'buttons' => [// Enable Buttons as per your need
-          //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-          // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-          //['extend' => 'excel', 'className' => 'btn btn-success btn-sm no-corner'],
-          //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-          //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-        ],
+        'buttons' => [],
         'initComplete' => "function () {
                     this.api().columns().every(function () {
                         var column = this;
@@ -219,12 +210,12 @@ class RidersDataTable extends DataTable
         'searchable' => true,
         'orderable' => true
       ],
-      /* [
+      [
         'data' => 'hr',
         'title' => 'HR',
         'searchable' => true,
         'orderable' => true
-      ], */
+      ],
       [
         'data' => 'days',
         'title' => 'Days',

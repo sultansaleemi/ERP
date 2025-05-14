@@ -23,5 +23,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         //
+        
+    // Gate::before(function ($user, $ability) {
+    //     return true; // Let all users pass all permission checks
+    // });
     }
+    
 }

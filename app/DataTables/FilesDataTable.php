@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\RiderInvoices;
+use App\Models\Files;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class RiderInvoicesDataTable extends DataTable
+class FilesDataTable extends DataTable
 {
   /**
    * Build DataTable class.
@@ -18,52 +18,21 @@ class RiderInvoicesDataTable extends DataTable
   {
     $dataTable = new EloquentDataTable($query);
 
-    $dataTable->addColumn('action', 'rider_invoices.datatables_actions');
-
-    $dataTable
-      ->addColumn('rider_id', function (RiderInvoices $riderInvoices) {
-        return @$riderInvoices->rider->rider_id . '-' . @$riderInvoices->rider->name;
-      });
-    $dataTable
-      ->addColumn('billing_month', function (RiderInvoices $riderInvoices) {
-        return date('M Y', strtotime($riderInvoices->billing_month));
-      });
-
-    // 👇 Add custom filter for searchable rider column
-    $dataTable->filterColumn('billing_month', function ($query, $keyword) {
-      $query->whereRaw("DATE_FORMAT(billing_month, '%b %Y') like ?", ["%{$keyword}%"]);
-
-    });
-    $dataTable->filterColumn('rider_id', function ($query, $keyword) {
-
-      $query->whereHas('rider', function ($q) use ($keyword) {
-        $q->where('rider_id', 'like', "%{$keyword}%")
-          ->orWhere('name', 'like', "%{$keyword}%");
-      });
-    });
-
-    $dataTable->rawColumns(['rider_id', 'action']);
-    return $dataTable;
+    return $dataTable->addColumn('action', 'files.datatables_actions');
   }
 
   /**
    * Get query source of dataTable.
    *
-   * @param \App\Models\RiderInvoices $model
+   * @param \App\Models\Files $model
    * @return \Illuminate\Database\Eloquent\Builder
    */
-  public function query(RiderInvoices $model)
+  public function query(Files $model)
   {
-    $query = $model->newQuery()->with(['rider']);
-
+    $query = $model->newQuery();
     if ($this->rider_id) {
-      $query->where('rider_id', $this->rider_id);
+      $query->where('type_id', $this->rider_id);
     }
-    if (request('month')) {
-      $query->where(\DB::raw('DATE_FORMAT(billing_month, "%Y-%m")'), '=', request('month'));
-
-    }
-
     return $query;
   }
 
@@ -81,9 +50,6 @@ class RiderInvoicesDataTable extends DataTable
       ->parameters([
         'dom' => 'Bfrtip',
         'stateSave' => false,
-        'ordering' => false,
-        'pageLength' => 50,
-        'responsive' => true,
         'order' => [[0, 'desc']],
         'buttons' => [
           // Enable Buttons as per your need
@@ -104,14 +70,13 @@ class RiderInvoicesDataTable extends DataTable
   protected function getColumns()
   {
     return [
-      'id',
-      'inv_date',
-      'billing_month',
-      'rider_id' => ['title' => 'Rider'],
-      'descriptions',
-      'total_amount'
 
 
+      'file_name',
+      /* 'expiry_date',
+      'status',
+      'notes',
+      'file_type'*/
     ];
   }
 
@@ -122,6 +87,6 @@ class RiderInvoicesDataTable extends DataTable
    */
   protected function filename(): string
   {
-    return 'rider_invoices_datatable_' . time();
+    return 'files_datatable_' . time();
   }
 }

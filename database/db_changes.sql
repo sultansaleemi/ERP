@@ -111,6 +111,45 @@ ADD COLUMN `code`  varchar(50) NULL AFTER `status`,
 ADD COLUMN `barcode`  varchar(50) NULL AFTER `code`;
 ------------
 
+ALTER TABLE `rider_invoices`
+MODIFY COLUMN `vendor_id`  bigint(20) UNSIGNED NULL AFTER `rider_id`;
+---------------
+
+ALTER TABLE `bikes`
+ADD COLUMN `contract_number`  varchar(50) NULL AFTER `status`;
+-------------
+
+ALTER TABLE `riders`
+ADD COLUMN `shift`  varchar(100) NULL AFTER `policy_no`,
+ADD COLUMN `attendance`  varchar(50) NULL AFTER `shift`;
+-------
+ALTER TABLE `rider_activities`
+ADD COLUMN `delivery_rating`  decimal(2,1) NULL DEFAULT NULL AFTER `updated_at`;
+
+ALTER TABLE `rider_activities`
+MODIFY COLUMN `payout_type`  varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' AFTER `d_rider_id`;
+--------------
+
+ALTER TABLE `rider_activities`
+MODIFY COLUMN `delivery_rating`  decimal(4,1) NULL DEFAULT NULL AFTER `updated_at`;
+-----------------------
+
+DROP TABLE IF EXISTS `rider_emails`;
+CREATE TABLE `rider_emails` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `rider_id` bigint(20) DEFAULT NULL,
+  `mail_to` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `status` varchar(20) DEFAULT 'sent',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+
 
 
 

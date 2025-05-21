@@ -1,0 +1,26 @@
+name: 🚀 Deploy Laravel with git-ftp
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install git-ftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install git-ftp
+
+      - name: Deploy only changed files
+        run: |
+          git config git-ftp.url "${{ secrets.FTP_URL }}"
+          git config git-ftp.user "${{ secrets.FTP_USERNAME }}"
+          git config git-ftp.password "${{ secrets.FTP_PASSWORD }}"
+          git ftp push --auto-init

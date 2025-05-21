@@ -1,0 +1,45 @@
+[10-May-2025 04:00:44 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:00:44 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:00:52 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:00:52 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:06:55 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:06:55 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:06:58 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:06:58 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:07:30 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:07:30 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:15:50 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:15:50 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:35 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:35 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:36 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:36 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:36 America/Chicago] PHP Warning:  require(/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[10-May-2025 04:31:36 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required '/home2/sxjnqpte/public_html/website_28dba112/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home2/sxjnqpte/public_html/website_28dba112/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34

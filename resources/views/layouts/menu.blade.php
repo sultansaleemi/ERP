@@ -96,15 +96,34 @@
   </a>
 </li>
 @endcan
-
-@can('supplier_view') <!-- Optional permission -->
-<li class="menu-item {{ Request::is('suppliers') ? 'active' : '' }}">
-  <a href="{{ route('suppliers.index') }}" class="menu-link">
-    <i class="menu-icon tf-icons ti ti-truck"></i>
-    <div>Suppliers</div>
+ 
+@canany(['supplier_view']) <!-- Replace with your actual permission(s) -->
+<li class="menu-item {{ Request::is('suppliers*') ? 'open' : '' }}">
+   
+  <a href="javascript:void(0); " class="menu-link menu-toggle">
+    <i class="menu-icon tf-icons ti ti-truck"></i> <!-- You can choose an icon -->
+    <div>Supplier</div>
   </a>
+  <ul class="menu-sub">
+      
+      <li class="menu-item {{ Request::is('suppliers*') ? 'active' : '' }}">
+      <a href="{{ route('suppliers.index') }}" class="menu-link">
+        <div>Suppliers</div>
+      </a> 
+    </li>
+
+    <li class="menu-item {{ Request::is('supplier-invoices*') ? 'active' : '' }}">
+      <a href="{{ route('supplier_invoices.index') }}" class="menu-link">
+        <div>Supplier Invoices</div>
+      </a>
+    </li>
+
+    <!-- You can add other Supplier submenu items here -->
+
+  </ul>
 </li>
-@endcan
+@endcanany
+
 @can('vendors_view')
 <li class="menu-item {{ request()->is('vendors') ? 'active' : '' }}">
     <a class="menu-link" href="{{ route('vendors.index') }}">
@@ -113,6 +132,7 @@
     </a>
 </li>
 @endcan
+
 @canany(['rta_fine_view', 'salik_fine_view']) <!-- Optional permissions -->
 <li class="menu-item {{ Request::is('fines*') ? 'open' : '' }}">
   <a href="javascript:void(0);" class="menu-link menu-toggle">

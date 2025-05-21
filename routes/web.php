@@ -16,6 +16,8 @@ use App\Http\Controllers\RtaFineController;
 use App\Http\Controllers\SalikFineController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\FilesController;
+use App\Http\Controllers\SupplierInvoicesController;
 
 
 /*
@@ -59,7 +61,8 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::resource('sims', App\Http\Controllers\SimsController::class);
   /* Rider section starts from here */
 
-  Route::resource('riders', App\Http\Controllers\RidersController::class);
+  
+Route::resource('riders', App\Http\Controllers\RidersController::class);
   Route::any('riders/job_status/{id?}', [\App\Http\Controllers\RidersController::class, 'job_status'])->name('rider.job_status');
   Route::get('riders/timeline/{id?}', [\App\Http\Controllers\RidersController::class, 'timeline'])->name('rider.timeline');
   Route::get('riders/contract/{id?}', [\App\Http\Controllers\RidersController::class, 'contract'])->name('rider.contract');
@@ -71,6 +74,20 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::get('riders/attendance/{id}', [\App\Http\Controllers\RidersController::class, 'attendance'])->name('rider.attendance');
   Route::get('riders/activities/{id}', [\App\Http\Controllers\RidersController::class, 'activities'])->name('rider.activities');
   Route::get('riders/invoices/{id}', [\App\Http\Controllers\RidersController::class, 'invoices'])->name('rider.invoices');
+  Route::any('riders/sendemail/{id}', [\App\Http\Controllers\RidersController::class, 'sendEmail'])->name('rider.sendemail');
+  Route::get('riders/emails/{id}', [\App\Http\Controllers\RidersController::class, 'emails'])->name('rider.emails');
+  Route::get('rider/exportRiders', [\App\Http\Controllers\RidersController::class, 'exportRiders'])->name('rider.exportRiders');
+  Route::get('riders/files/{id}', [\App\Http\Controllers\RidersController::class, 'files'])->name('rider.files');
+  Route::resource('files', App\Http\Controllers\FilesController::class);
+
+
+
+  Route::get('riders/file-manager', function () {
+    return view('riders.file-manager');
+  })->name('rider.file-manager');
+
+  Route::resource('riderEmails', App\Http\Controllers\RiderEmailsController::class);
+
 
   Route::resource('riderInvoices', App\Http\Controllers\RiderInvoicesController::class);
   Route::any('rider/invoice-import', [\App\Http\Controllers\RiderInvoicesController::class, 'import'])->name('rider.invoice_import');
@@ -81,6 +98,7 @@ Route::middleware(['auth', 'web'])->group(function () {
 
   Route::resource('riderActivities', App\Http\Controllers\RiderActivitiesController::class);
   Route::any('rider/activities-import', [\App\Http\Controllers\RiderActivitiesController::class, 'import'])->name('rider.activities_import');
+
 
   /* Rider section end here */
 
@@ -96,6 +114,15 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::get('fetch_invoices/{id}/{vt}', 'VouchersController@fetch_invoices');
   /*   Route::any('attach_file/{id}', 'VouchersController@fileUpload'); */
   Route::any('voucher/attach_file/{id}', [VouchersController::class, 'fileUpload'])->name('voucher.fileupload');
+
+
+ Route::resource('vouchers', \App\Http\Controllers\VouchersController::class);
+  Route::any('voucher/import', [\App\Http\Controllers\VouchersController::class, 'import'])->name('voucher.import');
+  Route::get('get_invoice_balance', [\App\Http\Controllers\VouchersController::class, 'GetInvoiceBalance'])->name('get_invoice_balance');
+  Route::get('fetch_invoices/{id}/{vt}', [\App\Http\Controllers\VouchersController::class, 'fetch_invoices']);
+  /*   Route::any('attach_file/{id}', 'VouchersController@fileUpload'); */
+  Route::any('voucher/attach_file/{id}', [\App\Http\Controllers\VouchersController::class, 'fileUpload'])->name('voucher.fileupload');
+
 
 
   Route::prefix('settings')->group(function () {
@@ -181,17 +208,27 @@ Route::get('/artisan-storage-unlink', function () {
   Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::get('/suppliers/show/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
-    Route::get('/suppliers/ledger/{id}', [SupplierController::class, 'ledger'])->name('suppliers.ledger');
+    Route::get('/suppliers/ledger/{id}', [SupplierController::class, 'ledger'])->name('suppliers.ledger'); 
     Route::get('/suppliers/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
     Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
     
-    Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
     Route::post('suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::put('suppliers/{supplier}', [SupplierController::class, 'update'])->name('suppliers.update');
     Route::delete('suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
     Route::get('suppliers/datatable', [SupplierController::class, 'datatable'])->name('suppliers.datatable');
+    Route::any('/supplier/invoices/import', [SupplierInvoicesController::class, 'import'])->name('supplier_invoices.import'); 
+    Route::get('/supplier/invoices/create', [SupplierInvoicesController::class, 'create'])->name('supplier_invoices.create');
+    Route::resource('supplierInvoices', App\Http\Controllers\SupplierInvoicesController::class);
+    Route::get('/supplier/invoices/import', [App\Http\Controllers\SupplierInvoicesController::class, 'import'])->name('supplier.import');
+    Route::get('/supplier-invoices/create', [SupplierInvoicesController::class, 'create'])->name('supplierInvoices.create');
+    Route::get('/supplier/invoice/import', [SupplierInvoicesController::class, 'importForm'])->name('supplier.invoice_import_form');
+    Route::post('/supplier/invoice/import', [SupplierInvoicesController::class, 'import'])->name('supplier.invoice_import');
+    
+
+
 });
 
 
@@ -211,3 +248,10 @@ Route::get('/vendors/import', [VendorController::class, 'importForm'])->name('ve
 
 
 Route::resource('riderActivities', App\Http\Controllers\RiderActivitiesController::class);
+
+Route::resource('supplier_invoices', SupplierInvoicesController::class);
+
+Route::get('/item/{id}/price', [ItemController::class, 'getPrice'])->name('item.price');
+
+Route::get('/get-item-price/{id}', [\App\Http\Controllers\ItemsController::class, 'getItemPrice'])->name('item.getPrice');
+

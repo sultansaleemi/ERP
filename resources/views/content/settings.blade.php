@@ -363,6 +363,7 @@
             $selectedTimezone = $settings['timezone'] ?? 'UTC';
         @endphp
         <div class="row">
+            <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="default_language" class="form-label"><i class="bi bi-translate"></i> Default Language</label>
                 <div class="input-group">
@@ -372,8 +373,9 @@
                         <option value="es" {{ ($settings['default_language'] ?? '') == 'es' ? 'selected' : '' }}>Spanish</option>
                     </select>
                 </div>
-            </div>
-            <div class="row">
+                </div>
+        
+            
             <div class="col-md-6 mb-3">
                 <label for="date_format" class="form-label"><i class="bi bi-calendar-date"></i> Date Format</label>
                 <div class="input-group">
@@ -384,6 +386,7 @@
                     </select>
                 </div>
             </div>
+        
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">

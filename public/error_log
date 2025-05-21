@@ -43,3 +43,317 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home2/sxjnqpte/public_html/website_28dba112/public/index.php on line 34
+[16-May-2025 05:13:44 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:13:46 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:13:49 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:15:39 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:15:42 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:15:47 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:15:50 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:16:41 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:16:44 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:16:49 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:17:32 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:17:35 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:18:14 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:18:58 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:19:01 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:19:03 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:19:06 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:19:09 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:19:13 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:19:15 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:19:21 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:19:32 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:19:34 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:19:36 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInitf185342414d40ce497b6f69618825542" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:22
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 22
+[16-May-2025 05:39:53 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 05:39:55 America/Chicago] PHP Fatal error:  Uncaught Error: Class "ComposerAutoloaderInita80b844b8e47a16101ab1cfc5f35faec" not found in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php:25
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(34): require()
+#1 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/autoload.php on line 25
+[16-May-2025 11:18:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:18:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:21:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:23:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:24:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:27:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 11:29:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer::getFileLink() in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php:14
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include()
+#1 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/traces.html.php(48): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/trace.htm...', Array)
+#2 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#3 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception.html.php(54): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/traces.ht...', Array)
+#4 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#5 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/exception_full.html.php(35): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#6 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(339): include('/home2/sxjnqpte...')
+#7 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(138): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->include('views/exception...', Array)
+#8 /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/ErrorRenderer/HtmlErrorRenderer.php(70): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->renderException(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#9 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(708): Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer->render(Object(Symfony\Component\ErrorHandler\Exception\FlattenException))
+#10 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(682): Illuminate\Foundation\Exceptions\Handler->renderExceptionWithSymfony(Object(TypeError), true)
+#11 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(663): Illuminate\Foundation\Exceptions\Handler->renderExceptionContent(Object(TypeError))
+#12 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\Handler->convertExceptionToResponse(Object(Error))
+#13 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(556): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Error))
+#14 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(473): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Error))
+#15 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(217): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Error))
+#16 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(194): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Error))
+#17 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#18 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(Error))
+#19 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/symfony/error-handler/Resources/views/trace.html.php on line 14
+[16-May-2025 06:58:12 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function Illuminate\Foundation\laravel_cloud() in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php:258
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(207): Illuminate\Foundation\Application->registerLaravelCloudServices()
+#1 /home2/sxjnqpte/public_html/website_28dba112/bootstrap/app.php(14): Illuminate\Foundation\Application->__construct('/home2/sxjnqpte...')
+#2 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(47): require_once('/home2/sxjnqpte...')
+#3 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php on line 258
+[16-May-2025 06:58:18 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function Illuminate\Foundation\laravel_cloud() in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php:258
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(207): Illuminate\Foundation\Application->registerLaravelCloudServices()
+#1 /home2/sxjnqpte/public_html/website_28dba112/bootstrap/app.php(14): Illuminate\Foundation\Application->__construct('/home2/sxjnqpte...')
+#2 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(47): require_once('/home2/sxjnqpte...')
+#3 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php on line 258
+[16-May-2025 06:58:26 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function Illuminate\Foundation\laravel_cloud() in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php:258
+Stack trace:
+#0 /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(207): Illuminate\Foundation\Application->registerLaravelCloudServices()
+#1 /home2/sxjnqpte/public_html/website_28dba112/bootstrap/app.php(14): Illuminate\Foundation\Application->__construct('/home2/sxjnqpte...')
+#2 /home2/sxjnqpte/public_html/website_28dba112/public/index.php(47): require_once('/home2/sxjnqpte...')
+#3 {main}
+  thrown in /home2/sxjnqpte/public_html/website_28dba112/vendor/laravel/framework/src/Illuminate/Foundation/Application.php on line 258
+[17-May-2025 11:27:56 UTC] PHP Fatal error:  Cannot redeclare App\Models\SupplierInvoices::supplier() in /home2/sxjnqpte/public_html/website_28dba112/app/Models/SupplierInvoices.php on line 70
+[17-May-2025 11:28:21 UTC] PHP Fatal error:  Cannot redeclare App\Models\SupplierInvoices::supplier() in /home2/sxjnqpte/public_html/website_28dba112/app/Models/SupplierInvoices.php on line 70

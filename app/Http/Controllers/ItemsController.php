@@ -140,6 +140,20 @@ class ItemsController extends AppBaseController
 
     $result = Items::where('id', $item_id)->first();
     return $result;
+    
 
+  }
+  
+  public function getItemPrice($id)
+  {
+    $item = Items::find($id);
+
+    if (!$item) {
+        return response()->json(['error' => 'Item not found'], 404);
+    }
+
+    return response()->json([
+        'rate' => $item->price, // changed from $item->rate to $item->price
+    ]);
   }
 }

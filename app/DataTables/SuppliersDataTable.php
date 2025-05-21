@@ -5,6 +5,8 @@ namespace App\DataTables;
 use App\Models\Supplier;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\Route;
+
 
 
 class SuppliersDataTable extends DataTable
@@ -17,7 +19,13 @@ class SuppliersDataTable extends DataTable
         return $dataTable
             ->addColumn('action', function ($supplier) {
                 return view('suppliers.datatables_actions', compact('supplier'))->render();
-            });
+            })
+            ->addColumn('name', function ($supplier) {
+            $name = '<a href="' . route('suppliers.show', $supplier->id) . '">' . e($supplier->name) . '</a><br/>';
+            return $name;
+        })
+        ->rawColumns(['name', 'action']); // ← THIS IS REQUIRED to render HTML
+
     }
 
  

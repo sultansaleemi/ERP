@@ -1,4 +1,4 @@
-name: 🚀 Deploy Laravel with git-ftp
+name: Deploy to HostGator via FTP
 
 on:
   push:
@@ -6,21 +6,26 @@ on:
       - main
 
 jobs:
-  deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install git-ftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install git-ftp
-
-      - name: Deploy only changed files
-        run: |
-          git config git-ftp.url "${{ secrets.FTP_URL }}"
-          git config git-ftp.user "${{ secrets.FTP_USERNAME }}"
-          git config git-ftp.password "${{ secrets.FTP_PASSWORD }}"
-          git ftp push --auto-init
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: ${{ secrets.FTP_PORT }}
+          server-dir: ${{ secrets.FTP_REMOTE_PATH }}
+          state-name: deployment-state.json  # Enables incremental deploy
+          exclude: |
+            **/.git*
+            **/node_modules/**
+            **/docker/**
+            Dockerfile
+            **/*.log
+          dry-run: false

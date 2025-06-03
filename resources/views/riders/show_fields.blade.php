@@ -42,7 +42,7 @@
                   <!--col-->
                   <div class="col-md-3 form-group col-3">
                       <label>Nationality </label>
-                      <p>{{@$rider->country->name}}</p>
+                      <p>{{$rider?->country?->name}}</p>
 
                   </div>
                   <div class="col-md-3 form-group col-3">
@@ -149,7 +149,7 @@
       </div>
       </div>
   </div>
-</div>
+
 
 <div class="card border">
   <div class="card-header"><b>Visa & Registerations</b></div>

@@ -23,17 +23,14 @@ class FilesController extends AppBaseController
   /**
    * Display a listing of the Files.
    */
- ublic function index(FilesDataTable $dataTable)
-{
-    if (!request('type')) {
-        abort(404);
-    }
+  public function index(FilesDataTable $filesDataTable)
+  {
 
-    return $dataTable->with([
-        'type' => request('type') ?? 1,
-        'type_id' => request('type_id') ?? 1,
-    ])->render('files.index');
-}
+    if (!request('type')) {
+      abort(404);
+    }
+    return $filesDataTable->with(['type' => request('type') ?? 1, 'type_id' => request('type_id') ?? 1,])->render('files.index');
+  }
 
 
   /**

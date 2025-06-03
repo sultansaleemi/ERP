@@ -22,6 +22,14 @@
   </a>
 </li>
 @endcan
+@can('vendor_view')
+<li class="menu-item {{ Request::is('vendors*') ? 'active' : '' }}">
+  <a href="{{ route('vendors.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-user-star"></i>
+      <div>Vendors</div>
+  </a>
+</li>
+@endcan
 @can('rider_view')
 <li class="menu-item {{ Request::is('riders*') ? 'active' : '' }}">
   <a href="{{ route('riders.index') }}" class="menu-link">
@@ -96,70 +104,8 @@
   </a>
 </li>
 @endcan
- 
-@canany(['supplier_view']) <!-- Replace with your actual permission(s) -->
-<li class="menu-item {{ Request::is('suppliers*') ? 'open' : '' }}">
-   
-  <a href="javascript:void(0); " class="menu-link menu-toggle">
-    <i class="menu-icon tf-icons ti ti-truck"></i> <!-- You can choose an icon -->
-    <div>Supplier</div>
-  </a>
-  <ul class="menu-sub">
-      
-      <li class="menu-item {{ Request::is('suppliers*') ? 'active' : '' }}">
-      <a href="{{ route('suppliers.index') }}" class="menu-link">
-        <div>Suppliers</div>
-      </a> 
-    </li>
 
-    <li class="menu-item {{ Request::is('supplier-invoices*') ? 'active' : '' }}">
-      <a href="{{ route('supplier_invoices.index') }}" class="menu-link">
-        <div>Supplier Invoices</div>
-      </a>
-    </li>
 
-    <!-- You can add other Supplier submenu items here -->
-
-  </ul>
-</li>
-@endcanany
-
-@can('vendors_view')
-<li class="menu-item {{ request()->is('vendors') ? 'active' : '' }}">
-    <a class="menu-link" href="{{ route('vendors.index') }}">
-        <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
-        <span>Vendors</span>
-    </a>
-</li>
-@endcan
-
-@canany(['rta_fine_view', 'salik_fine_view']) <!-- Optional permissions -->
-<li class="menu-item {{ Request::is('fines*') ? 'open' : '' }}">
-  <a href="javascript:void(0);" class="menu-link menu-toggle">
-    <i class="menu-icon tf-icons ti ti-currency-dollar"></i>
-    <div>Fines</div>
-  </a>
-  <ul class="menu-sub">
-
-    @can('rta_fine_view')
-    <li class="menu-item {{ Request::is('fines/rta*') ? 'active' : '' }}">
-      <a href="{{ route('fines.rta.index') }}" class="menu-link">
-        <div>RTA Fine</div>
-      </a>
-    </li>
-    @endcan
-
-    @can('salik_fine_view')
-    <li class="menu-item {{ Request::is('fines/salik*') ? 'active' : '' }}">
-      <a href="{{ route('fines.salik.index') }}" class="menu-link">
-        <div>Salik Fine</div>
-      </a>
-    </li>
-    @endcan
-
-  </ul>
-</li>
-@endcanany
 
 
 
@@ -290,4 +236,17 @@
     </a>
 </li> --}}
 
+{{-- <li class="nav-item">
+    <a href="{{ route('riderEmails.index') }}" class="nav-link {{ Request::is('riderEmails*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Rider Emails</p>
+    </a>
+</li> --}}
+
+{{-- <li class="nav-item">
+    <a href="{{ route('files.index') }}" class="nav-link {{ Request::is('files*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Files</p>
+    </a>
+</li> --}}
 

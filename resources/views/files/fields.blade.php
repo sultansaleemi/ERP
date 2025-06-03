@@ -1,6 +1,6 @@
 <!-- Type Field -->
-<input type="hidden" name="type" value="1"/>
-<input type="hidden" name="type_id" value="{{request('rider_id')}}"/>
+<input type="hidden" name="type" value="{{request('type')}}"/>
+<input type="hidden" name="type_id" value="{{request('type_id')}}"/>
 
 {{-- <!-- Type Id Field -->
 <div class="form-group col-sm-6">
@@ -9,6 +9,11 @@
 </div> --}}
 
 <!-- File Name Field -->
+<div class="col-12">
+  <label class=" pl-2">Name</label>
+  <input type="text" name="name" class="form-control mb-3" style="height: 40px;" />
+
+</div>
 
 <div class="col-12">
   <label class=" pl-2">Select file</label>

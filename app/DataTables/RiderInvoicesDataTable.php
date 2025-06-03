@@ -30,6 +30,10 @@ class RiderInvoicesDataTable extends DataTable
       });
 
     // 👇 Add custom filter for searchable rider column
+    $dataTable->filterColumn('billing_month', function ($query, $keyword) {
+      $query->whereRaw("DATE_FORMAT(billing_month, '%b %Y') like ?", ["%{$keyword}%"]);
+
+    });
     $dataTable->filterColumn('rider_id', function ($query, $keyword) {
 
       $query->whereHas('rider', function ($q) use ($keyword) {
@@ -88,6 +92,9 @@ class RiderInvoicesDataTable extends DataTable
 //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+        ],
+        'language' => [
+          'processing' => '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>'
         ],
       ]);
   }

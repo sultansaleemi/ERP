@@ -128,6 +128,41 @@ ADD COLUMN `delivery_rating`  decimal(2,1) NULL DEFAULT NULL AFTER `updated_at`;
 
 ALTER TABLE `rider_activities`
 MODIFY COLUMN `payout_type`  varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' AFTER `d_rider_id`;
+--------------
+
+ALTER TABLE `rider_activities`
+MODIFY COLUMN `delivery_rating`  decimal(4,1) NULL DEFAULT NULL AFTER `updated_at`;
+-----------------------
+
+DROP TABLE IF EXISTS `rider_emails`;
+CREATE TABLE `rider_emails` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `rider_id` bigint(20) DEFAULT NULL,
+  `mail_to` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `status` varchar(20) DEFAULT 'sent',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--------------
+
+ALTER TABLE `files`
+ADD COLUMN `name`  varchar(255) NULL AFTER `file_type`;
+
+-------------
+ALTER TABLE `riders`
+ADD COLUMN `vat`  tinyint(2) NULL DEFAULT 2 AFTER `attendance`;
+
+ALTER TABLE `rider_invoices`
+ADD COLUMN `vat`  decimal(10,2) NULL DEFAULT 0 AFTER `notes`;
+
+------------
+ALTER TABLE `riders`
+ADD COLUMN `attendance_date`  date NULL AFTER `vat`;
+
 
 
 

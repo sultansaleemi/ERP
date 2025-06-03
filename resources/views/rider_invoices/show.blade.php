@@ -131,6 +131,10 @@
                         <td @if(in_array($riderInvoice->rider->status,[3,4,5])) style="color:red;" @endif>{{ App\Helpers\General::RiderStatus($riderInvoice->rider->status) }}</td>
                     </tr>
                     <tr>
+                      <th>Bike:</th>
+                      <td>{{$riderInvoice->rider?->bikes?->plate}}</td>
+                  </tr>
+                    <tr>
                         <th>Working Days:</th>
                         <td>{{$riderInvoice->working_days}}</td>
                     </tr>
@@ -164,6 +168,9 @@
             <th style="border: 1px solid #000; padding: 5px;">Qty</th>
             <th style="border: 1px solid #000; padding: 5px;">Rate</th>
             <th style="border: 1px solid #000; padding: 5px;">Amount</th>
+            {{-- <th style="border: 1px solid #000; padding: 5px;">VAT %</th>
+            <th style="border: 1px solid #000; padding: 5px;">VAT Amount</th>
+            <th style="border: 1px solid #000; padding: 5px;">Total</th> --}}
         </tr>
         </thead>
         <tbody>
@@ -200,18 +207,27 @@
         </tfoot>
     </table>
     <table style="width: 100%; font-family: sans-serif;text-align: center;border: 1px solid #000; border-collapse: collapse;font-size: 10px;border-top:0px;">
+      <tr>
+        <td style="width:75%;text-align: left;padding:5px;">
+
+      </td>
+      <th style="padding: 5px;text-align: right;">VAT:</th>
+
+      <th style="padding: 5px;text-align: right;">AED {{ \App\Helpers\Account::show_bal_format($riderInvoice->vat) }}</th>
+    </tr>
     <tr>
         <td style="width:75%;text-align: left;padding:5px;">
             <b>Notes</b>
             <br />{{$riderInvoice->notes}}
         </td>
 
+
         <th style="padding: 5px;text-align: right;">Total:</th>
       @php
       //$credit = $sim+$rent+$rta+$fuel+$loan_advance+$maintenance+$cod;
       //$balance = $total-$credit;
       @endphp
-      <th style="padding: 5px;text-align: right;">AED {{ \App\Helpers\Account::show_bal_format($total) }}</th>
+      <th style="padding: 5px;text-align: right;">AED {{ \App\Helpers\Account::show_bal_format($riderInvoice->total_amount) }}</th>
         {{-- <td> --}}
             {{-- <table style="width: 100%; font-family: sans-serif;text-align: center;border: 1px solid #000; border-collapse: collapse;font-size: 10px;border-top:0px;border-right:0px;">
                 @php

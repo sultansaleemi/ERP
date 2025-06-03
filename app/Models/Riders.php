@@ -62,7 +62,9 @@ class Riders extends Model
     'insurance_expiry',
     'policy_no',
     'shift',
-    'attendance'
+    'vat',
+    'attendance',
+    'attendance_date'
   ];
 
   protected $casts = [
@@ -198,6 +200,10 @@ class Riders extends Model
   function sim()
   {
     return $this->hasOne(Sims::class, 'id', 'assign_to');
+  }
+  function country()
+  {
+    return $this->hasOne(Countries::class, 'id', 'nationality');
   }
 
   function transactions()

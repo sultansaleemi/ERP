@@ -67,8 +67,9 @@ class SupplierInvoicesDataTable extends DataTable
   protected function getColumns()
   {
     return [
-      'inv_id',
+      
       'inv_date',
+      'inv_id',
       'billing_month',
       'supplier_id' => ['title' => 'Supplier'],
       'descriptions',

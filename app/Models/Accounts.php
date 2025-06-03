@@ -37,6 +37,38 @@ class Accounts extends Model
 
   ];
 
+
+  function createDynamicAccount($childName, $groupName, $accountType = 'Liability', $refName = null, $refId = null, $openingBalance = 0) {
+    // Step 1: Create or get the parent group account (like 'Suppliers', 'Vendors', etc.)
+    $parent = Accounts::firstOrCreate(
+        ['name' => $groupName, 'parent_id' => null],
+        [
+            'account_code' => generateNextAccountCode(null),
+            'account_type' => $accountType,
+            'status' => 'Active',
+            'opening_balance' => 0
+        ]
+    );
+
+    // Step 2: Create or get the child account under that group
+    $existing = Accounts::where('name', $childName)
+        ->where('parent_id', $parent->id)
+        ->first();
+
+    if (!$existing) {
+        Accounts::create([
+            'account_code' => generateNextAccountCode($parent->id),
+            'name' => $childName,
+            'account_type' => $accountType,
+            'status' => 'Active',
+            'parent_id' => $parent->id,
+            'ref_name' => $refName,
+            'ref_id' => $refId,
+            'opening_balance' => $openingBalance,
+        ]);
+    }
+}
+
   public function ledgerEntries()
   {
     return $this->hasMany(LedgerEntry::class);

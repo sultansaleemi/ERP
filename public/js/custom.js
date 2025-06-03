@@ -185,7 +185,8 @@ function alertfunction() {
 
 function block() {
   $('#modalTopbody').block({
-    message: '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>',
+    message:
+      '<div style="width=100%;margin:0 auto; padding:50px;"><div class="spinner-border text-primary text-center" role="status" ></div></div>',
     css: {
       backgroundColor: 'transparent',
       border: '0'
@@ -228,7 +229,8 @@ $("select[name='country']").on('change', function () {
 
 function bodyblock() {
   $('.card').block({
-    message: '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>',
+    message:
+      '<div style="width=100%;margin:0 auto; padding:50px;"><div class="spinner-border text-primary text-center" role="status" ></div></div>',
     css: {
       backgroundColor: 'transparent',
       border: '0'
@@ -324,20 +326,3 @@ $(document).ready(function () {
     }
   });
 });
-
-function bodyblock() {
-  $('#bodyloader').block({
-    message: '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>',
-    css: {
-      backgroundColor: 'transparent',
-      border: '0'
-    },
-    overlayCSS: {
-      backgroundColor: '#fff',
-      opacity: 0.8
-    }
-  });
-}
-function bodyunblock() {
-  $('#bodyloader').unblock();
-}

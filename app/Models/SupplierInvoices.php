@@ -16,6 +16,7 @@ class SupplierInvoices extends Model
     'total_amount',
     'billing_month',
     'notes',
+    'inv_id',
 
   ];
 

@@ -6,7 +6,7 @@ use App\Helpers\General;
 use App\Models\Riders;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-use Carbon\Carbon;
+
 class RidersDataTable extends DataTable
 {
   public function dataTable($query)
@@ -43,30 +43,17 @@ class RidersDataTable extends DataTable
 
         return $name;
       })
-      ->editColumn('bike', function (Riders $rider) {
+      ->addColumn('bike', function (Riders $rider) {
         return $rider->bikes->plate ?? '-';
       })
-      ->editColumn('orders_sum', function ($rider) {
-        return $rider->orders_sum ?? '-';
+      ->addColumn('orders', function (Riders $rider) {
+        return $rider->activity->sum('delivered_orders') ?? '-';
       })
-      /*  ->addColumn('hr', function (Riders $rider) {
-         return $rider->activity->sum('login_hr') ?? '-';
-       }) */
-      ->editColumn('days', function (Riders $rider) {
+      ->addColumn('hr', function (Riders $rider) {
+        return $rider->activity->sum('login_hr') ?? '-';
+      })
+      ->addColumn('days', function (Riders $rider) {
         return $rider->activity->count('date') ?? '-';
-      })
-      ->editColumn('attendance', function (Riders $rider) {
-        $attn = General::getAttnActivity($rider->id);
-
-        $job_status = '';
-        if ($attn['timeline']) {
-          $job_status .= '<a href="' . route('rider.timeline', $rider->id) . '"><span class="text-danger cursor-pointer" title="Timeline Added">●</span></a>&nbsp;';
-        }
-        if ($attn['emails']) {
-          $job_status .= '<a href="' . route('rider.emails', $rider->id) . '"><span class="text-success cursor-pointer" title="Email Sent">●</span></a>&nbsp;';
-        }
-        $job_status .= '<a href="javascript:void(0);" data-action="' . url('riders/job_status/' . $rider->id) . '" data-size="md" data-title="Add Timeline" class="show-modal">' . $rider->attendance . '</a>';
-        return $job_status;
       })
       ->addColumn('company_contact', function (Riders $rider) {
         if (!$rider->company_contact)
@@ -110,52 +97,24 @@ class RidersDataTable extends DataTable
       ->filterColumn('emirate_hub', function ($query, $keyword) {
         $query->where('emirate_hub', 'LIKE', "%{$keyword}%");
       })
-
-      ->rawColumns(['name', 'status', 'action', 'company_contact', 'attendance']);
+      ->rawColumns(['name', 'status', 'action', 'company_contact']);
 
     return $dataTable;
   }
   public function query(Riders $model)
   {
+    return $model->newQuery()->select([
+      'id',
+      'rider_id',
+      'name',
+      'company_contact',
+      'fleet_supervisor',
+      'emirate_hub',
+      'status',
+      'shift',
+      'attendance'
 
-
-    $currentMonthStart = Carbon::now()->startOfMonth()->toDateString();
-    $currentMonthEnd = Carbon::now()->endOfMonth()->toDateString();
-
-    $query = $model->newQuery()
-      ->leftJoin('rider_activities', function ($join) use ($currentMonthStart, $currentMonthEnd) {
-        $join->on('riders.id', '=', 'rider_activities.rider_id')
-          ->whereBetween('rider_activities.date', [$currentMonthStart, $currentMonthEnd]);
-      })
-      ->select([
-        'riders.id',
-        'riders.rider_id',
-        'riders.name',
-        'riders.company_contact',
-        'riders.fleet_supervisor',
-        'riders.emirate_hub',
-        'riders.status',
-        'riders.shift',
-        'riders.attendance',
-        \DB::raw('SUM(rider_activities.delivered_orders) as orders_sum'),
-        \DB::raw('COUNT(rider_activities.date) as days')
-      ]);
-    if (request('fleet')) {
-      $query->where('fleet_supervisor', request('fleet'));
-    }
-    $query->groupBy([
-      'riders.id',
-      'riders.rider_id',
-      'riders.name',
-      'riders.company_contact',
-      'riders.fleet_supervisor',
-      'riders.emirate_hub',
-      'riders.status',
-      'riders.shift',
-      'riders.attendance'
     ]);
-    return $query;
-
   }
 
   public function html()
@@ -168,15 +127,9 @@ class RidersDataTable extends DataTable
         'dom' => 'Bfrtip',
         'stateSave' => false,
         'order' => [[0, 'desc']],
-        'pageLength' => 50,
+        'pageLength' => 100,
         'responsive' => true,
-        'buttons' => [// Enable Buttons as per your need
-          //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-          // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-          //['extend' => 'excel', 'className' => 'btn btn-success btn-sm no-corner'],
-          //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-          //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-        ],
+        'buttons' => [],
         'initComplete' => "function () {
                     this.api().columns().every(function () {
                         var column = this;
@@ -190,10 +143,7 @@ class RidersDataTable extends DataTable
                                 });
                         }
                     });
-                }",
-        'language' => [
-          'processing' => '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>'
-        ],
+                }"
       ]);
   }
 
@@ -233,8 +183,8 @@ class RidersDataTable extends DataTable
       [
         'data' => 'bike',
         'title' => 'Bike',
-        'searchable' => false,
-        'orderable' => false
+        'searchable' => true,
+        'orderable' => true
       ],
       [
         'data' => 'status',
@@ -255,22 +205,21 @@ class RidersDataTable extends DataTable
         'orderable' => true
       ],
       [
-        'data' => 'orders_sum',
-        'name' => 'orders_sum',
+        'data' => 'orders',
         'title' => 'Orders',
-        'searchable' => false,
+        'searchable' => true,
         'orderable' => true
       ],
-      /* [
+      [
         'data' => 'hr',
         'title' => 'HR',
         'searchable' => true,
         'orderable' => true
-      ], */
+      ],
       [
         'data' => 'days',
         'title' => 'Days',
-        'searchable' => false,
+        'searchable' => true,
         'orderable' => true
       ]
     ];

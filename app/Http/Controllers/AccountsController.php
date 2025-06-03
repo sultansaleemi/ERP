@@ -12,6 +12,8 @@ use App\Models\Banks;
 use App\Models\Customers;
 use App\Models\LeasingCompanies;
 use App\Models\Riders;
+use App\Models\Supplier;
+use App\Models\Vendor;
 use App\Models\Transactions;
 use App\Repositories\AccountsRepository;
 use Illuminate\Http\Request;

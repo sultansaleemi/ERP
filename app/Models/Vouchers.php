@@ -103,4 +103,9 @@ class Vouchers extends Model
     return $this->hasMany(Transactions::class, 'trans_code', 'trans_code');
   }
 
+
+public function supplier_invoice()
+{
+    return $this->hasOne(SupplierInvoices::class, 'voucher_id');
+}
 }

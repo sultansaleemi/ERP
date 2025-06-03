@@ -2,44 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Rider;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Files extends Model
 {
-  public $table = 'files';
+  use HasFactory;
+  use Notifiable;
+  protected $guarded = [];
 
-  public $fillable = [
-    'name',
-    'type',
-    'type_id',
-    'file_name',
-    'expiry_date',
-    'status',
-    'notes',
-    'file_type'
-  ];
 
-  protected $casts = [
-    'type' => 'boolean',
-    /*     'file_name' => 'string',
-     */ 'expiry_date' => 'date',
-    'status' => 'boolean',
-    'notes' => 'string',
-    'file_type' => 'string'
-  ];
 
-  public static array $rules = [
-    'name' => 'required|string',
-    'file_name' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-    'type_id' => 'required',
-    /*     'file_name' => 'nullable|string|max:100',
-     */ 'expiry_date' => 'nullable',
-    'status' => 'nullable|boolean',
-    'notes' => 'nullable|string|max:100',
-    'created_at' => 'nullable',
-    'updated_at' => 'nullable',
-    'file_type' => 'nullable|string|max:50'
-  ];
   public static function dropdown($id = 0)
   {
     $res = self::all();
@@ -49,13 +24,9 @@ class Files extends Model
     }
     return $list;
   }
+
   public function rider()
   {
     return $this->hasOne(Riders::class, 'id', 'type_id');
   }
-  public function bike()
-  {
-    return $this->hasOne(Bikes::class, 'id', 'type_id');
-  }
-
 }

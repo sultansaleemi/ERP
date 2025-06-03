@@ -12,7 +12,6 @@ use App\DataTables\RidersDataTable;
 use App\Exports\MonthlyActivityExport;
 use App\Exports\RiderExport;
 use App\Helpers\Account;
-use App\Helpers\Common;
 use App\Helpers\General;
 use App\Helpers\HeadAccount;
 use App\Http\Requests\CreateAccountsRequest;
@@ -51,8 +50,8 @@ class RidersController extends AppBaseController
     if (!auth()->user()->hasPermissionTo('rider_view')) {
       abort(403, 'Unauthorized action.');
     }
-    $fleets = Common::Dropdowns('fleet-supervisor');
-    return $ridersDataTable->render('riders.index', compact('fleets'));
+
+    return $ridersDataTable->render('riders.index');
   }
 
 
@@ -390,7 +389,7 @@ class RidersController extends AppBaseController
 
   public function files($rider_id, FilesDataTable $filesDataTable)
   {
-    return $filesDataTable->with(['type_id' => $rider_id, 'type' => 1])->render('riders.document');
+    return $filesDataTable->with(['rider_id' => $rider_id])->render('riders.document');
   }
 
   public function sendEmail($id, Request $request)

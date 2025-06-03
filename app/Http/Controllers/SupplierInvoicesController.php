@@ -21,6 +21,9 @@ use Flash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\SupplierInvoiceItems;
+use App\DataTables\LedgerDataTable;
+
+
 
 class SupplierInvoicesController extends AppBaseController
 {
@@ -223,4 +226,15 @@ if (!$invoice) {
         $invoice = SupplierInvoices::find($id);
         return view('supplier_invoices.send_email', compact('invoice'));
     }
+    
+
+    public function ledger()
+    {
+        return (new LedgerDataTable('supplier'))->render('supplier.ledger');
+    }
+
+
+
+
+
 }

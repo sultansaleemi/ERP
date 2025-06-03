@@ -22,9 +22,6 @@ class RiderActivitiesDataTable extends DataTable
       return Common::DateFormat($row->date);
     });
 
-    $dataTable->editColumn('fleet', function (RiderActivities $row) {
-      return $row->rider->fleet_supervisor ?? '';
-    });
     $dataTable->addColumn('rider_id', function (RiderActivities $row) {
       return $row->rider->name ?? '';
     });
@@ -32,11 +29,6 @@ class RiderActivitiesDataTable extends DataTable
     $dataTable->filterColumn('rider_id', function ($query, $keyword) {
       $query->whereHas('rider', function ($q) use ($keyword) {
         $q->where('name', 'like', "%{$keyword}%");
-      });
-    });
-    $dataTable->filterColumn('fleet', function ($query, $keyword) {
-      $query->whereHas('rider', function ($q) use ($keyword) {
-        $q->where('fleet_supervisor', 'like', "%{$keyword}%");
       });
     });
 
@@ -79,7 +71,7 @@ class RiderActivitiesDataTable extends DataTable
       ->parameters([
         'dom' => 'Bfrtip',
         'stateSave' => false,
-        'ordering' => true,
+        'ordering' => false,
         'pageLength' => 50,
         'responsive' => true,
         'order' => [[0, 'desc']],
@@ -90,32 +82,6 @@ class RiderActivitiesDataTable extends DataTable
 //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
-        ],
-        'footerCallback' => 'function (row, data, start, end, display) {
-        var api = this.api(), data;
-
-        var intVal = function (i) {
-            return typeof i === "string" ?
-                i.replace(/[\$,]/g, "") * 1 :
-                typeof i === "number" ?
-                    i : 0;
-        };
-
-        var columnsToSum = [4, 6, 7];
-
-        columnsToSum.forEach(function(index) {
-            var pageTotal = api
-                .column(index, { page: "current" })
-                .data()
-                .reduce(function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0);
-
-            $(api.column(index).footer()).html(pageTotal.toFixed(2));
-        });
-    }',
-        'language' => [
-          'processing' => '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>'
         ],
       ]);
   }
@@ -131,8 +97,7 @@ class RiderActivitiesDataTable extends DataTable
       'date' => ['title' => 'Date'],
       'd_rider_id' => ['title' => 'ID'],
       'rider_id' => ['title' => 'Name'],
-      'fleet' => ['title' => 'Fleet Supr', 'orderable' => false],
-      /*  'payout_type' => ['title' => 'Payout'], */
+      'payout_type' => ['title' => 'Payout'],
       'delivered_orders' => ['title' => 'Delivered'],
       /*  'ontime_orders' => ['title' => 'Ontime'], */
       'ontime_orders_percentage' => ['title' => 'Ontime%'],

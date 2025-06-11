@@ -22,4 +22,4 @@ jobs:
 
     - name: Deploy via rsync
       run: |
-        rsync -az --delete ./ sxjnqpte@erpbk.com:/home2/sxjnqpte/public_html/
+        rsync -az ./ sxjnqpte@erpbk.com:/home2/sxjnqpte/public_html/website_28dba112

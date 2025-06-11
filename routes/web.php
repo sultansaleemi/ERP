@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplierInvoicesController;
+use App\Http\Controllers\RtaFineController;
+use App\Http\Controllers\SalikFineController;
 use App\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pages\HomePage;

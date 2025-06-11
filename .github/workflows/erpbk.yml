@@ -3,23 +3,23 @@ name: Deploy to HostGator
 on:
   push:
     branches:
-      - main  # Change this if your default branch is different
+      - main  # or 'master' or whichever branch you use
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan erpbk.com >> ~/.ssh/known_hosts
+          echo "${{ secrets.HOSTGATOR_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 22 erpbk.com >> ~/.ssh/known_hosts
 
       - name: Deploy via rsync
         run: |
-          rsync -avz --delete ./ saima@erpbk.com:/public_html/website_28dba112
+          rsync -az --delete ./ saima@erpbk.com:/home2/sxjnqpte/public_html/

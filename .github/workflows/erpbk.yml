@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy via rsync
         run: |
-          rsync -az --delete ./ saima@erpbk.com:/home2/sxjnqpte/public_html/website_28dba112
+          rsync -az --delete ./ sxjnqpte@erpbk.com:/home2/sxjnqpte/public_html/website_28dba112

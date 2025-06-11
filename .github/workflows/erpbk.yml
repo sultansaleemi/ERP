@@ -22,4 +22,4 @@ jobs:
 
       - name: Deploy via rsync
         run: |
-          rsync -avz --delete ./ saima@yerpbk.com:/public_html/website_28dba112
+          rsync -avz --delete ./ saima@erpbk.com:/public_html/website_28dba112

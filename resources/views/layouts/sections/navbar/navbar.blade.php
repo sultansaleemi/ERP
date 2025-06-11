@@ -17,7 +17,7 @@ $navbarDetached = ($navbarDetached ?? '');
       <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a href="{{route('home')}}" class="app-brand-link gap-2">
           <span class="app-brand-logo demo">
-            @include('_partials.macros',["height"=>20])
+          <img src="{{ $appLogo }}" alt="App Logo" style="height: 40px;">
           </span>
           <span class="app-brand-text demo menu-text fw-bold">{{config('variables.templateName')}}</span>
         </a>

@@ -25,7 +25,7 @@ jobs:
           # Force use of this key only
           echo "Host erpbk.com
             HostName erpbk.com
-            User saima
+            User sxjnqpte
             Port 22
             IdentityFile ~/.ssh/id_rsa
             IdentitiesOnly yes

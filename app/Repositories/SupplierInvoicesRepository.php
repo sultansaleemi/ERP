@@ -52,25 +52,32 @@ class SupplierInvoicesRepository extends BaseRepository
         if ($id) {
             $invoice = SupplierInvoices::where('id', $id)->first();
             $invoice->update($input);
-            SupplierInvoiceItem::where('inv_id', $id)->delete();
+            // SupplierInvoicesItem::where('inv_id', $id)->delete();
         } else {
             $invoice = SupplierInvoices::create($input);
         }
 
         foreach ($request['item_id'] as $key => $val) {
-            if (!empty($request['item_id'][$key]) && $request['amount'][$key] > 0) {
-                $dta = [
-                    'item_id' => $request['item_id'][$key],
-                    'qty' => $request['qty'][$key] ?? 0,
-                    'rate' => $request['rate'][$key],
-                    'amount' => $request['amount'][$key],
-                    'tax' => $request['tax'][$key],
-                    'discount' => $request['discount'][$key],
-                    'inv_id' => $invoice->id
-                ];
-                SupplierInvoicesItem::create($dta);
-            }
+    if (!empty($request['item_id'][$key]) && $request['amount'][$key] > 0) {
+        $itemId = $request['item_row_id'][$key] ?? null; // Optional hidden input for existing item ID
+
+        $dta = [
+            'item_id' => $request['item_id'][$key],
+            'qty' => $request['qty'][$key] ?? 0,
+            'rate' => $request['rate'][$key],
+            'amount' => $request['amount'][$key],
+            'tax' => $request['tax'][$key],
+            'discount' => $request['discount'][$key],
+            'inv_id' => $invoice->id
+        ];
+
+        if ($itemId) {
+            SupplierInvoicesItem::where('id', $itemId)->update($dta); // Update existing line
+        } else {
+            SupplierInvoicesItem::create($dta); // Add new line
         }
+    }
+}
 
         $trans_code = Account::trans_code();
         $transactionService = new TransactionService();

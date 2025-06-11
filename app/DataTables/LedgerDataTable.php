@@ -17,9 +17,6 @@ class LedgerDataTable extends DataTable
   {
     $transactions = $query->get(); // Fetch the actual transactions
     $openingBalance = $this->getOpeningBalance();
-    $invoice = DB::table('supplier_invoices')
-            ->where('inv_id')
-            ->first();
 
     $data = [];
     $runningBalance = $openingBalance;
@@ -50,9 +47,6 @@ class LedgerDataTable extends DataTable
       if (isset($row->voucher->attach_file)) {
         $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print"  target="_blank">View File</a>';
       }
-      if ($invoice) {
-            $invIdValue = $invoice->inv_id;}
-            
       if ($row->reference_type == 'Voucher') {
         $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
         $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
@@ -162,6 +156,9 @@ class LedgerDataTable extends DataTable
           //['extend' => 'csv', 'className' => 'btn btn-info btn-sm no-corner', 'text' => 'Export to CSV'],
           ['extend' => 'print', 'className' => 'btn btn-primary btn-sm no-corner', 'text' => '<i class="fa fa-print"></i>&nbsp;Print'],
         ],
+        /* 'language' => [
+          'processing' => '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>'
+        ], */
       ]);
   }
 

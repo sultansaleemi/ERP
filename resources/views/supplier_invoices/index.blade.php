@@ -18,7 +18,7 @@
 
                  
                     <a class="btn btn-primary action-btn show-modal me-2"
-   href="javascript:void(0);" data-size="xl" data-title="Add Supplier Invoice" data-action="{{ route('supplier_invoices.create') }}">
+   href="javascript:void(0);" data-size="xl" data-title="Add Supplier Invoice" data-action="{{ route('supplierInvoices.create') }}">
     Add New
 </a>
                    

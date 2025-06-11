@@ -38,36 +38,36 @@
     <div class="row mb-2 invoice-item-row">
       <div class="col-md-3 form-group">
         <label>Item</label>
-        {!! Form::select('items['.$loop->index.'][item_id]', $items, $item->item_id, ['class' => 'form-select form-select-sm select2']) !!}
+        {!! Form::select('items['.$loop->index.'][item_id]', $items, $item->item_id, ['class' => 'form-select form-select-sm select2', 'onchange'=>'rider_price(this);']) !!}
       </div>
 
       <div class="col-md-1 form-group">
         <label>Qty</label>
-        <input type="number" name="items[{{ $loop->index }}][qty]" value="{{ $item->qty }}" class="form-control form-control-sm" min="1" step="any">
+        <input type="number" name="items[{{ $loop->index }}][qty]" value="{{ $item->qty }}" class="form-control qty" min="1" step="any" onkeyup="calculate_price(this);">
       </div>
 
       <div class="col-md-1 form-group">
         <label>Rate</label>
-        <input type="number" name="items[{{ $loop->index }}][rate]" value="{{ $item->rate }}" class="form-control form-control-sm" step="any">
+        <input type="number" name="items[{{ $loop->index }}][rate]" value="{{ $item->rate }}" class="form-control rate" step="any" onkeyup="calculate_price(this);">
       </div>
 
       <div class="col-md-1 form-group">
         <label>Discount</label>
-        <input type="number" name="items[{{ $loop->index }}][discount]" value="{{ $item->discount }}" class="form-control form-control-sm" step="any">
+        <input type="number" name="items[{{ $loop->index }}][discount]" value="{{ $item->discount }}" class="form-control discount" step="any" onkeyup="calculate_price(this);">
       </div>
 
       <div class="col-md-1 form-group">
         <label>Tax</label>
-        <input type="number" name="items[{{ $loop->index }}][tax]" value="{{ $item->tax }}" class="form-control form-control-sm" step="any">
+        <input type="number" name="items[{{ $loop->index }}][tax]" value="{{ $item->tax }}" class="form-control tax" step="any" onkeyup="calculate_price(this);">
       </div>
 
       <div class="col-md-2 form-group">
         <label>Amount</label>
-        <input type="number" name="items[{{ $loop->index }}][amount]" value="{{ $item->amount }}" class="form-control form-control-sm" step="any" readonly>
+        <input type="number" name="items[{{ $loop->index }}][amount]" value="{{ $item->amount }}" class="form-control amount" onkeyup="calculate_price(this);" step="any" readonly>
       </div>
 
-      <div class="col-md-1 d-flex align-items-end">
-        <button type="button" class="btn btn-danger btn-sm remove-row">✖</button>
+      <div class="form-group col-md-1 d-flex align-items-end">
+        <a href="javascript:void(0);" class="text-danger btn-remove-row"><i class="fa fa-trash"></i></a>
       </div>
     </div>
   @endforeach

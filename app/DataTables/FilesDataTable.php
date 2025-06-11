@@ -30,8 +30,11 @@ class FilesDataTable extends DataTable
   public function query(Files $model)
   {
     $query = $model->newQuery();
-    if ($this->rider_id) {
-      $query->where('type_id', $this->rider_id);
+    if ($this->type_id) {
+      $query->where('type_id', $this->type_id);
+    }
+    if ($this->type) {
+      $query->where('type', $this->type);
     }
     return $query;
   }
@@ -59,6 +62,9 @@ class FilesDataTable extends DataTable
 //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
         ],
+        'language' => [
+          'processing' => '<div class="loading-overlay"><div class="spinner-border text-primary" role="status"></div></div>'
+        ],
       ]);
   }
 
@@ -72,7 +78,8 @@ class FilesDataTable extends DataTable
     return [
 
 
-      'file_name',
+      'name',
+      /* 'file_name', */
       /* 'expiry_date',
       'status',
       'notes',

@@ -5,7 +5,11 @@ use App\Models\Accounts\ServiceProvidor;
 use App\Models\Accounts\Transaction;
 use App\Models\Item;
 use App\Models\Items;
+use App\Models\JobStatus;
+use App\Models\RiderAttendance;
+use App\Models\RiderEmails;
 use App\Models\RiderItemPrice;
+use App\Models\Riders;
 use App\Models\RoomType;
 use App\Models\Supervisors;
 use App\Models\TransactionAccount;
@@ -910,6 +914,17 @@ class General
     }
 
     return $html;
+  }
+
+  public static function getAttnActivity($rider_id)
+  {
+    $rider = Riders::find($rider_id);
+    $timeline = JobStatus::select('id')->where('RID', $rider_id)->whereDate('created_at', '=', $rider->attendance_date)->first();
+    $emails = RiderEmails::select('id')->where('rider_id', $rider_id)->whereDate('created_at', '=', $rider->attendance_date)->first();
+    return [
+      'timeline' => $timeline,
+      'emails' => $emails
+    ];
   }
 
 }

@@ -67,7 +67,7 @@ class SupplierInvoicesController extends AppBaseController
 
         Flash::success('Supplier Invoices saved successfully.');
 
-        return redirect(route('supplierInvoices.index'));
+        return redirect(route('supplier_invoices.index'));
         
     //     // Validate the request
     // $request->validate([
@@ -109,8 +109,11 @@ class SupplierInvoicesController extends AppBaseController
 
         if (empty($supplierInvoice)) {
             Flash::error('Supplier Invoice not found');
-            return redirect(route('supplierInvoices.index'));
+            return redirect(route('supplier_invoices.index'));
+            
         }
+        
+     
 
         return view('supplier_invoices.show')->with('supplierInvoice', $supplierInvoice);
     }
@@ -120,43 +123,57 @@ class SupplierInvoicesController extends AppBaseController
      */
     public function edit($id)
     {
+        $invoice = SupplierInvoices::with('items')->find($id);
         
-        if (empty($invoice)) {
+       
+        
+        
+        if (!$invoice) {
             Flash::error('Supplier Invoice not found');
             return redirect(route('supplierInvoices.index'));
         }
-
-        $supplier = Supplier::dropdown();
-        $items = Items::dropdown();
         
-$invoice = SupplierInvoices::with('items')->find($id);
+         $supplier = Supplier::dropdown();
+        $items = Items::dropdown();
+           $itemsWithPrices = Items::select('id', 'price')->get()->pluck('price', 'id');
 
-if (!$invoice) {
-    Flash::error('Supplier Invoice not found');
-    return redirect(route('supplierInvoices.index'));
-}
+       
 
-        return view('supplier_invoices.edit', compact('supplier', 'items', 'invoice'));
+//  $itemsWithPrices = Items::select('id', 'price')->get()->pluck('price', 'id');
+
+// if (!$invoice) {
+//     Flash::error('Supplier Invoice not found');
+//     return redirect(route('supplier_invoices.index'));
+// }
+
+        return view('supplier_invoices.edit', compact('supplier', 'items',  'invoice', 'itemsWithPrices'));
     }
 
     /**
      * Update the specified SupplierInvoices in storage.
      */
-    public function update($id, UpdateSupplierInvoicesRequest $request)
-    {
-        $supplierInvoices = $this->supplierInvoicesRepository->find($id);
+public function update($id, UpdateSupplierInvoicesRequest $request)
+{
+    // Try to find the invoice first
+    $supplierInvoice = $this->supplierInvoicesRepository->find($id);
 
-        if (empty($supplierInvoices)) {
-            Flash::error('Supplier Invoice not found');
-            return redirect(route('supplierInvoices.index'));
-        }
-
-        $supplierInvoices = $this->supplierInvoicesRepository->record($request, $id);
-
-        Flash::success('Supplier Invoice updated successfully.');
-
-        return redirect(route('supplierInvoices.index'));
+    if (empty($supplierInvoice)) {
+        Flash::error('Supplier Invoice not found');
+        return redirect(route('supplier_invoices.index'));
     }
+
+    // Call the repository method to update the invoice and related data
+    $updatedInvoice = $this->supplierInvoicesRepository->record($request, $id);
+
+    if ($updatedInvoice) {
+        Flash::success('Supplier Invoice updated successfully.');
+    } else {
+        Flash::error('Failed to update the Supplier Invoice.');
+    }
+
+    return redirect(route('supplier_invoices.index'));
+}
+
 
     /**
      * Remove the specified SupplierInvoices from storage.

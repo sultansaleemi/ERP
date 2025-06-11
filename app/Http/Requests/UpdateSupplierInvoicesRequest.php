@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\SuypplierInvoices;
+use App\Models\SupplierInvoices;
 use Illuminate\Foundation\Http\FormRequest;
 
 

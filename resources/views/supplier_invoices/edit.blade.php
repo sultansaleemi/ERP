@@ -1,16 +1,17 @@
 
 
-            {!! Form::model($invoice, ['route' => ['riderInvoices.update', $invoice->id], 'method' => 'patch','id'=>'formajax']) !!}
+         {!! Form::model($invoice, ['route' => ['supplierInvoices.update', $invoice->id], 'method' => 'patch', 'id' => 'formajax']) !!}
+
 
             <div class="card-body">
                 <div class="row">
-                    @include('rider_invoices.fields')
+                    @include('supplier_invoices.fields')
                 </div>
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('riderInvoices.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('supplier_invoices.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

@@ -231,14 +231,10 @@ Route::middleware(['auth'])->group(function () {
 /* Suppliers section end here */
 
 
-
-
-
-
-
-
-
-
+Route::prefix('fines')->middleware(['auth'])->group(function () {
+  Route::get('rta', [RtaFineController::class, 'index'])->name('fines.rta.index');
+  Route::get('salik', [SalikFineController::class, 'index'])->name('fines.salik.index');
+});
 
 
 

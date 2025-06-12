@@ -15,6 +15,7 @@ use App\Http\Controllers\pages\Page2;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
+use App\Http\Controllers\TenantController;
 
 
 
@@ -236,6 +237,16 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('fines')->middleware(['auth'])->group(function () {
   Route::get('rta', [RtaFineController::class, 'index'])->name('fines.rta.index');
   Route::get('salik', [SalikFineController::class, 'index'])->name('fines.salik.index');
+});
+
+Route::prefix('tenants')->middleware(['web', 'auth'])->group(function () {
+    Route::get('/', [TenantController::class, 'index'])->name('tenants.index');
+    Route::get('/create', [TenantController::class, 'create'])->name('tenants.create');
+    Route::post('/store', [TenantController::class, 'store'])->name('tenants.store');
+    Route::get('/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
+    Route::put('/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
+    Route::delete('/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
+    Route::get('/{tenant}', [TenantController::class, 'show'])->name('tenants.show');
 });
 
 

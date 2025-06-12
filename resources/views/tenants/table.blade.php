@@ -14,7 +14,7 @@
                 <td>{{ $tenant->subdomain }}</td>
                 <td>{{ $tenant->database_name }}</td>
                 <td>
-                    @include('tenants.datatable_actions', ['tenant' => $tenant])
+                    @include('tenants.datatables_actions', ['tenant' => $tenant])
                 </td>
             </tr>
         @endforeach

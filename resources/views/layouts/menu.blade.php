@@ -161,15 +161,6 @@
 </li>
 @endcanany
 
-@can('tenant_view')
-<li class="menu-item {{ Request::is('tenants*') ? 'active' : '' }}">
-    <a href="{{ route('tenants.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons ti ti-users"></i>
-        <div>Tenants</div>
-    </a>
-</li>
-@endcan
-
 @canany(['account_view','gn_ledger'])
  <li class="menu-item {{ Request::is('accounts*') ? 'open' : '' }} {">
   <a href="javascript:void(0);" class="menu-link menu-toggle ">

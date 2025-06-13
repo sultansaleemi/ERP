@@ -16,6 +16,8 @@ use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\UploadFilesController;
+
 
 
 
@@ -249,7 +251,9 @@ Route::prefix('tenants')->middleware(['web', 'auth'])->group(function () {
     Route::get('/{tenant}', [TenantController::class, 'show'])->name('tenants.show');
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::resource('upload_files', UploadFilesController::class);
+});
 
 
 Route::resource('riderActivities', App\Http\Controllers\RiderActivitiesController::class);

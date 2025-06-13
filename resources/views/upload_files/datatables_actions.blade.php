@@ -1,6 +1,6 @@
 {!! Form::open(['route' => ['upload_files.destroy', $file->id], 'method' => 'delete', 'id' => 'formajax']) !!}
 <div class='btn-group'>
-  <a href="{{ route('upload_files.show', $upload_file->id) }}" class='btn btn-default btn-sm show-modal'>
+  <a href="{{ route('upload_files.show', $file->id) }}" class='btn btn-default btn-sm show-modal' target="_blank">
     <i class="fa fa-eye"></i>
   </a>
   <a href="javascript:void(0);" data-size="lg" data-title="Edit File"

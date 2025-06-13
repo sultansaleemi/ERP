@@ -1,10 +1,10 @@
-{!! Form::open(['route' => ['upload_files.destroy', $upload_file->id], 'method' => 'delete', 'id' => 'formajax']) !!}
+{!! Form::open(['route' => ['upload_files.destroy', $file->id], 'method' => 'delete', 'id' => 'formajax']) !!}
 <div class='btn-group'>
   <a href="{{ route('upload_files.show', $upload_file->id) }}" class='btn btn-default btn-sm show-modal'>
     <i class="fa fa-eye"></i>
   </a>
   <a href="javascript:void(0);" data-size="lg" data-title="Edit File"
-     data-action="{{ route('upload_files.edit', $upload_file->id) }}"
+     data-action="{{ route('upload_files.edit', $file->id) }}"
      class='btn btn-info btn-sm show-modal'>
     <i class="fa fa-edit"></i>
   </a>

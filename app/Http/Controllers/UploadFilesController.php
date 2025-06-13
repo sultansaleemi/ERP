@@ -32,17 +32,16 @@ class UploadFilesController extends Controller
             'detail' => 'nullable|string',
         ]);
 
-        $path = $request->file('file')->store('uploads/files');
+        $path = $request->file('file')->store('uploads/files', 'public');
 
-        UploadFile::create([
+        $upload = UploadFile::create([
             'name' => $request->file('file')->getClientOriginalName(),
             'detail' => $request->detail,
             'path' => $path,
             'uploaded_by' => Auth::id(),
         ]);
 
-        return redirect()->route('upload_files.index')
-                         ->with('success', 'File uploaded successfully.');
+        return response()->json(['success' => true, 'message' => 'File uploaded successfully.']);
     }
 
     public function show($id)
@@ -65,17 +64,15 @@ class UploadFilesController extends Controller
 
         $file->update(['detail' => $request->detail]);
 
-        return redirect()->route('upload_files.index')
-                         ->with('success', 'File details updated.');
+        return response()->json(['success' => true, 'message' => 'File updated successfully.']);
     }
 
     public function destroy($id)
     {
         $file = UploadFile::findOrFail($id);
-        Storage::delete($file->path);
+        Storage::disk('public')->delete($file->path);
         $file->delete();
 
-        return redirect()->route('upload_files.index')
-                         ->with('success', 'File deleted.');
+        return response()->json(['success' => true, 'message' => 'File deleted successfully.']);
     }
 }

@@ -1,23 +1,17 @@
-<div class="form-group">
-    <label>File Name</label>
-    <input type="text" class="form-control" value="{{ old('name', $file->name ?? '') }}" disabled>
+<!-- File Name -->
+<div class="form-group col-sm-6">
+  {!! Form::label('name', 'File Name:', ['class' => 'required']) !!}
+  {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-@if(!isset($file))
-<div class="form-group">
-    <label>Select File</label>
-    <input type="file" name="file" class="form-control" required>
-</div>
-@endif
-
-<div class="form-group">
-    <label>Details</label>
-    <textarea name="detail" class="form-control">{{ old('detail', $file->detail ?? '') }}</textarea>
+<!-- File Upload -->
+<div class="form-group col-sm-6">
+  {!! Form::label('file', 'Upload File:', ['class' => 'required']) !!}
+  {!! Form::file('file', ['class' => 'form-control', 'required']) !!}
 </div>
 
-@if(isset($file))
-<div class="form-group">
-    <label>Uploaded At:</label>
-    <p>{{ $file->uploaded_at }}</p>
+<!-- Details -->
+<div class="form-group col-sm-12">
+  {!! Form::label('details', 'Details:') !!}
+  {!! Form::textarea('details', null, ['class' => 'form-control']) !!}
 </div>
-@endif

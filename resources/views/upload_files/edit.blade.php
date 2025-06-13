@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <form method="POST" action="{{ route('upload_files.update', $file->id) }}">
-        @csrf
-        @method('PUT')
-        @include('upload_files.fields')
-        <button type="submit" class="btn btn-primary">Update Details</button>
-    </form>
+{!! Form::model($uploadFile, ['route' => ['uploadFiles.update', $uploadFile->id], 'method' => 'patch', 'files' => true, 'id' => 'formajax']) !!}
+<div class="card-body">
+  <div class="row">
+    @include('upload_files.fields')
+  </div>
 </div>
-@endsection
+<div class="action-btn pt-3">
+  <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+  {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+</div>
+{!! Form::close() !!}

@@ -1,7 +1,17 @@
-<a href="{{ route('upload_files.show', $id) }}" class="btn btn-sm btn-info">View</a>
-<a href="{{ route('upload_files.edit', $id) }}" class="btn btn-sm btn-primary">Edit</a>
-<form action="{{ route('upload_files.destroy', $id) }}" method="POST" style="display:inline-block">
-    @csrf
-    @method('DELETE')
-    <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this file?')">Delete</button>
-</form>
+{!! Form::open(['route' => ['uploadFiles.destroy', $uploadFile->id], 'method' => 'delete', 'id' => 'formajax']) !!}
+<div class='btn-group'>
+  <a href="{{ route('uploadFiles.show', $uploadFile->id) }}" class='btn btn-default btn-sm show-modal'>
+    <i class="fa fa-eye"></i>
+  </a>
+  <a href="javascript:void(0);" data-size="lg" data-title="Edit File"
+     data-action="{{ route('uploadFiles.edit', $uploadFile->id) }}"
+     class='btn btn-info btn-sm show-modal'>
+    <i class="fa fa-edit"></i>
+  </a>
+  {!! Form::button('<i class="fa fa-trash"></i>', [
+    'type' => 'submit',
+    'class' => 'btn btn-danger btn-sm',
+    'onclick' => 'return confirm("Are you sure?")'
+  ]) !!}
+</div>
+{!! Form::close() !!}

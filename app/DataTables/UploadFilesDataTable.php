@@ -12,7 +12,7 @@ class UploadFilesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('uploaded_by', fn($row) => $row->uploader->name)
-            ->editColumn('created_at', fn($row) => $row->uploaded_at)
+            -->editColumn('created_at', fn($row) => optional($row->created_at)->format('d M Y, h:i A'))
             ->addColumn('action', 'upload_files.datatables_actions');
     }
 

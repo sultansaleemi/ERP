@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <form method="POST" action="{{ route('upload_files.store') }}" enctype="multipart/form-data">
-        @csrf
-        @include('upload_files.fields')
-        <button type="submit" class="btn btn-success">Upload File</button>
-    </form>
+{!! Form::open(['route' => 'uploadFiles.store', 'files' => true, 'id' => 'formajax']) !!}
+<div class="card-body">
+  <div class="row">
+    @include('upload_files.fields')
+  </div>
 </div>
-@endsection
+<div class="action-btn pt-3">
+  <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+  {!! Form::submit('Upload', ['class' => 'btn btn-primary']) !!}
+</div>
+{!! Form::close() !!}

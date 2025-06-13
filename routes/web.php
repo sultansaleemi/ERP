@@ -254,6 +254,10 @@ Route::prefix('tenants')->middleware(['web', 'auth'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('upload_files', UploadFilesController::class);
 });
+Route::resource('upload_files', UploadFilesController::class)->only([
+    'index', 'create', 'store', 'show', 'edit', 'update', 'destroy'
+]);
+
 
 
 Route::resource('riderActivities', App\Http\Controllers\RiderActivitiesController::class);

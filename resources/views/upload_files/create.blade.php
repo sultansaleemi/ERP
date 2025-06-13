@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'uploadFiles.store', 'files' => true, 'id' => 'formajax']) !!}
+{!! Form::open(['route' => 'upload_files.store', 'files' => true, 'id' => 'formajax']) !!}
 <div class="card-body">
   <div class="row">
     @include('upload_files.fields')

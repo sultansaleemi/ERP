@@ -1,4 +1,4 @@
-{!! Form::model($uploadFile, ['route' => ['uploadFiles.update', $uploadFile->id], 'method' => 'patch', 'files' => true, 'id' => 'formajax']) !!}
+{!! Form::model($uploadFile, ['route' => ['upload_files.update', $uploadFile->id], 'method' => 'patch', 'files' => true, 'id' => 'formajax']) !!}
 <div class="card-body">
   <div class="row">
     @include('upload_files.fields')

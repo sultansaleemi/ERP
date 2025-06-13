@@ -14,7 +14,7 @@
            href="javascript:void(0);"
            data-size="lg"
            data-title="Upload File"
-           data-action="{{ route('uploadFiles.create') }}">
+           data-action="{{ route('upload_files.create') }}">
           Upload File
         </a>
       </div>

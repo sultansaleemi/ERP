@@ -15,26 +15,28 @@ class BanksDataTable extends DataTable
    * @return \Yajra\DataTables\DataTableAbstract
    */
   public function dataTable($query)
-  {
+{
     $dataTable = new EloquentDataTable($query);
 
     $dataTable->addColumn('action', 'banks.datatables_actions');
-    $dataTable
-      ->addColumn('status', function (Banks $banks) {
+
+    $dataTable->addColumn('name', function ($banks) {
+        return '<a href="' . route('banks.show', $banks->id) . '">' . e($banks->name) . '</a>';
+    });
+
+    $dataTable->addColumn('status', function (Banks $banks) {
         if ($banks->status == 1) {
-          return '<span class="badge  bg-success">Active</span>';
+            return '<span class="badge bg-success">Active</span>';
         } else {
-          return '<span class="badge  bg-danger">Inactive</span>';
+            return '<span class="badge bg-danger">Inactive</span>';
         }
-      })
-      
-      ->toJson();
-    $dataTable->rawColumns(['status', 'action']);
-    return $dataTable
-    ->addColumn('name', function ($banks) {
-                return '<a href="' . route('banks.show', $banks->id) . '">' . e($banks->name) . '</a>';
-            });
-  }
+    });
+
+    $dataTable->rawColumns(['status', 'action', 'name']);
+
+    return $dataTable;
+}
+
 
   /**
    * Get query source of dataTable.

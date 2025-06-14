@@ -135,7 +135,7 @@ public function files($id)
     // Example: Get attached files
     $files = $bank->files ?? []; // Assuming a relationship or attribute
 
-    return view('banks.files', compact('bank', 'files'));
+    return view('banks.document', compact('bank', 'files'));
 }
 
 

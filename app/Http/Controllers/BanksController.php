@@ -127,8 +127,8 @@ class BanksController extends AppBaseController
 
 public function files($id, FilesDataTable $filesDataTable)
 {
-    $Banks = banks::find($id); // Fetch supplier
-    if (!$Banks) {
+    $banks = banks::find($id); // Fetch supplier
+    if (!$banks) {
         abort(404, 'Bank not found');
     }
 
@@ -137,7 +137,7 @@ public function files($id, FilesDataTable $filesDataTable)
             
             'type_id' => $id,   // ✅ pass 'type_id'
         ])
-        ->render('banks.document', compact('Banks'));
+        ->render('banks.document', compact('banks'));
 }
 
 

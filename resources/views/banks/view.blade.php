@@ -15,7 +15,7 @@
             @endisset
 
             <li class="nav-item">
-  <a class="nav-link @if(request()->segment(2) == 'files') active @endif"
+  <a class="nav-link @if(request()->segment(3) == 'files') active @endif"
      href="{{ route('banks.files', $banks->id) }}">
     <i class="ti ti-file-upload ti-sm me-1_5"></i>Files
   </a>

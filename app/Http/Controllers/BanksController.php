@@ -10,6 +10,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
 use App\Repositories\BanksRepository;
 use Illuminate\Http\Request;
+use App\DataTables\LedgerDataTable;
+
 use Flash;
 
 class BanksController extends AppBaseController
@@ -106,6 +108,18 @@ class BanksController extends AppBaseController
 
     return view('banks.edit')->with('banks', $banks);
   }
+
+  public function ledger($id, LedgerDataTable $dataTable)
+{
+    $bank = $this->banksRepository->find($id);
+
+    if (!$bank) {
+        abort(404, 'Bank not found');
+    }
+
+    // Pass bank ID to datatable to filter entries
+    return $dataTable->with('bank_id', $id)->render('banks.ledger', compact('bank'));
+}
 
   /**
    * Update the specified Banks in storage.

@@ -83,12 +83,29 @@ class LedgerDataTable extends DataTable
     return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'narration', 'voucher', 'billing_month']);
   }
 
+  public $bank_id;
+
+public function with($key, $value)
+{
+    $this->$key = $value;
+    return $this;
+}
+
   /**
    * Get query source of dataTable.
    */
   public function query(Transactions $model)
   {
     $query = $model->newQuery()->with(['account']);
+    $query = AccountTransactions::query();
+
+    if ($this->bank_id) {
+        $query->where('account_id', function ($q) {
+            $q->select('account_id')
+              ->from('banks')
+              ->where('id', $this->bank_id);
+        });
+    }
 
     if (request('account')) {
       $query->where('account_id', request('account'));

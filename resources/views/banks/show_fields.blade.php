@@ -57,4 +57,7 @@
     {!! Form::label('notes', 'Notes:') !!}
     <p>{{ $banks->notes }}</p>
 </div>
+<div class="col-sm-12">
+        <a href="{{ route('banks.index') }}" class="btn btn-primary float-right">Back</a>
+    </div>
 

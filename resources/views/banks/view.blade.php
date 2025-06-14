@@ -1,4 +1,4 @@
-<!-- resources/views/suppliers/view.blade.php -->
+<!-- resources/views/banks/view.blade.php -->
 @extends('layouts.app')
 @section('title', 'Banks Profile')
 

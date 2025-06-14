@@ -1,6 +1,6 @@
-<!-- resources/views/suppliers/document.blade.php -->
+<!-- resources/views/banks/document.blade.php -->
 
-@extends('suppliers.view')
+@extends('banks.view')
 
 @section('page_content')
     <!-- Main content -->

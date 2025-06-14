@@ -8,6 +8,7 @@ use App\Http\Requests\CreateBanksRequest;
 use App\Http\Requests\UpdateBanksRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Accounts;
+use App\Models\Banks;
 use App\Repositories\BanksRepository;
 use Illuminate\Http\Request;
 use App\DataTables\LedgerDataTable;
@@ -124,18 +125,19 @@ class BanksController extends AppBaseController
 }
 
 
-public function files($id)
+public function files($id, FilesDataTable $filesDataTable)
 {
-    $bank = $this->banksRepository->find($id);
-
-    if (!$bank) {
-        abort(404, 'Bank not found.');
+    $Banks = banks::find($id); // Fetch supplier
+    if (!$Banks) {
+        abort(404, 'Bank not found');
     }
 
-    // Example: Get attached files
-    $files = $bank->files ?? []; // Assuming a relationship or attribute
-
-    return view('banks.document', compact('bank', 'files'));
+    return $filesDataTable
+        ->with([
+            
+            'type_id' => $id,   // ✅ pass 'type_id'
+        ])
+        ->render('banks.document', compact('Banks'));
 }
 
 

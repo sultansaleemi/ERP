@@ -11,6 +11,8 @@ use App\Models\Accounts;
 use App\Repositories\BanksRepository;
 use Illuminate\Http\Request;
 use App\DataTables\LedgerDataTable;
+use App\DataTables\FilesDataTable;
+
 
 use Flash;
 
@@ -120,6 +122,22 @@ class BanksController extends AppBaseController
     // Pass bank ID to datatable to filter entries
     return $dataTable->with('bank_id', $id)->render('banks.ledger', compact('bank'));
 }
+
+
+public function files($id)
+{
+    $bank = $this->banksRepository->find($id);
+
+    if (!$bank) {
+        abort(404, 'Bank not found.');
+    }
+
+    // Example: Get attached files
+    $files = $bank->files ?? []; // Assuming a relationship or attribute
+
+    return view('banks.files', compact('bank', 'files'));
+}
+
 
   /**
    * Update the specified Banks in storage.

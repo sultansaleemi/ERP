@@ -48,7 +48,7 @@ Route::middleware(['auth', 'web'])->group(function () {
   Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home-dashboard');
 
   Route::get('banks/{id}/ledger', [App\Http\Controllers\BanksController::class, 'ledger'])->name('banks.ledger');
-
+  Route::get('/banks/{id}/files', [App\Http\Controllers\BanksController::class, 'files'])->name('banks.files');
 
   Route::resource('items', App\Http\Controllers\ItemsController::class);
 

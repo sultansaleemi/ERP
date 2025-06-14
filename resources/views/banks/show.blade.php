@@ -2,7 +2,7 @@
 
 
 @section('page_content')
-                <div class="row">
+                <div class="row card-body">
                     
                     @include('banks.show_fields')
                 </div>

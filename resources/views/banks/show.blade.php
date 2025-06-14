@@ -1,4 +1,4 @@
-@extends('suppliers.view')
+@extends('banks.view')
 
 
 @section('page_content')

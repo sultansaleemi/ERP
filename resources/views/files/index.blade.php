@@ -17,6 +17,9 @@
                     if(request('type') == 3){
                       $type_name = App\Models\Supplier::find(request('type'))?->value('supplier_id')??'';
                     }
+                    if(request('type') == 4){
+                      $type_name = App\Models\banks::find(request('type'))?->value('name')??'';
+                    }
 
                   @endphp
                     <h3>{{$type_name}} Files</h3>

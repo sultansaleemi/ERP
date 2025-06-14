@@ -18,6 +18,8 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UploadFilesController;
+use App\Http\Controllers\SettingsController;
+
 
 
 

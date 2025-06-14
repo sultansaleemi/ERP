@@ -27,14 +27,13 @@ class BanksDataTable extends DataTable
           return '<span class="badge  bg-danger">Inactive</span>';
         }
       })
-      ->addColumn('name', function ($bank) {
-    $name = '<a href="' . route('banks.show', $bank->id) . '">' . e($bank->name) . '</a><br/>';
-    return $name;
-})
-
+      
       ->toJson();
     $dataTable->rawColumns(['status', 'action']);
-    return $dataTable;
+    return $dataTable
+    ->addColumn('name', function ($banks) {
+                return '<a href="' . route('banks.show', $banks->id) . '">' . e($banks->name) . '</a>';
+            });
   }
 
   /**

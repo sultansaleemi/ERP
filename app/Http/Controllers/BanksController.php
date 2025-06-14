@@ -13,6 +13,10 @@ use App\Repositories\BanksRepository;
 use Illuminate\Http\Request;
 use App\DataTables\LedgerDataTable;
 use App\DataTables\FilesDataTable;
+use App\Http\Controllers\FilesController;
+use Illuminate\Support\Facades\DB;
+
+
 
 
 use Flash;
@@ -114,27 +118,27 @@ class BanksController extends AppBaseController
 
   public function ledger($id, LedgerDataTable $dataTable)
 {
-    $bank = $this->banksRepository->find($id);
+    $banks = $this->banksRepository->find($id);
 
-    if (!$bank) {
+    if (!$banks) {
         abort(404, 'Bank not found');
     }
 
     // Pass bank ID to datatable to filter entries
-    return $dataTable->with('bank_id', $id)->render('banks.ledger', compact('bank'));
+    return $dataTable->with('banks_id', $id)->render('banks.ledger', compact('banks'));
 }
 
 
 public function files($id, FilesDataTable $filesDataTable)
 {
-    $banks = banks::find($id); // Fetch supplier
+    $banks = banks::find($id); // Fetch bank
     if (!$banks) {
         abort(404, 'Bank not found');
     }
 
     return $filesDataTable
         ->with([
-            
+            'type' => 4,
             'type_id' => $id,   // ✅ pass 'type_id'
         ])
         ->render('banks.document', compact('banks'));

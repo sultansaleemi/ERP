@@ -13,8 +13,8 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
   <title>@yield('title') |
-  {{ $organizationTagline }} -
-  
+    {{ config('variables.templateName') ? config('variables.templateName') : 'TemplateName' }} -
+    {{ config('variables.templateSuffix') ? config('variables.templateSuffix') : 'TemplateSuffix' }}
   </title>
   <meta name="description" content="{{ config('variables.templateDescription') ? config('variables.templateDescription') : '' }}" />
   <meta name="keywords" content="{{ config('variables.templateKeyword') ? config('variables.templateKeyword') : '' }}">
@@ -23,10 +23,8 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
   <!-- Canonical SEO -->
   <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
   <!-- Favicon -->
-  @if (!empty($organizationFavicon))
-    <link rel="icon" type="image/x-icon" href="{{ $organizationFavicon }}" />
-@endif
-  <link rel="apple-touch-icon" href="{{$organizationFavicon}}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+  <link rel="apple-touch-icon" href="{{asset('assets/img/favicon/apple-touch.png')}}">
 
 
 
@@ -42,7 +40,7 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
   @vite('resources/js/app.js')
 </head>
 
-<body>
+<body >
 
 <input type="hidden" name="base_url" id="base_url" value="{{ url("/")}}" />
   <!-- Layout Content -->

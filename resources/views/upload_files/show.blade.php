@@ -9,19 +9,19 @@
     </div>
     <div class="form-group col-md-6">
       <label>Uploaded By:</label>
-      <p>{{ $file->uploaded_by }}</p>
+      <p>{{$file->uploader->name}}</p>
     </div>
     <div class="form-group col-md-6">
       <label>Uploaded At:</label>
       <p>{{ $file->created_at->format('d M Y, h:i A') }}</p>
     </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-6">
       <label>Details:</label>
       <p>{{ $file->details }}</p>
     </div>
     <div class="form-group col-md-12">
-      <label>File Preview:</label><br>
-      <img src="{{ asset('storage/' . $file->path) }}" alt="File" width="50%" height="90%">
+      <div style="text-align:center;"><label>File Preview:</label><br></div>
+      <div style="display:flex; justify-content: center;"><img src="{{ asset('storage/' . $file->path) }}" alt="File" width="50%" height="90%"></div>
     </div>
   </div>
 </div>

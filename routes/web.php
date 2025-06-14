@@ -8,6 +8,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplierInvoicesController;
 use App\Http\Controllers\RtaFineController;
 use App\Http\Controllers\SalikFineController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pages\HomePage;
@@ -261,6 +262,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/upload_files/{id}', [UploadFilesController::class, 'update'])->name('upload_files.update');
     Route::delete('/upload_files/{id}', [UploadFilesController::class, 'destroy'])->name('upload_files.destroy');
 });
+
+Route::prefix('reports')->group(function () {
+    Route::get('/rider_report', [ReportController::class, 'rider_report'])->name('reports.rider_report');
+    Route::post('/rider_report_data', [ReportController::class, 'rider_report_data'])->name('reports.rider_report_data');
+  });
 
 
 Route::resource('riderActivities', App\Http\Controllers\RiderActivitiesController::class);

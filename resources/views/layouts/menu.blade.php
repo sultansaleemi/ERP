@@ -26,7 +26,7 @@
 <li class="menu-item {{ Request::is('upload_files*') ? 'active' : '' }}">
   <a href="{{ route('upload_files.index') }}" class="menu-link">
       <i class="menu-icon tf-icons ti ti-upload"></i>
-      <div>Files</div>
+      <div>Documents</div>
   </a>
 </li>
 @endcan

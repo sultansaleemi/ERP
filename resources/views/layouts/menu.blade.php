@@ -149,16 +149,16 @@
   <ul class="menu-sub">
 
     @can('rta_fine_view')
-    <li class="menu-item {{ Request::is('fines/rta*') ? 'active' : '' }}">
-      <a href="{{ route('fines.rta.index') }}" class="menu-link">
+    <li class="menu-item {{ Request::is('fines*') ? 'active' : '' }}">
+      <a href="{{ route('rta_fines.index') }}" class="menu-link">
         <div>RTA Fine</div>
       </a>
     </li>
     @endcan
 
     @can('salik_fine_view')
-    <li class="menu-item {{ Request::is('fines/salik*') ? 'active' : '' }}">
-      <a href="{{ route('fines.salik.index') }}" class="menu-link">
+    <li class="menu-item {{ Request::is('fines*') ? 'active' : '' }}">
+      <a href="{{ route('salik_fines.index') }}" class="menu-link">
         <div>Salik Fine</div>
       </a>
     </li>

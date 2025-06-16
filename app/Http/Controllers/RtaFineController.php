@@ -86,4 +86,12 @@ class RtaFineController extends Controller
 
         return redirect()->route('rta-fines.index')->with('success', 'Fine deleted successfully.');
     }
+
+    public function pay($id)
+{
+    $fine = RtaFine::findOrFail($id);
+    // Your logic here, e.g., show payment form or mark as paid
+    return view('rta_fines.pay', compact('fine'));
+}
+
 }

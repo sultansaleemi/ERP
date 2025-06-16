@@ -42,15 +42,17 @@ class LedgerDataTable extends DataTable
       $totalCredit += $row->credit;
 
       $view_file = '';
-      $voucher_ID = '';
-      $voucher_text = '';
-      if (isset($row->voucher->attach_file)) {
-        $view_file = '  <a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print"  target="_blank">View File</a>';
-      }
-      if ($row->reference_type == 'Voucher') {
-        $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, '4', '0', STR_PAD_LEFT);
-        $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
-      }
+$voucher_ID = '';
+$voucher_text = '';
+
+if ($row->voucher && isset($row->voucher->attach_file)) {
+    $view_file = '<a href="' . url('storage/vouchers/' . $row->voucher->attach_file) . '" class="no-print" target="_blank">View File</a>';
+}
+
+if ($row->reference_type === 'Voucher' && $row->voucher) {
+    $voucher_ID = $row->voucher->voucher_type . '-' . str_pad($row->voucher->id, 4, '0', STR_PAD_LEFT);
+    $voucher_text = '<span class="d-none">' . $voucher_ID . '</span><a href="' . route('vouchers.show', $row->voucher->id) . '" class="no-print" target="_blank">' . $voucher_ID . '</a>';
+}
 
 
       $month = "<span style='white-space: nowrap;'>" . date('M Y', strtotime($row->billing_month)) . "</span>";
@@ -83,29 +85,12 @@ class LedgerDataTable extends DataTable
     return datatables()->of($data)->rawColumns(['date', 'debit', 'credit', 'balance', 'narration', 'voucher', 'billing_month']);
   }
 
-  public $bank_id;
-
-public function with($key, $value)
-{
-    $this->$key = $value;
-    return $this;
-}
-
   /**
    * Get query source of dataTable.
    */
   public function query(Transactions $model)
   {
-    $query = $model->newQuery()->with(['account']);
-    $query = AccountTransactions::query();
-
-    if ($this->bank_id) {
-        $query->where('account_id', function ($q) {
-            $q->select('account_id')
-              ->from('banks')
-              ->where('id', $this->bank_id);
-        });
-    }
+    $query = $model->newQuery()->with(['account', 'voucher']);
 
     if (request('account')) {
       $query->where('account_id', request('account'));

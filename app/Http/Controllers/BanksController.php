@@ -15,6 +15,8 @@ use App\DataTables\LedgerDataTable;
 use App\DataTables\FilesDataTable;
 use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\DB;
+use App\Models\Transactions;
+
 
 
 
@@ -116,17 +118,32 @@ class BanksController extends AppBaseController
     return view('banks.edit')->with('banks', $banks);
   }
 
-  public function ledger($id, LedgerDataTable $dataTable)
-{
-    $banks = $this->banksRepository->find($id);
+public function ledger($id, LedgerDataTable $ledgerDataTable)
+  {
+    
 
-    if (!$banks) {
-        abort(404, 'Bank not found');
+    $banks = $this->banksRepository->find($id);
+    if (empty($banks)) {
+      Flash::error('Banks not found');
+      return redirect(route('banks.index'));
     }
 
-    // Pass bank ID to datatable to filter entries
-    return $dataTable->with('banks_id', $id)->render('banks.ledger', compact('banks'));
-}
+    if (!$banks->account_id) {
+      Flash::error('Banks has no associated account_id.');
+      return redirect(route('banks.index'));
+    }
+
+    $files = Transactions::where('account_id', $banks->account_id)->get();
+    $account_id = $banks->account_id;
+
+    return $ledgerDataTable->with(['account_id' => $account_id])
+      ->render('banks.ledger', [
+        'banks' => $banks,
+        'files' => $files,
+        'dataTable' => $ledgerDataTable
+      ]);
+  }
+
 
 
 public function files($id, FilesDataTable $filesDataTable)
@@ -194,4 +211,53 @@ public function files($id, FilesDataTable $filesDataTable)
     return response()->json(['message' => 'Bank deleted successfully.']);
 
   }
+  
+  public function document($bank_id)
+{
+    if (request()->isMethod('post')) {
+
+        foreach (request('documents') as $document) {
+            if ($document['expiry_date']) {
+                $data = [];
+
+                if (isset($document['file_name'])) {
+                    $extension = $document['file_name']->extension();
+                    $name = $document['type'] . '-' . $bank_id . '-' . time() . '.' . $extension;
+                    $document['file_name']->storeAs('bank', $name);
+
+                    $data['file_name'] = $name;
+                    $data['file_type'] = $extension;
+                }
+
+                $data['type_id'] = $bank_id;
+                $data['type'] = 'Bank';
+                $data['expiry_date'] = $document['expiry_date'];
+
+                $condition = [
+                    'type' => 'Bank',
+                    'type_id' => $bank_id,
+                    'type' => $document['type'],
+                ];
+
+                Files::updateOrCreate($condition, $data);
+            } else {
+                if (isset($document['file_name'])) {
+                    return response()->json([
+                        'errors' => [
+                            'error' => General::file_types($document['type']) . ' expiry date must be selected.'
+                        ]
+                    ], 422);
+                }
+            }
+        }
+
+        return 1;
+    }
+
+    $files = Files::where(['type' => 'Bank', 'type_id' => $bank_id])->get();
+    $bank = Bank::find($bank_id);
+
+    return view('banks.document', compact('files', 'bank'));
+}
+
 }

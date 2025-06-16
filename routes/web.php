@@ -291,3 +291,8 @@ Route::resource('vendors', App\Http\Controllers\VendorsController::class);
 
 Route::resource('rta_fines', RtaFineController::class);
 Route::get('rta_fines/{id}/pay', [RtaFineController::class, 'pay'])->name('rta_fines.pay');
+Route::get('rta_fines', [RtaFineController::class, 'index'])->name('rta_fines.index');
+ Route::get('salik_fines', [SalikFineController::class, 'index'])->name('salikf_fines.index');
+ Route::resource('salik_fines', SalikFineController::class);
+
+

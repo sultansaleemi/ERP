@@ -1,5 +1,3 @@
-@extends('layouts.app')
-
 @section('title','RTA Fines')
 
 @section('content')
@@ -13,7 +11,7 @@
                     @can('rta_fines_create')
                         <a class="btn btn-primary float-right show-modal action-btn"
                            href="javascript:void(0);" 
-                           data-action="{{ route('rta-fines.create') }}" 
+                           data-action="{{ route('rta_fines.create') }}" 
                            data-title="Add New Fine" 
                            data-size="lg">
                             Add New

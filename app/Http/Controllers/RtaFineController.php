@@ -40,7 +40,7 @@ class RtaFineController extends Controller
 
         RtaFine::create($validated);
 
-        return redirect()->route('rta-fines.index')->with('success', 'Fine created successfully.');
+        return redirect()->route('rta_fines.index')->with('success', 'Fine created successfully.');
     }
 
     public function show(RtaFine $rtaFine)
@@ -74,7 +74,7 @@ class RtaFineController extends Controller
 
         $rtaFine->update($validated);
 
-        return redirect()->route('rta-fines.index')->with('success', 'Fine updated successfully.');
+        return redirect()->route('rta_fines.index')->with('success', 'Fine updated successfully.');
     }
 
     public function destroy(RtaFine $rtaFine)
@@ -85,7 +85,7 @@ class RtaFineController extends Controller
 
         $rtaFine->delete();
 
-        return redirect()->route('rta-fines.index')->with('success', 'Fine deleted successfully.');
+        return redirect()->route('rta_fines.index')->with('success', 'Fine deleted successfully.');
     }
 
     public function pay($id)

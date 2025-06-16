@@ -13,7 +13,7 @@
                            href="javascript:void(0);" 
                            data-action="{{ route('rta_fines.create') }}" 
                            data-title="Add New Fine" 
-                           data-size="lg">
+                           data-size="xl">
                             Add New
                         </a>
                     @endcan

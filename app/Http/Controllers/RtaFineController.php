@@ -6,6 +6,9 @@ use App\Models\RtaFine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\DataTables\RtaFinesDataTable;
+use App\Models\Accounts;
+use App\Models\Bikes;
+use App\Models\Riders;
 
 
 class RtaFineController extends Controller
@@ -17,7 +20,14 @@ class RtaFineController extends Controller
 
     public function create()
     {
-        return view('rta_fines.create');
+        
+        
+
+
+    $bikes = Bikes::dropdown();// or plate number etc.
+    $riders = Riders::pluck('name', 'rider_id'); // replace 'name' with full name field if different
+
+    return view('rta_fines.create', compact( 'bikes', 'riders'));
     }
 
     public function store(Request $request)

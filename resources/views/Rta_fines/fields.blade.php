@@ -1,103 +1,104 @@
-<div class="row">
-    <div class="form-group col-md-3">
-        <label for="posted_date">Posted Date *</label>
-        <input type="date" class="form-control" name="posted_date" value="{{ old('posted_date', $rtaFine->posted_date ?? '') }}" required>
-    </div>
+<!-- RTA Fine Form Fields -->
 
-    <div class="form-group col-md-3">
-        <label for="fine_date">Fine Date *</label>
-        <input type="date" class="form-control" name="fine_date" value="{{ old('fine_date', $rtaFine->fine_date ?? '') }}" required>
-    </div>
+<!-- Posted Date -->
+<div class="form-group col-sm-3">
+    {!! Form::label('posted_date', 'Posted Date:', ['class' => 'required']) !!}
+    {!! Form::date('posted_date', old('posted_date', $rtaFine->posted_date ?? null), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="ref_id">Ref .ID *</label>
-        <input type="text" class="form-control" name="ref_id" value="{{ old('ref_id', $rtaFine->ref_id ?? '') }}" required>
-    </div>
+<!-- Fine Date -->
+<div class="form-group col-sm-3">
+    {!! Form::label('fine_date', 'Fine Date:', ['class' => 'required']) !!}
+    {!! Form::date('fine_date', old('fine_date', $rtaFine->fine_date ?? null), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label>Category *</label>
-        <input type="text" class="form-control" name="category" value="Vehicle" readonly>
-    </div>
+<!-- Ref ID -->
+<div class="form-group col-sm-3">
+    {!! Form::label('ref_id', 'Ref. ID:', ['class' => 'required']) !!}
+    {!! Form::text('ref_id', old('ref_id', $rtaFine->ref_id ?? null), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label>Expense Head *</label>
-        <input type="text" class="form-control" value="Traffic Fine" readonly>
-    </div>
+<!-- Category -->
+<div class="form-group col-sm-3">
+    {!! Form::label('category', 'Category:', ['class' => 'required']) !!}
+    {!! Form::text('category', 'Vehicle', ['class' => 'form-control', 'readonly']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="surcharge_account">Surcharge Account</label>
-        <input type="text" class="form-control" name="surcharge_account" value="{{ old('surcharge_account', $rtaFine->surcharge_account ?? '') }}">
-    </div>
+<!-- Expense Head -->
+<div class="form-group col-sm-3">
+    {!! Form::label('expense_head', 'Expense Head:', ['class' => 'required']) !!}
+    {!! Form::text('expense_head', 'Traffic Fine', ['class' => 'form-control', 'readonly']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="cr_account">Cr. Account *</label>
-        <select name="cr_account" class="form-control" required>
-            <option value="">Search Account by code or title</option>
-            {{-- @foreach($accounts as $id => $title)
-                <option value="{{ $id }}" {{ old('cr_account', $rtaFine->cr_account ?? '') == $id ? 'selected' : '' }}>{{ $title }}</option>
-            @endforeach --}}
-        </select>
-    </div>
+<!-- Surcharge Account -->
+<div class="form-group col-sm-3">
+    {!! Form::label('surcharge_account', 'Surcharge Account:') !!}
+    {!! Form::text('surcharge_account', old('surcharge_account', $rtaFine->surcharge_account ?? null), ['class' => 'form-control']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="vehicle">Vehicle *</label>
-        <select name="vehicle" class="form-control" required>
-            <option value="">Search Item</option>
-            {{-- Populate options dynamically --}}
-        </select>
-    </div>
+<!-- Cr. Account -->
+<div class="form-group col-sm-3">
+    {!! Form::label('cr_account', 'Cr. Account:', ['class' => 'required']) !!}
+    {!! Form::select('account_id[]', App\Models\Accounts::dropdown(null), null, ['class' => 'form-select form-select-md select2']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="employee">Employee *</label>
-        <select name="employee" class="form-control" required>
-            <option value="">Search code or Name</option>
-            {{-- Populate options dynamically --}}
-        </select>
-    </div>
+<!-- Vehicle -->
+<div class="form-group col-sm-3">
+    {!! Form::label('vehicle', 'Vehicle:', ['class' => 'required']) !!}
+{!! Form::select('vehicle', $bikes, null, ['class' => 'form-control select2', 'required']) !!}
 
-    <div class="form-group col-md-3">
-        <label for="expense_account">Expense Account *</label>
-        <select name="expense_account" class="form-control" required>
-            <option value="">Search Account by code or title</option>
-            {{-- Populate options dynamically --}}
-        </select>
-    </div>
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="debit_account">Debit Account *</label>
-        <select name="debit_account" class="form-control" required>
-            <option value="">Search Account by code or title</option>
-            {{-- Populate options dynamically --}}
-        </select>
-    </div>
+<!-- Employee -->
+<div class="form-group col-sm-3">
+    {!! Form::label('employee', 'Employee:', ['class' => 'required']) !!}
+          {!! Form::select('account_id[]', App\Models\Accounts::dropdown(null), null, ['class' => 'form-select form-select-sm select2']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="allowed_amount">Allowed Amount *</label>
-        <input type="number" class="form-control" name="allowed_amount" value="{{ old('allowed_amount', $rtaFine->allowed_amount ?? '') }}" required>
-    </div>
+<!-- Expense Account -->
+<div class="form-group col-sm-3">
+    {!! Form::label('expense_account', 'Expense Account:', ['class' => 'required']) !!}
+          {!! Form::select('account_id[]', App\Models\Accounts::dropdown(null), null, ['class' => 'form-select form-select-sm select2']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="exp_amount">Exp. Amount *</label>
-        <input type="number" class="form-control" name="exp_amount" value="{{ old('exp_amount', $rtaFine->exp_amount ?? 0) }}" required>
-    </div>
+<!-- Debit Account -->
+<div class="form-group col-sm-3">
+    {!! Form::label('debit_account', 'Debit Account:', ['class' => 'required']) !!}
+{!! Form::select('debit_account', $riders, old('debit_account', $rtaFine->debit_account ?? null), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="surcharge_amount">Surcharge Amount</label>
-        <input type="number" class="form-control" name="surcharge_amount" value="{{ old('surcharge_amount', $rtaFine->surcharge_amount ?? '') }}">
-    </div>
+<!-- Allowed Amount -->
+<div class="form-group col-sm-3">
+    {!! Form::label('allowed_amount', 'Allowed Amount:', ['class' => 'required']) !!}
+    {!! Form::number('allowed_amount', old('allowed_amount', $rtaFine->allowed_amount ?? null), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-3">
-        <label for="total_chargeable">Total Chargeable Amount</label>
-        <input type="number" class="form-control" name="total_chargeable" value="{{ old('total_chargeable', $rtaFine->total_chargeable ?? '') }}">
-    </div>
+<!-- Exp. Amount -->
+<div class="form-group col-sm-3">
+    {!! Form::label('exp_amount', 'Exp. Amount:', ['class' => 'required']) !!}
+    {!! Form::number('exp_amount', old('exp_amount', $rtaFine->exp_amount ?? 0), ['class' => 'form-control', 'required']) !!}
+</div>
 
-    <div class="form-group col-md-6">
-        <label for="remarks">Remarks</label>
-        <input type="text" class="form-control" name="remarks" value="{{ old('remarks', $rtaFine->remarks ?? '') }}">
-    </div>
+<!-- Surcharge Amount -->
+<div class="form-group col-sm-3">
+    {!! Form::label('surcharge_amount', 'Surcharge Amount:') !!}
+    {!! Form::number('surcharge_amount', old('surcharge_amount', $rtaFine->surcharge_amount ?? null), ['class' => 'form-control']) !!}
+</div>
 
-    <div class="form-group col-md-6">
-        <label for="attachment">Attachment</label>
-        <input type="file" class="form-control-file" name="attachment">
-    </div>
+<!-- Total Chargeable -->
+<div class="form-group col-sm-3">
+    {!! Form::label('total_chargeable', 'Total Chargeable Amount:') !!}
+    {!! Form::number('total_chargeable', old('total_chargeable', $rtaFine->total_chargeable ?? null), ['class' => 'form-control']) !!}
+</div>
+
+<!-- Remarks -->
+<div class="form-group col-sm-6">
+    {!! Form::label('remarks', 'Remarks:') !!}
+    {!! Form::text('remarks', old('remarks', $rtaFine->remarks ?? null), ['class' => 'form-control']) !!}
+</div>
+
+<!-- Attachment -->
+<div class="form-group col-sm-6">
+    {!! Form::label('attachment', 'Attachment:') !!}
+    {!! Form::file('attachment', ['class' => 'form-control']) !!}
 </div>

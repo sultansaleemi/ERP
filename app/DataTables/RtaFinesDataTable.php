@@ -14,7 +14,7 @@ class RtaFinesDataTable extends DataTable
 
         return $dataTable
             ->addColumn('action', function ($fine) {
-                return view('rta_fines.datatables_actions', compact('fine'))->render();
+                return view('rta_fines.datatables_action', compact('fine'))->render();
             })
             ->addColumn('vehicle', function ($fine) {
                 return '<a href="' . route('rta-fines.show', $fine->id) . '">' . e($fine->vehicle) . '</a>';

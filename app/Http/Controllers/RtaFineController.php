@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class RtaFineController extends Controller
 {
-    public function index()
-    {
-        $rtaFines = RtaFine::latest()->paginate(10);
-        return view('rta_fines.index', compact('rtaFines'));
-    }
+   public function index(RtaFinesDataTable $dataTable)
+{
+    return $dataTable->render('rta_fines.index');
+}
 
     public function create()
     {

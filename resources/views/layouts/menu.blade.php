@@ -140,6 +140,34 @@
 </li>
 @endcanany
 
+@canany(['rta_fine_view', 'salik_fine_view']) <!-- Optional permissions -->
+<li class="menu-item {{ Request::is('fines*') ? 'open' : '' }}">
+  <a href="javascript:void(0);" class="menu-link menu-toggle">
+    <i class="menu-icon tf-icons ti ti-currency-dollar"></i>
+    <div>Fines</div>
+  </a>
+  <ul class="menu-sub">
+
+    @can('rta_fine_view')
+    <li class="menu-item {{ Request::is('fines/rta*') ? 'active' : '' }}">
+      <a href="{{ route('fines.rta.index') }}" class="menu-link">
+        <div>RTA Fine</div>
+      </a>
+    </li>
+    @endcan
+
+    @can('salik_fine_view')
+    <li class="menu-item {{ Request::is('fines/salik*') ? 'active' : '' }}">
+      <a href="{{ route('fines.salik.index') }}" class="menu-link">
+        <div>Salik Fine</div>
+      </a>
+    </li>
+    @endcan
+
+  </ul>
+</li>
+@endcanany
+
 @canany(['account_view','gn_ledger'])
  <li class="menu-item {{ Request::is('accounts*') ? 'open' : '' }} {">
   <a href="javascript:void(0);" class="menu-link menu-toggle ">

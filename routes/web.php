@@ -289,5 +289,5 @@ Route::resource('files', FilesController::class);
 
 Route::resource('vendors', App\Http\Controllers\VendorsController::class);
 
-Route::resource('rta-fines', RtaFineController::class);
+Route::resource('rta_fines', RtaFineController::class);
 Route::get('rta_fines/{id}/pay', [RtaFineController::class, 'pay'])->name('rta_fines.pay');
